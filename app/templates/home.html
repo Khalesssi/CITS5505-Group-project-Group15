@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Best Care{% endblock %}
+
+{% block content %}
+<!--Page 1 Section-->
+<section id="home" class="h-screen">
+    <div class="w-full h-full bg-cover bg-center flex items-center justify-start"
+         style="background-image: url('/static/images/Backgroud.jpg');">
+
+<!-- Content Part -->
+<div id="hero-box" class="hero-box bg-gray-900 bg-opacity-50 text-white p-10 md:p-14 rounded-lg max-w-2xl w-full mx-6 md:mx-20">
+  
+  <div class="text-yellow-300 text-sm font-semibold tracking-wider uppercase mb-4">
+    BEST CARE
+  </div>
+
+  <h1 class="text-yellow-100 text-5xl md:text-6xl font-serif font-bold leading-tight mb-6">
+    Disability Care<br />Platform
+  </h1>
+
+  <p class="text-white text-lg leading-relaxed mb-8">
+    We are committed to delivering the highest standard of disability care
+    services throughout Western Australia.
+  </p>
+
+  <a href="/login">
+    <button class="bg-yellow-400 text-black font-bold px-6 py-3 rounded-md hover:bg-yellow-500 transition">
+      LEARN MORE
+    </button>
+  </a>
+
+</section>
+
+<!--Page 2 section-->
+<section id="intro" class="min-h-screen bg-blue-50 flex items-center px-6 py-20">
+    <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+      
+      <!-- Right side text part -->
+      <div class="flex flex-col justify-center">
+        <h2 class="text-4xl font-serif font-bold text-gray-900 mb-6">
+          How we support <br /> our clients
+        </h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+            Our clients' wellbeing is our highest priority. We maintain open, ongoing communication with the individuals and families we support, and are dedicated to meeting their daily needs with dignity, empathy, and respect. Our team is available around the clock to deliver personalised care services, ensuring every client receives the right support to live a safe, comfortable, and empowered life.
+        </p>
+        <button class="bg-yellow-400 text-black font-bold px-6 py-3 rounded-md hover:bg-yellow-500 w-fit">
+          GET IN TOUCH
+        </button>
+      </div>
+  
+      <!-- Img in right side -->
+      <div>
+        <img src="../static/images/introduction img.jpg" alt="Support Worker" class="rounded-lg shadow-lg">
+      </div>
+  
+    </div>
+  </section>
+
+  
+<!--Page 3 section-->
+
+<section id="services" class="min-h-screen bg-blue-50 relative px-8 py-24">
+
+    <!-- Title -->
+    <h2 class="text-4xl font-serif font-bold text-gray-900 text-center mb-16">
+      Our Core Services
+    </h2>
+  
+    <!-- Card container -->
+    <div class="max-w-6xl mx-auto flex flex-row justify-center space-x-6">
+
+        <!-- Card 1 -->
+        <div class="bg-blue-100 p-8 w-100 h-96 flex flex-col shadow-md">
+          <h3 class="text-xl font-bold mb-20">Personal Care Support</h3>
+          <p class="text-sm text-gray-700">
+            We assist with daily living activities such as hygiene, grooming, and mobility — always with compassion and respect. Our carers are trained to promote independence while ensuring safety and dignity at every step.
+          </p>
+        </div>
+      
+        <!-- Card 2 -->
+        <div class="bg-blue-200 p-8 w-100 h-96 flex flex-col shadow-md">
+          <h3 class="text-xl font-bold mb-20">Community Participation</h3>
+          <p class="text-sm text-gray-700">
+            We help clients connect with their communities through tailored social, recreational, and educational activities. Whether it’s joining a local group or simply getting out for a coffee, we support meaningful engagement.
+          </p>
+        </div>
+      
+        <!-- Card 3 -->
+        <div class="bg-blue-300 p-8 w-100 h-96 flex flex-col shadow-md">
+          <h3 class="text-xl font-bold mb-20">Household Assistance</h3>
+          <p class="text-sm text-gray-700">
+            From meal preparation to light housekeeping, our team ensures a clean, comfortable, and supportive home environment. We tailor all services to meet each client’s specific needs and preferences.
+          </p>
+        </div>
+  
+    </div>
+  </section>
+
+  <!-- <div class="pt-20"></div> -->
+  <!--Page 4-->
+
+  <section id="features" class="bg-blue-50 min-h-screen py-16 px-6 pt-32">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+  
+      <!-- img -->
+      <div class="flex justify-center">
+        <img src="../static/images/page3 img.jpg" alt="Disability" class="rounded-lg shadow-lg max-w-xl w-full h-auto">
+      </div>
+  
+      <!-- Right part content -->
+      <div>
+        <h2 class="text-4xl font-serif font-bold text-gray-900 mb-6">Our Services</h2>
+        <p class="text-lg text-gray-700 mb-10 leading-relaxed">
+          Our platform is designed to empower users by making disability-related data management simple, secure, and collaborative. Here's what you can do:
+        </p>
+  
+        <!-- Card layout -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+  
+          <!-- Card 1 -->
+          <div class="flex items-start space-x-3">
+            <div>
+              <h3 class="font-semibold text-gray-900">Account & Access</h3>
+              <p class="text-sm text-gray-700">Create a secure account or log in to explore features tailored to support workers, families, and individuals with disabilities.</p>
+            </div>
+          </div>
+  
+          <!-- Card 2 -->
+          <div class="flex items-start space-x-3">
+            <div>
+              <h3 class="font-semibold text-gray-900">Upload Data</h3>
+              <p class="text-sm text-gray-700">Easily upload care notes, assessments, or activity logs to keep records accurate and accessible.</p>
+            </div>
+          </div>
+  
+          <!-- Card 3 -->
+          <div class="flex items-start space-x-3">
+            <div>
+              <h3 class="font-semibold text-gray-900">Visualise Insights</h3>
+              <p class="text-sm text-gray-700">View personalised reports and analytics based on your data — or see summaries shared with you by others in your care network.</p>
+            </div>
+          </div>
+  
+          <!-- Card 4 -->
+          <div class="flex items-start space-x-3">
+            <div>
+              <h3 class="font-semibold text-gray-900">Share Securely</h3>
+              <p class="text-sm text-gray-700">Selectively share data with therapists, support workers, or family members — ensuring transparency and collaboration while maintaining privacy.</p>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <div class="pt-20"></div> -->
+  <!--Page 5-->
+  <section id="feedback" class="min-h-screen bg-cover bg-center bg-no-repeat bg-gray-900 bg-blend-overlay bg-opacity-70 py-20 px-6 pt-32"
+     style="background-image: url('../static/images/Page\ 5\ background.jpg');">
+     <div class="max-w-7xl mx-auto text-center text-white">
+
+    <!-- Title -->
+    <h2 class="text-4xl font-serif font-bold text-yellow-200 mb-4">Feedback from Clients</h2>
+    <p class="text-lg text-yellow-100 mb-12">Why people trust and love using our platform.</p>
+
+    <!-- Three card layout -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+    <!-- Card 1 -->
+    <div class="border border-yellow-300 p-6 min-h-[300px] flex flex-col justify-between text-left">
+       <p class="mb-4">"This platform makes it so easy to keep track of my son's support needs. I can share updates with his therapist and carer in real time. It gives me peace of mind."</p>
+       <p class="italic text-yellow-300">- Hannah Morales</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="border border-yellow-300 p-6 min-h-[300px] flex flex-col justify-between text-left">
+       <p class="mb-4">"As a support worker, I've never used a system that's this clear and collaborative. Uploading notes and checking shared info has made our work so much more efficient."</p>
+       <p class="italic text-yellow-300">- Teddy Yuhui, Disability Support Worker</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="border border-yellow-300 p-6 min-h-[300px] flex flex-col justify-between text-left">
+       <p class="mb-4">"We finally have a place where the whole care team can stay in sync. Everyone's on the same page — and that's been a game changer for us."</p>
+       <p class="italic text-yellow-300">- Lorna Alvarado, Occupational therapist</p>
+    </div>
+
+    </div>
+    </div>
+  
+  </section>
+
+{% endblock %}
