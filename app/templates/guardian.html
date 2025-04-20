@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Guardian Dashboard{% endblock %}
+
+{% block content %}
+<div class="flex gap-6">
+  <!-- Sidebar Navigation -->
+  <aside class="w-1/4 bg-white rounded-lg shadow p-4 space-y-4">
+    <h2 class="text-lg font-semibold text-indigo-700">Menu</h2>
+    <ul class="space-y-2 text-sm">
+      <li><a href="#" class="text-blue-600 hover:underline" onclick="showSection('info')">Personal Info</a></li>
+      <li><a href="#" class="text-blue-600 hover:underline" onclick="showSection('name')">Patient Name</a></li>
+      <li><a href="#" class="text-blue-600 hover:underline" onclick="showSection('status')">Patient Status Analysis</a></li>
+      <li><a href="#" class="text-blue-600 hover:underline" onclick="showSection('instructions')">Medical Instructions</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <section class="flex-1 bg-white rounded-lg shadow p-6">
+    <!-- Section: Personal Info (default visible) -->
+    <div id="info" class="section-block">
+      <h2 class="text-xl font-bold mb-2">Personal Info</h2>
+      <p>Name: Emma Lee</p>
+      <p>Email: emma.lee@example.com</p>
+      <p>Phone: (555) 123-4567</p>
+    </div>
+
+    <!-- Section: Patient Name -->
+    <div id="name" class="section-block hidden">
+      <h2 class="text-xl font-bold mb-2">Patient Name</h2>
+      <p>Patient: John Doe</p>
+    </div>
+
+    <!-- Section: Patient Status Analysis -->
+    <div id="status" class="section-block hidden">
+      <h2 class="text-xl font-bold mb-2">Patient Status Analysis</h2>
+      <img src="{{ url_for('static', filename='images/chart-placeholder.png') }}" alt="Status Chart" class="w-full max-w-md">
+    </div>
+
+    <!-- Section: Medical Instructions -->
+    <div id="instructions" class="section-block hidden">
+      <h2 class="text-xl font-bold mb-2">Medical Instructions</h2>
+      <ul class="list-disc pl-6">
+        <li>Administer medication twice daily</li>
+        <li>Assist with physical therapy at 10 AM</li>
+        <li>Log mood observations each evening</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<!-- JS for section toggling -->
+<script>
+  function showSection(id) {
+    const sections = document.querySelectorAll('.section-block');
+    sections.forEach(s => s.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+  }
+</script>
+{% endblock %}
