@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-100 p-6 border-r">
+    <h2 class="text-xl font-bold mb-6">Physiotherapist Portal</h2>
+    <ul id="sidebarLinks" class="space-y-4 text-gray-700">
+      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Profile</a></li>
+      <li><a href="#visual" class="sidebar-link hover:underline">Data Visualization</a></li>
+      <li><a href="#share" class="sidebar-link hover:underline">Data Sharing</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+    <!-- Profile Section -->
+    <section id="profile">
+      <div class="flex items-center gap-8 mb-6">
+        <img src="{{ url_for('static', filename='images/physio.jpg') }}" alt="Physiotherapist" class="w-40 h-40 object-cover rounded-full border-4 border-indigo-500">
+        <div>
+          <h2 class="text-3xl font-bold text-indigo-800 mb-2">Dr. Zhang Wei</h2>
+          <p class="text-lg text-gray-700 mb-1">Chief Physiotherapist</p>
+          <p class="text-sm text-gray-500">Specialist in Rehabilitation & Mobility Recovery</p>
+          <p class="mt-2 text-sm text-gray-600">Languages: Mandarin, English</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-lg font-semibold mb-2">Bio</h3>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            Dr. Zhang graduated from Shanghai Medical University and received further specialist training in neuromuscular rehabilitation in Tokyo. With over 15 years of clinical experience, he specializes in post-operative recovery, gait correction, and chronic pain management.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-2">Clinical Strengths</h3>
+          <ul class="list-disc pl-6 text-sm text-gray-700">
+            <li>Post-surgery physical recovery</li>
+            <li>Spine & joint rehabilitation</li>
+            <li>Chronic pain management</li>
+            <li>Strength training after stroke</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-2">Assigned Patients</h3>
+        <ul class="list-disc list-inside text-gray-800">
+          {% for patient in assigned_patients %}
+          <li>{{ patient }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Data Visualization Section -->
+    <section id="visual" class="hidden">
+      <h3 class="text-xl font-semibold mb-3">View Patient Data</h3>
+      <select id="patientSelector" class="border rounded px-3 py-2 mb-4">
+        <option>All</option>
+        {% for patient in assigned_patients %}
+        <option>{{ patient }}</option>
+        {% endfor %}
+      </select>
+      <div id="chartsContainer" class="space-y-6">
+        <img src="{{ url_for('static', filename='images/line_chart.png') }}" alt="Line Chart" class="w-full rounded shadow">
+        <img src="{{ url_for('static', filename='images/bar_chart.png') }}" alt="Bar Chart" class="w-full rounded shadow">
+        <img src="{{ url_for('static', filename='images/heatmap.png') }}" alt="Heatmap" class="w-full rounded shadow">
+      </div>
+    </section>
+
+    <!-- Data Sharing Section -->
+    <section id="share" class="hidden">
+      <h3 class="text-xl font-semibold mb-3">Data Sharing</h3>
+
+      <div class="grid grid-cols-2 gap-6 mb-6">
+        <div>
+          <label class="block font-medium mb-1">Select Patient</label>
+          <select class="w-full border rounded px-3 py-2">
+            {% for patient in assigned_patients %}
+            <option>{{ patient }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="block font-medium mb-1">Select Data to Share</label>
+          <select class="w-full border rounded px-3 py-2" multiple>
+            <option>Line Chart</option>
+            <option>Bar Chart</option>
+            <option>Heatmap</option>
+            <option>Support Plan</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 mb-6">
+        <div>
+          <label class="block font-medium mb-1">Select Recipient</label>
+          <select class="w-full border rounded px-3 py-2">
+            <option>Dr. Li - Psychotherapist</option>
+            <option>Dr. Wang - Occupational Therapist</option>
+            <option>Dr. Chen - Supervisor</option>
+          </select>
+        </div>
+        <div class="flex items-end gap-4">
+          <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Share</button>
+          <button class="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700">Download</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+          <h4 class="font-semibold mb-2">Patients I Shared</h4>
+          <div class="border rounded p-3 bg-gray-50 text-sm text-gray-700">
+            <p>Zhao Wu - Heatmap (to Dr. Wang)</p>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Shared With Me</h4>
+          <div class="border rounded p-3 bg-gray-50 text-sm text-gray-700">
+            <p>Liu Yi - Line Chart (from Dr. Li)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Navigation Highlight & Section Toggle -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('main section');
+
+    links.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+
+        sections.forEach(section => {
+          section.classList.add('hidden');
+          if (section.id === targetId) {
+            section.classList.remove('hidden');
+          }
+        });
+
+        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
+        this.classList.add('text-indigo-700', 'font-semibold');
+      });
+    });
+  });
+</script>
+{% endblock %}
