@@ -1,0 +1,328 @@
+{% extends "base.html" %}  {# 繼承基礎模板 #}
+
+{% block content %}
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-100 p-6 border-r">
+    <h2 class="text-xl font-bold mb-6">Guardian</h2>
+    <ul id="sidebarLinks" class="space-y-4 text-gray-700">
+      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">個人資訊</a></li>
+      <li><a href="#patient-info" class="sidebar-link hover:underline">病患資訊</a></li>
+      <li><a href="#schedule" class="sidebar-link hover:underline">照護時程表</a></li>
+      <li><a href="#medical" class="sidebar-link hover:underline">醫囑指示</a></li>
+      <li><a href="#support" class="sidebar-link hover:underline">回報紀錄</a></li>
+      <li><a href="#analysis" class="sidebar-link hover:underline">數據分析結果</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+    <!-- 個人資訊 Section -->
+    <section id="profile" class="content-section">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-bold mb-4">個人資訊</h3>
+        <div class="flex items-center gap-8 mb-6 relative">
+          <div class="w-40 h-40">
+            <img src="{{ url_for('static', filename='images/guardian_avatar.jpg') }}" 
+                 alt="Guardian Photo" 
+                 class="w-full h-full object-cover rounded-full border-4 border-indigo-500">
+          </div>
+          <div class="grid grid-cols-1 gap-4">
+            <div>
+              <p class="text-gray-600">姓名：<span class="text-gray-800">王小明</span></p>
+              <p class="text-gray-600">Email：<span class="text-gray-800">guardian@example.com</span></p>
+              <p class="text-gray-600">聯絡電話：<span class="text-gray-800">0912-345-678</span></p>
+            </div>
+          </div>
+          <p class="absolute bottom-0 right-0 text-xs text-gray-500">帳號建立日：2024-03-15</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 病患資訊 Section -->
+    <section id="patient-info" class="hidden mb-8">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-bold mb-4">病患資訊</h3>
+        <div class="flex gap-8">
+          <div class="w-48 h-48">
+            <img src="{{ url_for('static', filename='images/patient_photo.jpg') }}" 
+                 alt="Patient Photo" 
+                 class="w-full h-full object-cover rounded-lg border-4 border-indigo-500">
+          </div>
+          <div class="flex-1 space-y-4">
+            <div class="border-b pb-4">
+              <h4 class="font-semibold mb-2">基本資料</h4>
+              <p class="text-gray-600">病患姓名：<span class="text-gray-800">李大華</span></p>
+              <p class="text-gray-600">病患 ID：<span class="text-gray-800">PT20240315001</span></p>
+              <p class="text-gray-600">健保卡號：<span class="text-gray-800">A123456789</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 照護時程表 Section -->
+    <section id="schedule" class="hidden">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-bold mb-4">照護時程表</h3>
+        <table class="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-2 font-bold">時間</th>
+              <th class="border border-gray-300 px-4 py-2 font-bold">項目</th>
+              <th class="border border-gray-300 px-4 py-2 font-bold">負責人員</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">09:00</td>
+              <td class="border border-gray-300 px-4 py-2">晨間照護</td>
+              <td class="border border-gray-300 px-4 py-2">護理師 陳小姐</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">14:00</td>
+              <td class="border border-gray-300 px-4 py-2">復健運動</td>
+              <td class="border border-gray-300 px-4 py-2">物理治療師 林先生</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">19:00</td>
+              <td class="border border-gray-300 px-4 py-2">晚間照護</td>
+              <td class="border border-gray-300 px-4 py-2">護理師 王小姐</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 醫囑指示 Section -->
+    <section id="medical" class="content-section hidden">
+      <div class="medical-container">
+        <h3 class="text-xl font-bold mb-4">醫囑指示</h3>
+        
+        <!-- 添加選擇區域 -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">病患姓名</label>
+            <select class="w-full border rounded-md px-3 py-2">
+              <option>李大華</option>
+              <option>張小明</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">日期</label>
+            <select class="w-full border rounded-md px-3 py-2">
+              <option>2024-03-15</option>
+              <option>2024-03-14</option>
+              <option>2024-03-13</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="medical-content">
+          <div class="p-4 bg-gray-50 rounded">
+            <h4 class="font-semibold mb-2">用藥指示</h4>
+            <ul class="list-disc list-inside">
+              <li>血壓藥 - 每日早晚各一次</li>
+              <li>活動 - 每日散步30分鐘</li>
+              <li>傷口 - 每日換藥兩次</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 回報紀錄 Section -->
+    <section id="support" class="hidden">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-bold mb-4">回報紀錄</h3>
+        
+        <!-- 選擇區域 -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">回報日期</label>
+            <select class="w-full border rounded-md px-3 py-2">
+              <option>2024-03-15</option>
+              <option>2024-03-14</option>
+              <option>2024-03-13</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">病患姓名</label>
+            <select class="w-full border rounded-md px-3 py-2">
+              <option>李大華</option>
+              <option>張小明</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Support Worker 資訊 -->
+        <div class="mb-6">
+          <p class="text-gray-700">Support Worker：<span class="font-semibold">張小姐</span></p>
+        </div>
+
+        <!-- 問卷表格 -->
+        <div class="report-card bg-gray-50 p-4 rounded">
+          <table class="w-full border-collapse border border-gray-300">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border border-gray-300 px-4 py-2">題號</th>
+                <th class="border border-gray-300 px-4 py-2">問題</th>
+                <th class="border border-gray-300 px-4 py-2">回答</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">1</td>
+                <td class="border border-gray-300 px-4 py-2">病患今日精神狀況如何？</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <select class="w-full">
+                    <option>1</option>
+                    <option>3</option>
+                    <option>5</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">2</td>
+                <td class="border border-gray-300 px-4 py-2">是否按時服用藥物？</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <div class="flex justify-center gap-4">
+                    <label><input type="radio" name="q2" value="Y"> Y</label>
+                    <label><input type="radio" name="q2" value="N"> N</label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">3</td>
+                <td class="border border-gray-300 px-4 py-2">進食狀況評分</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <select class="w-full">
+                    <option>1</option>
+                    <option>3</option>
+                    <option>5</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">4</td>
+                <td class="border border-gray-300 px-4 py-2">是否完成今日復健活動？</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <div class="flex justify-center gap-4">
+                    <label><input type="radio" name="q4" value="Y"> Y</label>
+                    <label><input type="radio" name="q4" value="N"> N</label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">5</td>
+                <td class="border border-gray-300 px-4 py-2">睡眠品質評分</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <select class="w-full">
+                    <option>1</option>
+                    <option>3</option>
+                    <option>5</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">6</td>
+                <td class="border border-gray-300 px-4 py-2">是否有異常症狀？</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <div class="flex justify-center gap-4">
+                    <label><input type="radio" name="q6" value="Y"> Y</label>
+                    <label><input type="radio" name="q6" value="N"> N</label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">7</td>
+                <td class="border border-gray-300 px-4 py-2">情緒穩定度評分</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <select class="w-full">
+                    <option>1</option>
+                    <option>3</option>
+                    <option>5</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">8</td>
+                <td class="border border-gray-300 px-4 py-2">是否遵醫囑執行？</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <div class="flex justify-center gap-4">
+                    <label><input type="radio" name="q8" value="Y"> Y</label>
+                    <label><input type="radio" name="q8" value="N"> N</label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">9</td>
+                <td class="border border-gray-300 px-4 py-2">活動參與度評分</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <select class="w-full">
+                    <option>1</option>
+                    <option>3</option>
+                    <option>5</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">10</td>
+                <td class="border border-gray-300 px-4 py-2">是否有社交互動？</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <div class="flex justify-center gap-4">
+                    <label><input type="radio" name="q10" value="Y"> Y</label>
+                    <label><input type="radio" name="q10" value="N"> N</label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 數據分析結果 Section -->
+    <section id="analysis" class="hidden">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-bold mb-4">數據分析結果</h3>
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h4 class="font-semibold mb-2">每週數據圖表</h4>
+            <canvas id="weeklyChart" class="w-full"></canvas>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-2">月度統計表</h4>
+            <canvas id="monthlyChart" class="w-full"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Navigation Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('main section');
+
+    links.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+
+        sections.forEach(section => {
+          section.classList.add('hidden');
+          if (section.id === targetId) {
+            section.classList.remove('hidden');
+          }
+        });
+
+        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
+        this.classList.add('text-indigo-700', 'font-semibold');
+      });
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,750 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-100 p-6 border-r">
+    <h2 class="text-xl font-bold mb-6">Supervisor</h2>
+    <ul id="sidebarLinks" class="space-y-4 text-gray-700">
+      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">個人資訊</a></li>
+      <li><a href="#assign" class="sidebar-link hover:underline">班表指派</a></li>
+      <li><a href="#schedule" class="sidebar-link hover:underline">現行排班</a></li>
+      <li><a href="#reports" class="sidebar-link hover:underline">回報紀錄</a></li>
+      <li><a href="#analysis" class="sidebar-link hover:underline">數據分析</a></li>
+      <li><a href="#overview" class="sidebar-link hover:underline">社工概況</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+    <!-- 個人資訊 Section -->
+    <section id="profile" class="content-section space-y-6">
+      <!-- 個人資訊卡片 -->
+      <div class="bg-white rounded-lg shadow p-6 relative hover:shadow-lg transition-shadow duration-300">
+        <h3 class="text-xl font-bold mb-4">個人資訊</h3>
+        <div class="flex items-center gap-8 mb-6">
+          <div class="w-40 h-40">
+            <img src="{{ url_for('static', filename='images/supervisor_avatar.jpg') }}" 
+                 alt="Supervisor Photo" 
+                 class="w-full h-full object-cover rounded-full border-4 border-indigo-500">
+          </div>
+          <div class="grid grid-cols-1 gap-4">
+            <div>
+              <p class="text-gray-600">姓名：<span class="text-gray-800">陳主任</span></p>
+              <p class="text-gray-600">Email：<span class="text-gray-800">supervisor@example.com</span></p>
+              <p class="text-gray-600">職位：<span class="text-gray-800">護理部主任</span></p>
+            </div>
+          </div>
+          <!-- 帳號建立日在右下角 -->
+          <p class="absolute bottom-0 right-0 p-6 text-xs text-gray-500">帳號建立日：2024-03-15</p>
+        </div>
+      </div>
+
+      <!-- 學歷卡片 -->
+      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
+        <h3 class="text-xl font-bold mb-4">學歷</h3>
+        <ul class="list-disc list-inside text-gray-600 space-y-2">
+          <li>2010 - 台灣大學護理系學士</li>
+          <li>2012 - 陽明大學護理研究所碩士</li>
+        </ul>
+      </div>
+
+      <!-- 工作經歷卡片 -->
+      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
+        <h3 class="text-xl font-bold mb-4">工作經歷</h3>
+        <ul class="list-disc list-inside text-gray-600 space-y-2">
+          <li>2012-2015 台大醫院護理師</li>
+          <li>2015-2018 台大醫院護理長</li>
+          <li>2018-至今 護理部主任</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 班表指派 Section -->
+    <section id="assign" class="content-section hidden">
+      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
+        <h3 class="text-xl font-bold mb-6">班表指派</h3>
+        
+        <!-- 指派設定區塊 -->
+        <div class="bg-gray-50 rounded-lg p-6 mb-6">
+          <h4 class="text-lg font-semibold mb-4">指派設定</h4>
+          
+          <!-- 表單欄位 -->
+          <div class="space-y-6">  <!-- 增加欄位間距 -->
+            <!-- 支援者姓名 -->
+            <div class="w-full">
+              <label class="block text-base font-bold text-gray-700 mb-3">
+                支援者姓名
+              </label>
+              <select class="w-full border rounded-md px-4 py-2.5 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <option>請選擇支援者</option>
+                <option>張小姐</option>
+                <option>王小姐</option>
+              </select>
+            </div>
+
+            <!-- 病患 -->
+            <div class="w-full">
+              <label class="block text-base font-bold text-gray-700 mb-3">
+                病患
+              </label>
+              <select class="w-full border rounded-md px-4 py-2.5 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <option>請選擇病患</option>
+                <option>李大華</option>
+                <option>王小明</option>
+              </select>
+            </div>
+
+            <!-- 時段 -->
+            <div class="w-full">
+              <label class="block text-base font-bold text-gray-700 mb-3">
+                時段
+              </label>
+              <select class="w-full border rounded-md px-4 py-2.5 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <option>請選擇時段</option>
+                <option>早班 (08:00-16:00)</option>
+                <option>中班 (16:00-24:00)</option>
+                <option>晚班 (00:00-08:00)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 指派按鈕區域 -->
+        <div class="flex justify-end mt-8">  <!-- 增加與上方區塊的間距 -->
+          <button class="bg-indigo-600 text-white px-8 py-3 rounded-md hover:bg-indigo-700 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
+            指派
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 現行排班 Section -->
+    <section id="schedule" class="content-section hidden">
+      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
+        <h3 class="text-xl font-bold mb-6">現行排班</h3>
+
+        <!-- 頂部控制列 -->
+        <div class="flex items-center justify-between mb-6 gap-4">
+          <!-- 日期選擇器 -->
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <input type="date" 
+                     class="border rounded-md px-4 py-2 pr-8 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                     value="2024-03-15">
+            </div>
+          </div>
+
+          <!-- 支援者搜尋欄 -->
+          <div class="relative flex-1 max-w-md">
+            <input type="text" 
+                   placeholder="搜尋支援者..." 
+                   class="w-full border rounded-md pl-10 pr-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+            <svg class="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 主內容表格 -->
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">日期</th>
+                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">時段</th>
+                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">支援者</th>
+                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">任務內容</th>
+                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">狀態</th>
+                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">操作</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <!-- 表格行 -->
+              <tr class="hover:bg-gray-50 transition-colors duration-200">
+                <td class="px-4 py-4 text-sm text-gray-700">2024-03-15</td>
+                <td class="px-4 py-4 text-sm text-gray-700">早班</td>
+                <td class="px-4 py-4">
+                  <div class="flex items-center gap-3">
+                    <img class="h-8 w-8 rounded-full" src="{{ url_for('static', filename='images/avatar1.jpg') }}" alt="支援者頭像">
+                    <span class="text-sm text-gray-700">張小姐</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">照護李大華</td>
+                <td class="px-4 py-4">
+                  <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">
+                    進行中
+                  </span>
+                </td>
+                <td class="px-4 py-4">
+                  <button class="bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200">
+                    取消排班
+                  </button>
+                </td>
+              </tr>
+
+              <!-- 第二行示例 -->
+              <tr class="hover:bg-gray-50 transition-colors duration-200">
+                <td class="px-4 py-4 text-sm text-gray-700">2024-03-15</td>
+                <td class="px-4 py-4 text-sm text-gray-700">中班</td>
+                <td class="px-4 py-4">
+                  <div class="flex items-center gap-3">
+                    <img class="h-8 w-8 rounded-full" src="{{ url_for('static', filename='images/avatar2.jpg') }}" alt="支援者頭像">
+                    <span class="text-sm text-gray-700">王小姐</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">照護王小明</td>
+                <td class="px-4 py-4">
+                  <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
+                    已完成
+                  </span>
+                </td>
+                <td class="px-4 py-4">
+                  <button class="bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200">
+                    取消排班
+                  </button>
+                </td>
+              </tr>
+
+              <!-- 第三行示例 -->
+              <tr class="hover:bg-gray-50 transition-colors duration-200">
+                <td class="px-4 py-4 text-sm text-gray-700">2024-03-14</td>
+                <td class="px-4 py-4 text-sm text-gray-700">晚班</td>
+                <td class="px-4 py-4">
+                  <div class="flex items-center gap-3">
+                    <img class="h-8 w-8 rounded-full" src="{{ url_for('static', filename='images/avatar3.jpg') }}" alt="支援者頭像">
+                    <span class="text-sm text-gray-700">李小姐</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">照護張大明</td>
+                <td class="px-4 py-4">
+                  <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-medium">
+                    已取消
+                  </span>
+                </td>
+                <td class="px-4 py-4">
+                  <button disabled class="bg-gray-50 text-gray-400 cursor-not-allowed px-3 py-1.5 rounded-md text-sm font-medium">
+                    取消排班
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 回報紀錄閱覽介面 -->
+    <section id="reports" class="content-section hidden">
+      <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-bold mb-6">回報紀錄</h3>
+        
+        <!-- 資訊欄位 - 使用 grid 兩欄排版 -->
+        <div class="grid grid-cols-2 gap-6 mb-8">
+          <div class="bg-gray-50 rounded-lg p-4">
+            <div class="flex justify-between items-center mb-3">
+              <span class="font-medium text-gray-700">回報日期：</span>
+              <input type="date" 
+                     id="reportDate"
+                     class="border rounded-md px-3 py-1.5 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-medium text-gray-700">Support Worker：</span>
+              <span id="supportWorkerName" class="text-gray-900 font-medium">陳小明</span>
+            </div>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-4">
+            <div class="flex justify-between items-center">
+              <span class="font-medium text-gray-700">病患姓名：</span>
+              <select id="patientSelect" 
+                      class="border rounded-md px-3 py-1.5 bg-white w-48 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="李大華">李大華</option>
+                <option value="張小明">張小明</option>
+                <option value="王大明">王大明</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 回報紀錄表格 -->
+        <div class="overflow-hidden rounded-lg border border-gray-200">
+          <table class="w-full border-collapse">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="w-12 border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-center">題號</th>
+                <th class="border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-left">題目</th>
+                <th class="w-48 border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-center">回答</th>
+              </tr>
+            </thead>
+            <tbody id="reportTableBody">
+              <!-- 動態生成的表格內容 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 數據分析結果 Section -->
+    <section id="analysis" class="content-section hidden">
+      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
+        <h3 class="text-xl font-bold mb-4">數據分析</h3>
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h4 class="font-semibold mb-2">每週數據圖表</h4>
+            <canvas id="weeklyChart" class="w-full"></canvas>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-2">月度統計表</h4>
+            <canvas id="monthlyChart" class="w-full"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 社工概況頁面 -->
+    <section id="overview" class="content-section">
+        <div class="container mx-auto px-4 py-6">
+            <h2 class="text-2xl font-bold mb-6">管理概況</h2>
+            
+            <!-- 統計卡片區 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- 總人數卡片 -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-blue-100 mr-4">
+                            <i class="fas fa-users text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-500 text-sm">Support Worker 總人數</h3>
+                            <p class="text-2xl font-bold">4</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 在職人數卡片 -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-100 mr-4">
+                            <i class="fas fa-user-check text-green-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-500 text-sm">在職人數</h3>
+                            <p class="text-2xl font-bold">4</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 請假人數卡片 -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-yellow-100 mr-4">
+                            <i class="fas fa-user-clock text-yellow-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-500 text-sm">請假人數</h3>
+                            <p class="text-2xl font-bold">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Worker 列表 -->
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-4">Support Worker 狀態</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr class="bg-gray-50">
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">姓名</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">狀態</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">出席率</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">本月服務人數</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <!-- 陳小明 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">陳小明</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            在職
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-16 h-16 relative">
+                                                <svg class="w-16 h-16 transform -rotate-90">
+                                                    <circle
+                                                        class="text-gray-200"
+                                                        stroke-width="8"
+                                                        stroke="currentColor"
+                                                        fill="transparent"
+                                                        r="24"
+                                                        cx="32"
+                                                        cy="32"
+                                                    />
+                                                    <circle
+                                                        class="text-red-500"
+                                                        stroke-width="8"
+                                                        stroke="currentColor"
+                                                        fill="transparent"
+                                                        r="24"
+                                                        cx="32"
+                                                        cy="32"
+                                                        stroke-dasharray="150.79644737231007"
+                                                        stroke-dashoffset="22.619467105846510"
+                                                    />
+                                                </svg>
+                                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                                    <span class="text-sm font-semibold text-red-500">85%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3</td>
+                                </tr>
+
+                                <!-- 王小華 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">王小華</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            在職
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-16 h-16 relative">
+                                                <svg class="w-16 h-16 transform -rotate-90">
+                                                    <circle
+                                                        class="text-gray-200"
+                                                        stroke-width="8"
+                                                        stroke="currentColor"
+                                                        fill="transparent"
+                                                        r="24"
+                                                        cx="32"
+                                                        cy="32"
+                                                    />
+                                                    <circle
+                                                        class="text-green-500"
+                                                        stroke-width="8"
+                                                        stroke="currentColor"
+                                                        fill="transparent"
+                                                        r="24"
+                                                        cx="32"
+                                                        cy="32"
+                                                        stroke-dasharray="150.79644737231007"
+                                                        stroke-dashoffset="7.539822368615503"
+                                                    />
+                                                </svg>
+                                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                                    <span class="text-sm font-semibold text-green-500">95%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td>
+                                </tr>
+
+                                <!-- 林美玲 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">林美玲</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            在職
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-16 h-16 relative">
+                                                <svg class="w-16 h-16 transform -rotate-90">
+                                                    <circle
+                                                        class="text-gray-200"
+                                                        stroke-width="8"
+                                                        stroke="currentColor"
+                                                        fill="transparent"
+                                                        r="24"
+                                                        cx="32"
+                                                        cy="32"
+                                                    />
+                                                    <circle
+                                                        class="text-green-500"
+                                                        stroke-width="8"
+                                                        stroke="currentColor"
+                                                        fill="transparent"
+                                                        r="24"
+                                                        cx="32"
+                                                        cy="32"
+                                                        stroke-dasharray="150.79644737231007"
+                                                        stroke-dashoffset="12.063715789784806"
+                                                    />
+                                                </svg>
+                                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                                    <span class="text-sm font-semibold text-green-500">92%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td>
+                                </tr>
+
+                                <!-- 張志明 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">張志明</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            在職
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-16 h-16 relative">
+                                                <svg class="w-16 h-16 transform -rotate-90">
+                                                    <circle
+                                                        class="text-gray-200"
+                                                        stroke-width="8"
+                                                        stroke="currentColor"
+                                                        fill="transparent"
+                                                        r="24"
+                                                        cx="32"
+                                                        cy="32"
+                                                    />
+                                                    <circle
+                                                        class="text-red-500"
+                                                        stroke-width="8"
+                                                        stroke="currentColor"
+                                                        fill="transparent"
+                                                        r="24"
+                                                        cx="32"
+                                                        cy="32"
+                                                        stroke-dasharray="150.79644737231007"
+                                                        stroke-dashoffset="27.143396131815612"
+                                                    />
+                                                </svg>
+                                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                                    <span class="text-sm font-semibold text-red-500">82%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  </main>
+</div>
+
+<!-- Navigation Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('main section');
+
+    links.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+
+        sections.forEach(section => {
+          section.classList.add('hidden');
+          if (section.id === targetId) {
+            section.classList.remove('hidden');
+          }
+        });
+
+        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
+        this.classList.add('text-indigo-700', 'font-semibold');
+      });
+    });
+  });
+
+  // 設置預設日期為今天
+  document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.querySelector('input[type="date"]').value = today;
+  });
+
+  // 當日期或病患改變時更新 Support Worker
+  document.querySelector('input[type="date"]').addEventListener('change', updateSupportWorker);
+  document.querySelector('select').addEventListener('change', updateSupportWorker);
+
+  function updateSupportWorker() {
+    // 這裡應該是從後端 API 獲取對應的 Support Worker 資訊
+    // 目前只是示意用
+    const date = document.querySelector('input[type="date"]').value;
+    const patient = document.querySelector('select').value;
+    // 更新 Support Worker 顯示
+    // 實際應用中這裡會是一個 API 調用
+  }
+</script>
+
+<script>
+const questions = [
+    "病患今日精神狀況如何？",
+    "是否按時服用藥物？",
+    "進食狀況評分",
+    "是否完成今日復健活動？",
+    "睡眠品質評分",
+    "是否有異常症狀？",
+    "情緒穩定度評分",
+    "是否遵醫囑執行？",
+    "活動參與度評分",
+    "是否有社交互動？"
+];
+
+// 定義可用的 Support Worker 列表
+const supportWorkers = ["陳小明", "王小華", "林美玲", "張志明"];
+
+// 使用日期和病患名作為 key 來確保同一天同一個病患對應到同一個 Support Worker
+function getConsistentSupportWorker(date, patient) {
+    const seed = date + patient;
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+        hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+        hash = hash & hash;
+    }
+    return supportWorkers[Math.abs(hash) % supportWorkers.length];
+}
+
+// 修改生成答案的部分
+function generateDailyAnswers(date, patient) {
+    // 評分對應設定
+    const ratings = {
+        1: { text: "差", class: "text-red-500" },
+        3: { text: "普通", class: "text-yellow-600" },
+        5: { text: "好", class: "text-green-600" }
+    };
+
+    // 生成評分答案
+    function getRandomScore() {
+        const scores = [1, 3, 5];
+        const score = scores[Math.floor(Math.random() * 3)];
+        return { 
+            score: score.toString(),
+            text: ratings[score].text,
+            class: ratings[score].class
+        };
+    }
+
+    return [
+        // 精神狀況
+        getRandomScore(),
+        // 服藥
+        formatYesNoAnswer(Math.random() < 0.7),
+        // 進食狀況
+        getRandomScore(),
+        // 復健活動
+        formatYesNoAnswer(Math.random() < 0.6),
+        // 睡眠品質
+        getRandomScore(),
+        // 異常症狀
+        formatYesNoAnswer(Math.random() > 0.8),
+        // 情緒穩定
+        getRandomScore(),
+        // 遵醫囑
+        formatYesNoAnswer(Math.random() < 0.75),
+        // 活動參與
+        getRandomScore(),
+        // 社交互動
+        formatYesNoAnswer(Math.random() < 0.65)
+    ];
+}
+
+// 格式化是否答案
+function formatYesNoAnswer(isYes) {
+    return { 
+        score: isYes ? "是" : "否",
+        text: isYes ? "是" : "否",
+        class: isYes ? "text-green-600" : "text-red-500"
+    };
+}
+
+// 生成 2025 年 4 月的所有日期資料
+const mockData = {
+    "李大華": {},
+    "張小明": {},
+    "王大明": {}
+};
+
+// 生成所有日期的資料
+for (let day = 1; day <= 30; day++) {
+    const date = `2025-04-${day.toString().padStart(2, '0')}`;
+    
+    ["李大華", "張小明", "王大明"].forEach(patient => {
+        mockData[patient][date] = {
+            supportWorker: getConsistentSupportWorker(date, patient),
+            answers: generateDailyAnswers(date, patient)
+        };
+    });
+}
+
+// 更新表格內容的渲染函數
+function updateReport() {
+    const date = document.querySelector('#reportDate').value;
+    const patient = document.querySelector('#patientSelect').value;
+    
+    if (mockData[patient] && mockData[patient][date]) {
+        const data = mockData[patient][date];
+        
+        // 更新 Support Worker
+        document.querySelector('#supportWorkerName').textContent = data.supportWorker;
+        
+        // 更新表格內容
+        const tbody = document.querySelector('#reportTableBody');
+        tbody.innerHTML = '';
+        
+        questions.forEach((question, index) => {
+            const answer = data.answers[index];
+            const row = document.createElement('tr');
+            row.className = 'hover:bg-gray-50 transition-colors duration-150';
+            
+            row.innerHTML = `
+                <td class="border-b border-gray-200 px-4 py-3 text-center text-gray-600">${index + 1}</td>
+                <td class="border-b border-gray-200 px-4 py-3 text-left font-medium text-gray-800">${question}</td>
+                <td class="border-b border-gray-200 px-4 py-3">
+                    <div class="flex justify-center">
+                        <span class="${answer.class} font-semibold">${answer.text}</span>
+                    </div>
+                </td>
+            `;
+            
+            tbody.appendChild(row);
+        });
+    } else {
+        // 無資料時的顯示
+        document.querySelector('#supportWorkerName').textContent = "無資料";
+        document.querySelector('#reportTableBody').innerHTML = `
+            <tr>
+                <td colspan="3" class="text-center py-6 text-gray-500 bg-gray-50">
+                    該日期無回報紀錄
+                </td>
+            </tr>
+        `;
+    }
+}
+
+// 初始化頁面
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('#reportDate').value = '2025-04-14';
+    updateReport();
+});
+
+// 監聽日期和病患選擇的變化
+document.querySelector('#reportDate').addEventListener('change', updateReport);
+document.querySelector('#patientSelect').addEventListener('change', updateReport);
+</script>
+{% endblock %}
