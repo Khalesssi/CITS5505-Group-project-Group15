@@ -5,7 +5,7 @@
   <div class="flex flex-1">
   <!-- Sidebar -->
   <aside class="w-64 bg-gray-100 p-6 border-r">
-    <h2 class="text-xl font-bold mb-6">Physiotherapist</h2>
+    <h2 class="text-xl font-bold mb-6">Occupational Therapist</h2>
     <ul id="sidebarLinks" class="space-y-4 text-gray-700">
       <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Profile</a></li>
       <li><a href="#patient-info" class="sidebar-link hover:underline">Patient Info</a></li>
@@ -22,64 +22,65 @@
   <main class="p-8 flex-1">
    <!-- Profile Section -->
 <section id="profile" class="content-section">
-  <div class="bg-white rounded-lg shadow p-6">
-    <h3 class="text-xl font-bold mb-4">Personal Information</h3>
-    <div class="flex items-center gap-8 mb-6 relative">
-      <div class="w-40 h-40">
-        <img src="{{ url_for('static', filename='images/physio.jpg') }}" 
-             alt="Physiotherapist Photo" 
-             class="w-full h-full object-cover rounded-full border-4 border-indigo-500">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-xl font-bold mb-4">Personal Information</h3>
+      <div class="flex items-center gap-8 mb-6 relative">
+        <div class="w-40 h-40">
+          <img src="{{ url_for('static', filename='images/ot.jpg') }}" 
+               alt="Occupational Therapist Photo" 
+               class="w-full h-full object-cover rounded-full border-4 border-indigo-500">
+        </div>
+        <div class="grid grid-cols-1 gap-2 text-gray-800">
+          <p><strong>Name:</strong> Dr. Emily Chen</p>
+          <p><strong>Email:</strong> ot@example.com</p>
+          <p><strong>Phone:</strong> 0421-888-123</p>
+          <p><strong>Position:</strong> Senior Occupational Therapist</p>
+          <p><strong>Specialty:</strong> Daily living independence & cognitive rehabilitation</p>
+        </div>
+        <p class="absolute bottom-0 right-0 text-xs text-gray-500">Account Created: 2024-03-15</p>
       </div>
-      <div class="grid grid-cols-1 gap-2 text-gray-800">
-        <p><strong>Name:</strong> Dr. Zhang Wei</p>
-        <p><strong>Email:</strong> physio@example.com</p>
-        <p><strong>Phone:</strong> 0412-345-678</p>
-        <p><strong>Position:</strong> Chief Physiotherapist</p>
-        <p><strong>Specialty:</strong> Rehabilitation & Mobility Recovery</p>
+  
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        <div>
+          <h4 class="font-semibold mb-2">Bio</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            Dr. Chen received her Doctorate in Occupational Therapy from the University of Queensland. 
+            She has extensive experience working with patients recovering from neurological injuries, 
+            including stroke and traumatic brain injury. Her passion lies in improving patient autonomy 
+            in daily life and enhancing their cognitive and fine motor skills.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Clinical Strengths</h4>
+          <ul class="list-disc pl-6 text-sm text-gray-700">
+            <li>Hand function & fine motor skills rehabilitation</li>
+            <li>Cognitive retraining programs</li>
+            <li>Environmental modification & adaptive equipment training</li>
+            <li>ADL (Activities of Daily Living) enhancement</li>
+          </ul>
+        </div>
       </div>
-      <p class="absolute bottom-0 right-0 text-xs text-gray-500">Account Created: 2024-03-15</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-      <div>
-        <h4 class="font-semibold mb-2">Bio</h4>
-        <p class="text-sm text-gray-700 leading-relaxed">
-          Dr. Zhang graduated from Shanghai Medical University and received further specialist 
-          training in neuromuscular rehabilitation in Tokyo. With over 15 years of clinical experience, 
-          he specializes in post-operative recovery, gait correction, and chronic pain management.
-        </p>
+  
+      <!-- Education Section -->
+      <div class="mt-8">
+        <h4 class="font-semibold mb-2">Education</h4>
+        <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1">
+          <li>2009 – Bachelor of Occupational Therapy, Curtin University</li>
+          <li>2012 – Doctor of Occupational Therapy, University of Queensland</li>
+        </ul>
       </div>
-      <div>
-        <h4 class="font-semibold mb-2">Clinical Strengths</h4>
-        <ul class="list-disc pl-6 text-sm text-gray-700">
-          <li>Post-surgery physical recovery</li>
-          <li>Spine & joint rehabilitation</li>
-          <li>Chronic pain management</li>
-          <li>Strength training after stroke</li>
+  
+      <!-- Work Experience Section -->
+      <div class="mt-6">
+        <h4 class="font-semibold mb-2">Work Experience</h4>
+        <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1">
+          <li>2012–2016: OT Clinician, Princess Alexandra Hospital</li>
+          <li>2016–2020: Lead OT, St Vincent’s Hospital Brisbane</li>
+          <li>2020–Present: Senior OT Coordinator, Community Rehab Program</li>
         </ul>
       </div>
     </div>
-
-    <!-- Education Section -->
-    <div class="mt-8">
-      <h4 class="font-semibold mb-2">Education</h4>
-      <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1">
-        <li>2010 – Bachelor of Nursing, University of Sydney</li>
-        <li>2012 – Master of Nursing (Clinical Leadership), University of Melbourne</li>
-      </ul>
-    </div>
-
-    <!-- Work Experience Section -->
-    <div class="mt-6">
-      <h4 class="font-semibold mb-2">Work Experience</h4>
-      <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1">
-        <li>2012–2015: Registered Nurse, Royal Melbourne Hospital</li>
-        <li>2015–2018: Senior Nurse, Royal Melbourne Hospital</li>
-        <li>2018–Present: Head of Physiotherapy Department</li>
-      </ul>
-    </div>
-  </div>
-</section>
+  </section>
 
    <!-- Patient Information Section -->
 <section id="patient-info" class="content-section hidden mb-8">
@@ -157,110 +158,98 @@
 
     <!-- Support Plan Section -->
 <section id="support-plan" class="content-section hidden">
-  <div class="bg-white rounded-lg shadow p-6">
-    <h3 class="text-xl font-bold mb-6">Support Plan</h3>
-
-    <!-- Patient and Date Selection -->
-    <div class="grid grid-cols-2 gap-4 mb-6">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
-        <select class="w-full border rounded-md px-3 py-2">
-          <option>Zhao Wu</option>
-          <option>Li Dahua</option>
-        </select>
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-xl font-bold mb-6">Support Plan</h3>
+  
+      <!-- Patient and Date Selection -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
+          <select class="w-full border rounded-md px-3 py-2">
+            <option>Zhao Wu</option>
+            <option>Li Dahua</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+          <select class="w-full border rounded-md px-3 py-2">
+            <option>2024-04-21</option>
+            <option>2024-04-15</option>
+            <option>2024-04-08</option>
+          </select>
+        </div>
       </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
-        <select class="w-full border rounded-md px-3 py-2">
-          <option>2024-04-21</option>
-          <option>2024-04-15</option>
-          <option>2024-04-08</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Support Plan Content -->
-    <div class="bg-gray-50 p-4 rounded space-y-4 text-sm text-gray-800">
-      <!-- Patient Info -->
-      <div>
-        <h4 class="font-semibold text-base mb-1">Patient Basic Information</h4>
-        <p>Name: Zhao Wu</p>
-        <p>Patient ID: PT20240315002</p>
-        <p>Gender: Male</p>
-        <p>Age: 65</p>
-      </div>
-
-      <!-- Goals -->
-      <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Rehabilitation Goals</h4>
-        <ul class="list-disc list-inside">
-          <li>Improve lower limb strength and stability</li>
-          <li>Restore walking independence within 3 months</li>
-          <li>Reduce fall risk by 50%</li>
-        </ul>
-      </div>
-
-      <!-- Therapy Recommendations -->
-      <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Therapy Recommendations</h4>
-        <ul class="list-disc list-inside">
-          <li>30-minute walking training daily</li>
-          <li>Resistance band exercises, 3 times/week</li>
-          <li>Stretching and flexibility routines after meals</li>
-        </ul>
-      </div>
-
-      <!-- Assistance Suggestions -->
-      <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Daily Living Assistance</h4>
-        <ul class="list-disc list-inside">
-          <li>Use of walker in outdoor settings</li>
-          <li>Install grab bars in bathroom</li>
-          <li>Supervised showering support</li>
-        </ul>
-      </div>
-
-      <!-- Tracking Points -->
-      <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Data Tracking Focus</h4>
-        <ul class="list-disc list-inside">
-          <li>Daily step count</li>
-          <li>Balance assessment results (weekly)</li>
-          <li>Patient-reported fatigue levels</li>
-        </ul>
-      </div>
-
-      <!-- Exercise Prescription Library -->
-      <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Exercise Prescription Library</h4>
-        <p class="text-sm mb-2">Standard training plans for common conditions:</p>
-        <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
-          <li>
-            <span class="font-medium">Post-Stroke Recovery:</span>
-            Balance board training, sit-to-stand drills, stair stepping.
-          </li>
-          <li>
-            <span class="font-medium">Knee Osteoarthritis:</span>
-            Low-impact cycling, wall squats, quadriceps strengthening.
-          </li>
-          <li>
-            <span class="font-medium">Lower Back Pain:</span>
-            Core stability exercises, pelvic tilts, lumbar mobility stretches.
-          </li>
-          <li>
-            <span class="font-medium">Hip Replacement Rehab:</span>
-            Heel slides, glute bridges, supported side leg lifts.
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Last Updated -->
-      <div class="pt-2 text-gray-600 text-sm italic">
-        Last Updated: 2024-04-21 | Valid Until: 2024-07-21
+  
+      <!-- Support Plan Content -->
+      <div class="bg-gray-50 p-4 rounded space-y-4 text-sm text-gray-800">
+        <!-- Patient Info -->
+        <div>
+          <h4 class="font-semibold text-base mb-1">Patient Basic Information</h4>
+          <p>Name: Zhao Wu</p>
+          <p>Patient ID: PT20240315002</p>
+          <p>Gender: Male</p>
+          <p>Age: 65</p>
+        </div>
+  
+        <!-- Goals -->
+        <div>
+          <h4 class="font-semibold text-base mb-1 mt-4">Rehabilitation Goals</h4>
+          <ul class="list-disc list-inside">
+            <li>Improve lower limb strength and stability</li>
+            <li>Restore walking independence within 3 months</li>
+            <li>Reduce fall risk by 50%</li>
+          </ul>
+        </div>
+  
+        <!-- Therapy Recommendations -->
+        <div>
+          <h4 class="font-semibold text-base mb-1 mt-4">Therapy Recommendations</h4>
+          <ul class="list-disc list-inside">
+            <li>30-minute walking training daily</li>
+            <li>Resistance band exercises, 3 times/week</li>
+            <li>Stretching and flexibility routines after meals</li>
+          </ul>
+        </div>
+  
+        <!-- Assistance Suggestions -->
+        <div>
+          <h4 class="font-semibold text-base mb-1 mt-4">Daily Living Assistance</h4>
+          <ul class="list-disc list-inside">
+            <li>Use of walker in outdoor settings</li>
+            <li>Install grab bars in bathroom</li>
+            <li>Supervised showering support</li>
+          </ul>
+        </div>
+  
+        <!-- Home Modification Suggestions -->
+        <div>
+          <h4 class="font-semibold text-base mb-1 mt-4">Home Modification Suggestions</h4>
+          <ul class="list-disc list-inside">
+            <li>Install grab rails beside the toilet and shower area</li>
+            <li>Add a non-slip ramp at the front entrance</li>
+            <li>Provide a height-adjustable shower chair</li>
+            <li>Widen bedroom doorway for wheelchair access</li>
+            <li>Place visual labels and reminders on drawers/cabinets</li>
+          </ul>
+        </div>
+  
+        <!-- Tracking Points -->
+        <div>
+          <h4 class="font-semibold text-base mb-1 mt-4">Data Tracking Focus</h4>
+          <ul class="list-disc list-inside">
+            <li>Daily step count</li>
+            <li>Balance assessment results (weekly)</li>
+            <li>Patient-reported fatigue levels</li>
+          </ul>
+        </div>
+  
+        <!-- Last Updated -->
+        <div class="pt-2 text-gray-600 text-sm italic">
+          Last Updated: 2024-04-21 | Valid Until: 2024-07-21
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
     <!-- Report Record Section -->
 <section id="report-record" class="content-section hidden">
@@ -403,58 +392,81 @@
   </div>
 </section>
 
-   <!-- Data Analysis Section -->
+    <!-- Data Analysis Section -->
 <section id="analysis" class="content-section hidden">
-  <div class="bg-white rounded-lg shadow p-6">
-    <h3 class="text-xl font-bold mb-6">Data Analysis</h3>
-
-    <!-- Patient Selector -->
-    <div class="grid grid-cols-2 gap-4 mb-6">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
-        <select class="w-full border rounded-md px-3 py-2">
-          <option>All</option>
-          <option>Zhao Wu</option>
-          <option>Li Dahua</option>
-        </select>
-      </div>
-      <div class="flex items-end justify-end">
-        <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Download Data</button>
-      </div>
-    </div>
-
-    <!-- Chart Area -->
-    <div class="grid grid-cols-2 gap-6 mb-10">
-      <div>
-        <h4 class="font-semibold mb-2">Weekly Progress Chart</h4>
-        <canvas id="weeklyChart" class="w-full h-64 bg-white border rounded"></canvas>
-      </div>
-      <div>
-        <h4 class="font-semibold mb-2">Monthly Statistics Chart</h4>
-        <canvas id="monthlyChart" class="w-full h-64 bg-white border rounded"></canvas>
-      </div>
-    </div>
-
-    <!-- Rehab Progress Tracker -->
-    <div class="mt-8">
-      <h4 class="text-lg font-semibold mb-4 text-indigo-700">Rehab Progress Tracker</h4>
-      <div class="grid grid-cols-3 gap-6">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-xl font-bold mb-6">Data Analysis</h3>
+  
+      <!-- Patient Selector -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
         <div>
-          <h5 class="font-medium mb-2">Step Count</h5>
-          <canvas id="stepsChart" class="w-full h-56 bg-white border rounded"></canvas>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
+          <select class="w-full border rounded-md px-3 py-2">
+            <option>All</option>
+            <option>Zhao Wu</option>
+            <option>Li Dahua</option>
+          </select>
         </div>
-        <div>
-          <h5 class="font-medium mb-2">Range of Motion</h5>
-          <canvas id="romChart" class="w-full h-56 bg-white border rounded"></canvas>
-        </div>
-        <div>
-          <h5 class="font-medium mb-2">Muscle Strength</h5>
-          <canvas id="strengthChart" class="w-full h-56 bg-white border rounded"></canvas>
+        <div class="flex items-end justify-end">
+          <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Download Data</button>
         </div>
       </div>
+  
+      <!-- Chart Area -->
+      <div class="grid grid-cols-2 gap-6 mb-8">
+        <div>
+          <h4 class="font-semibold mb-2">Weekly Progress Chart</h4>
+          <canvas id="weeklyChart" class="w-full h-64 bg-white border rounded"></canvas>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Monthly Statistics Chart</h4>
+          <canvas id="monthlyChart" class="w-full h-64 bg-white border rounded"></canvas>
+        </div>
+      </div>
+  
+      <!-- Daily Life Task Assessment Table -->
+      <div class="mt-6">
+        <h4 class="text-lg font-semibold mb-3">Daily Life Task Assessment</h4>
+        <table class="w-full border-collapse border border-gray-300 text-sm text-gray-800">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="border border-gray-300 px-4 py-2">Task</th>
+              <th class="border border-gray-300 px-4 py-2">2024-04-21</th>
+              <th class="border border-gray-300 px-4 py-2">2024-04-14</th>
+              <th class="border border-gray-300 px-4 py-2">2024-04-07</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Dressing</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">4</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">3</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">2</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Brushing Teeth</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">5</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">5</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">4</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Toileting</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">3</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">2</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">2</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Meal Preparation</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">4</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">3</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">3</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="mt-2 text-xs text-gray-500 italic">Scoring: 5 = Independent | 1 = Total Assistance Required</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
    <!-- Data Sharing Section -->
 <section id="share" class="content-section hidden">
@@ -538,107 +550,6 @@
         this.classList.add('text-indigo-700', 'font-semibold');
       });
     });
-  });
-</script>
-
-<!-- JS for Forms and Charts -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const links = document.querySelectorAll('.sidebar-link');
-    const sections = document.querySelectorAll('main section');
-
-    links.forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-
-        sections.forEach(section => {
-          section.classList.add('hidden');
-          if (section.id === targetId) {
-            section.classList.remove('hidden');
-          }
-        });
-
-        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
-        this.classList.add('text-indigo-700', 'font-semibold');
-      });
-    });
-
-    // Rehab Progress Tracker charts
-    const stepsCtx = document.getElementById('stepsChart').getContext('2d');
-    const romCtx = document.getElementById('romChart').getContext('2d');
-    const strengthCtx = document.getElementById('strengthChart').getContext('2d');
-
-    new Chart(stepsCtx, {
-      type: 'line',
-      data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [{
-          label: 'Daily Steps',
-          data: [3200, 4500, 5000, 3900, 4700, 5100, 5600],
-          borderColor: '#6366f1',
-          backgroundColor: 'rgba(99, 102, 241, 0.1)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false }},
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    new Chart(romCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Hip', 'Knee', 'Ankle'],
-        datasets: [{
-          label: 'ROM (°)',
-          data: [110, 135, 70],
-          backgroundColor: '#34d399',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false }},
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    new Chart(strengthCtx, {
-      type: 'radar',
-      data: {
-        labels: ['Quadriceps', 'Hamstrings', 'Calf'],
-        datasets: [{
-          label: 'Strength (1–5)',
-          data: [4, 3, 5],
-          backgroundColor: 'rgba(239, 68, 68, 0.2)',
-          borderColor: '#ef4444',
-          borderWidth: 2,
-          pointBackgroundColor: '#ef4444'
-        }]
-      },
-      options: {
-        responsive: true,
-        elements: { line: { tension: 0.2 } },
-        scales: {
-          r: {
-            min: 0,
-            max: 5,
-            ticks: { stepSize: 1 }
-          }
-        }
-      }
-    });
-
   });
 </script>
 {% endblock %}

@@ -15,9 +15,12 @@ def signup():
 
 @app.route("/physio")
 def physio_dashboard():
-    assigned_patients = ["Liu Yi", "Chen Er", "Zhao Wu", "Wang Fang"]
-    return render_template("physio_dashboard.html", assigned_patients=assigned_patients)
+    return render_template("physio_dashboard.html")
 
-@app.route("/guardian")
-def guardian_dashboard():
-    return render_template("guardian.html")
+@app.route("/ot")
+def ot_dashboard():
+    return render_template("ot_dashboard.html")
+
+@app.route("/psych")
+def psych_dashboard():
+    return render_template("psych_dashboard.html")

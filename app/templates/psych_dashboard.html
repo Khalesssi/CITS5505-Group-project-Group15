@@ -5,7 +5,7 @@
   <div class="flex flex-1">
   <!-- Sidebar -->
   <aside class="w-64 bg-gray-100 p-6 border-r">
-    <h2 class="text-xl font-bold mb-6">Physiotherapist</h2>
+    <h2 class="text-xl font-bold mb-6">Psychotherapist</h2>
     <ul id="sidebarLinks" class="space-y-4 text-gray-700">
       <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Profile</a></li>
       <li><a href="#patient-info" class="sidebar-link hover:underline">Patient Info</a></li>
@@ -22,64 +22,62 @@
   <main class="p-8 flex-1">
    <!-- Profile Section -->
 <section id="profile" class="content-section">
-  <div class="bg-white rounded-lg shadow p-6">
-    <h3 class="text-xl font-bold mb-4">Personal Information</h3>
-    <div class="flex items-center gap-8 mb-6 relative">
-      <div class="w-40 h-40">
-        <img src="{{ url_for('static', filename='images/physio.jpg') }}" 
-             alt="Physiotherapist Photo" 
-             class="w-full h-full object-cover rounded-full border-4 border-indigo-500">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-xl font-bold mb-4">Personal Information</h3>
+      <div class="flex items-center gap-8 mb-6 relative">
+        <div class="w-40 h-40">
+          <img src="{{ url_for('static', filename='images/psychotherapist.jpg') }}" 
+               alt="Psychotherapist Photo" 
+               class="w-full h-full object-cover rounded-full border-4 border-indigo-500">
+        </div>
+        <div class="grid grid-cols-1 gap-2 text-gray-800">
+          <p><strong>Name:</strong> Dr. Lin Jia</p>
+          <p><strong>Email:</strong> psych@example.com</p>
+          <p><strong>Phone:</strong> 0412-345-678</p>
+          <p><strong>Position:</strong> Chief Psychotherapist</p>
+          <p><strong>Specialty:</strong> Cognitive Behavioral Therapy & Trauma Counseling</p>
+        </div>
+        <p class="absolute bottom-0 right-0 text-xs text-gray-500">Account Created: 2024-03-15</p>
       </div>
-      <div class="grid grid-cols-1 gap-2 text-gray-800">
-        <p><strong>Name:</strong> Dr. Zhang Wei</p>
-        <p><strong>Email:</strong> physio@example.com</p>
-        <p><strong>Phone:</strong> 0412-345-678</p>
-        <p><strong>Position:</strong> Chief Physiotherapist</p>
-        <p><strong>Specialty:</strong> Rehabilitation & Mobility Recovery</p>
+  
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        <div>
+          <h4 class="font-semibold mb-2">Bio</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            Dr. Lin received her PhD in Clinical Psychology from the University of New South Wales and completed her fellowship in trauma-focused therapy at the University of Queensland. She has extensive experience working with individuals with PTSD, anxiety, and adjustment disorders, particularly within rehabilitation settings.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Clinical Strengths</h4>
+          <ul class="list-disc pl-6 text-sm text-gray-700">
+            <li>Cognitive Behavioral Therapy (CBT)</li>
+            <li>Trauma-Informed Care</li>
+            <li>Depression & Anxiety Management</li>
+            <li>Family and Carer Counseling</li>
+          </ul>
+        </div>
       </div>
-      <p class="absolute bottom-0 right-0 text-xs text-gray-500">Account Created: 2024-03-15</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-      <div>
-        <h4 class="font-semibold mb-2">Bio</h4>
-        <p class="text-sm text-gray-700 leading-relaxed">
-          Dr. Zhang graduated from Shanghai Medical University and received further specialist 
-          training in neuromuscular rehabilitation in Tokyo. With over 15 years of clinical experience, 
-          he specializes in post-operative recovery, gait correction, and chronic pain management.
-        </p>
+  
+      <!-- Education Section -->
+      <div class="mt-8">
+        <h4 class="font-semibold mb-2">Education</h4>
+        <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1">
+          <li>2009 – Bachelor of Psychology, University of Sydney</li>
+          <li>2013 – PhD in Clinical Psychology, UNSW</li>
+        </ul>
       </div>
-      <div>
-        <h4 class="font-semibold mb-2">Clinical Strengths</h4>
-        <ul class="list-disc pl-6 text-sm text-gray-700">
-          <li>Post-surgery physical recovery</li>
-          <li>Spine & joint rehabilitation</li>
-          <li>Chronic pain management</li>
-          <li>Strength training after stroke</li>
+  
+      <!-- Work Experience Section -->
+      <div class="mt-6">
+        <h4 class="font-semibold mb-2">Work Experience</h4>
+        <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1">
+          <li>2013–2016: Psychologist, Alfred Health</li>
+          <li>2016–2020: Senior Psychologist, Royal Brisbane & Women’s Hospital</li>
+          <li>2020–Present: Chief Psychotherapist, Integrated Rehab Center</li>
         </ul>
       </div>
     </div>
-
-    <!-- Education Section -->
-    <div class="mt-8">
-      <h4 class="font-semibold mb-2">Education</h4>
-      <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1">
-        <li>2010 – Bachelor of Nursing, University of Sydney</li>
-        <li>2012 – Master of Nursing (Clinical Leadership), University of Melbourne</li>
-      </ul>
-    </div>
-
-    <!-- Work Experience Section -->
-    <div class="mt-6">
-      <h4 class="font-semibold mb-2">Work Experience</h4>
-      <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1">
-        <li>2012–2015: Registered Nurse, Royal Melbourne Hospital</li>
-        <li>2015–2018: Senior Nurse, Royal Melbourne Hospital</li>
-        <li>2018–Present: Head of Physiotherapy Department</li>
-      </ul>
-    </div>
-  </div>
-</section>
+  </section>
 
    <!-- Patient Information Section -->
 <section id="patient-info" class="content-section hidden mb-8">
@@ -230,30 +228,43 @@
         </ul>
       </div>
 
-      <!-- Exercise Prescription Library -->
+      <!-- Session Notes & Goals -->
       <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Exercise Prescription Library</h4>
-        <p class="text-sm mb-2">Standard training plans for common conditions:</p>
-        <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
-          <li>
-            <span class="font-medium">Post-Stroke Recovery:</span>
-            Balance board training, sit-to-stand drills, stair stepping.
-          </li>
-          <li>
-            <span class="font-medium">Knee Osteoarthritis:</span>
-            Low-impact cycling, wall squats, quadriceps strengthening.
-          </li>
-          <li>
-            <span class="font-medium">Lower Back Pain:</span>
-            Core stability exercises, pelvic tilts, lumbar mobility stretches.
-          </li>
-          <li>
-            <span class="font-medium">Hip Replacement Rehab:</span>
-            Heel slides, glute bridges, supported side leg lifts.
-          </li>
-        </ul>
+        <h4 class="font-semibold text-base mb-1 mt-4">Session Notes & Goals</h4>
+        <div class="bg-white border rounded p-4 space-y-3">
+          <div>
+            <p class="text-gray-700 font-medium">Session 1 - 2024-04-01</p>
+            <ul class="list-disc list-inside text-gray-700 text-sm">
+              <li>Discussed patient’s adjustment to injury and emotional impact.</li>
+              <li>Initial signs of social withdrawal observed.</li>
+              <li>Introduced basic CBT techniques for thought reframing.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-gray-700 font-medium">Session 2 - 2024-04-08</p>
+            <ul class="list-disc list-inside text-gray-700 text-sm">
+              <li>Patient opened up about frustration and sleep disturbances.</li>
+              <li>Practiced relaxation breathing exercises.</li>
+              <li>Goal set: Maintain mood diary and track stress triggers.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-gray-700 font-medium">Short-Term Goals:</p>
+            <ul class="list-disc list-inside text-sm text-gray-700">
+              <li>Reduce anxiety scores by 20% in 4 weeks</li>
+              <li>Resume participation in one group activity weekly</li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-gray-700 font-medium">Long-Term Goals:</p>
+            <ul class="list-disc list-inside text-sm text-gray-700">
+              <li>Achieve sustained mood stability</li>
+              <li>Rebuild interpersonal confidence in social settings</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      
+
       <!-- Last Updated -->
       <div class="pt-2 text-gray-600 text-sm italic">
         Last Updated: 2024-04-21 | Valid Until: 2024-07-21
@@ -403,7 +414,7 @@
   </div>
 </section>
 
-   <!-- Data Analysis Section -->
+    <!-- Data Analysis Section -->
 <section id="analysis" class="content-section hidden">
   <div class="bg-white rounded-lg shadow p-6">
     <h3 class="text-xl font-bold mb-6">Data Analysis</h3>
@@ -435,23 +446,45 @@
       </div>
     </div>
 
-    <!-- Rehab Progress Tracker -->
-    <div class="mt-8">
-      <h4 class="text-lg font-semibold mb-4 text-indigo-700">Rehab Progress Tracker</h4>
-      <div class="grid grid-cols-3 gap-6">
-        <div>
-          <h5 class="font-medium mb-2">Step Count</h5>
-          <canvas id="stepsChart" class="w-full h-56 bg-white border rounded"></canvas>
-        </div>
-        <div>
-          <h5 class="font-medium mb-2">Range of Motion</h5>
-          <canvas id="romChart" class="w-full h-56 bg-white border rounded"></canvas>
-        </div>
-        <div>
-          <h5 class="font-medium mb-2">Muscle Strength</h5>
-          <canvas id="strengthChart" class="w-full h-56 bg-white border rounded"></canvas>
-        </div>
-      </div>
+    <!-- Mental Health Scales -->
+    <div class="mb-10">
+      <h4 class="text-lg font-semibold mb-3">Mental Health Scales</h4>
+      <table class="w-full border border-gray-300 text-sm">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border px-4 py-2">Date</th>
+            <th class="border px-4 py-2">PHQ-9</th>
+            <th class="border px-4 py-2">GAD-7</th>
+            <th class="border px-4 py-2">Stress Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border px-4 py-2">2024-04-20</td>
+            <td class="border px-4 py-2">11</td>
+            <td class="border px-4 py-2">9</td>
+            <td class="border px-4 py-2">6</td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">2024-04-13</td>
+            <td class="border px-4 py-2">14</td>
+            <td class="border px-4 py-2">11</td>
+            <td class="border px-4 py-2">7</td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">2024-04-06</td>
+            <td class="border px-4 py-2">16</td>
+            <td class="border px-4 py-2">13</td>
+            <td class="border px-4 py-2">8</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mood Journal -->
+    <div>
+      <h4 class="text-lg font-semibold mb-3">Mood Journal Trend</h4>
+      <canvas id="moodChart" class="w-full h-64 bg-white border rounded"></canvas>
     </div>
   </div>
 </section>
@@ -541,104 +574,43 @@
   });
 </script>
 
-<!-- JS for Forms and Charts -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- JS for Charts -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const links = document.querySelectorAll('.sidebar-link');
-    const sections = document.querySelectorAll('main section');
-
-    links.forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-
-        sections.forEach(section => {
-          section.classList.add('hidden');
-          if (section.id === targetId) {
-            section.classList.remove('hidden');
-          }
-        });
-
-        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
-        this.classList.add('text-indigo-700', 'font-semibold');
-      });
-    });
-
-    // Rehab Progress Tracker charts
-    const stepsCtx = document.getElementById('stepsChart').getContext('2d');
-    const romCtx = document.getElementById('romChart').getContext('2d');
-    const strengthCtx = document.getElementById('strengthChart').getContext('2d');
-
-    new Chart(stepsCtx, {
+    const moodCtx = document.getElementById('moodChart').getContext('2d');
+    const moodChart = new Chart(moodCtx, {
       type: 'line',
       data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        labels: ['04-01', '04-02', '04-03', '04-04', '04-05', '04-06', '04-07'],
         datasets: [{
-          label: 'Daily Steps',
-          data: [3200, 4500, 5000, 3900, 4700, 5100, 5600],
-          borderColor: '#6366f1',
-          backgroundColor: 'rgba(99, 102, 241, 0.1)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.3
+          label: 'Mood Score (1-10)',
+          data: [4, 5, 6, 5, 7, 6, 8],
+          fill: false,
+          tension: 0.3,
+          borderColor: 'rgb(99, 102, 241)',
+          backgroundColor: 'rgb(99, 102, 241)',
+          pointRadius: 4,
+          pointHoverRadius: 6
         }]
       },
       options: {
         responsive: true,
-        plugins: { legend: { display: false }},
         scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    new Chart(romCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Hip', 'Knee', 'Ankle'],
-        datasets: [{
-          label: 'ROM (°)',
-          data: [110, 135, 70],
-          backgroundColor: '#34d399',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false }},
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    new Chart(strengthCtx, {
-      type: 'radar',
-      data: {
-        labels: ['Quadriceps', 'Hamstrings', 'Calf'],
-        datasets: [{
-          label: 'Strength (1–5)',
-          data: [4, 3, 5],
-          backgroundColor: 'rgba(239, 68, 68, 0.2)',
-          borderColor: '#ef4444',
-          borderWidth: 2,
-          pointBackgroundColor: '#ef4444'
-        }]
-      },
-      options: {
-        responsive: true,
-        elements: { line: { tension: 0.2 } },
-        scales: {
-          r: {
-            min: 0,
-            max: 5,
-            ticks: { stepSize: 1 }
+          y: {
+            suggestedMin: 0,
+            suggestedMax: 10,
+            title: {
+              display: true,
+              text: 'Mood Level'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Date'
+            }
           }
         }
       }
     });
-
-  });
-</script>
+  </script>
 {% endblock %}
