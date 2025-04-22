@@ -15,7 +15,6 @@ def signup():
 
 @app.route("/physio")
 def physio_dashboard():
-    # 这里是你想显示的病患列表，后续可以从数据库读取
     assigned_patients = ["Liu Yi", "Chen Er", "Zhao Wu", "Wang Fang"]
     return render_template("physio_dashboard.html", assigned_patients=assigned_patients)
 
