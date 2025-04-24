@@ -1,308 +1,654 @@
 {% extends "base.html" %}  {# 繼承基礎模板 #}
 
 {% block content %}
+<!-- DIV 容器開始 -->
 <div class="flex min-h-screen">
-  <!-- Sidebar -->
-  <aside class="w-64 bg-gray-100 p-6 border-r">
-    <h2 class="text-xl font-bold mb-6">Guardian</h2>
-    <ul id="sidebarLinks" class="space-y-4 text-gray-700">
-      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">個人資訊</a></li>
-      <li><a href="#patient-info" class="sidebar-link hover:underline">病患資訊</a></li>
-      <li><a href="#schedule" class="sidebar-link hover:underline">照護時程表</a></li>
-      <li><a href="#medical" class="sidebar-link hover:underline">醫囑指示</a></li>
-      <li><a href="#support" class="sidebar-link hover:underline">回報紀錄</a></li>
-      <li><a href="#analysis" class="sidebar-link hover:underline">數據分析結果</a></li>
-    </ul>
-  </aside>
-
-  <!-- Main Content -->
-  <main class="flex-1 p-8">
-    <!-- 個人資訊 Section -->
-    <section id="profile" class="content-section">
-      <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-xl font-bold mb-4">個人資訊</h3>
-        <div class="flex items-center gap-8 mb-6 relative">
-          <div class="w-40 h-40">
-            <img src="{{ url_for('static', filename='images/guardian_avatar.jpg') }}" 
-                 alt="Guardian Photo" 
-                 class="w-full h-full object-cover rounded-full border-4 border-indigo-500">
-          </div>
-          <div class="grid grid-cols-1 gap-4">
-            <div>
-              <p class="text-gray-600">姓名：<span class="text-gray-800">王小明</span></p>
-              <p class="text-gray-600">Email：<span class="text-gray-800">guardian@example.com</span></p>
-              <p class="text-gray-600">聯絡電話：<span class="text-gray-800">0912-345-678</span></p>
-            </div>
-          </div>
-          <p class="absolute bottom-0 right-0 text-xs text-gray-500">帳號建立日：2024-03-15</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 病患資訊 Section -->
-    <section id="patient-info" class="hidden mb-8">
-      <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-xl font-bold mb-4">病患資訊</h3>
-        <div class="flex gap-8">
-          <div class="w-48 h-48">
-            <img src="{{ url_for('static', filename='images/patient_photo.jpg') }}" 
-                 alt="Patient Photo" 
-                 class="w-full h-full object-cover rounded-lg border-4 border-indigo-500">
-          </div>
-          <div class="flex-1 space-y-4">
-            <div class="border-b pb-4">
-              <h4 class="font-semibold mb-2">基本資料</h4>
-              <p class="text-gray-600">病患姓名：<span class="text-gray-800">李大華</span></p>
-              <p class="text-gray-600">病患 ID：<span class="text-gray-800">PT20240315001</span></p>
-              <p class="text-gray-600">健保卡號：<span class="text-gray-800">A123456789</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 照護時程表 Section -->
-    <section id="schedule" class="hidden">
-      <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-xl font-bold mb-4">照護時程表</h3>
-        <table class="w-full border-collapse border border-gray-300">
-          <thead>
-            <tr class="bg-gray-100">
-              <th class="border border-gray-300 px-4 py-2 font-bold">時間</th>
-              <th class="border border-gray-300 px-4 py-2 font-bold">項目</th>
-              <th class="border border-gray-300 px-4 py-2 font-bold">負責人員</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">09:00</td>
-              <td class="border border-gray-300 px-4 py-2">晨間照護</td>
-              <td class="border border-gray-300 px-4 py-2">護理師 陳小姐</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">14:00</td>
-              <td class="border border-gray-300 px-4 py-2">復健運動</td>
-              <td class="border border-gray-300 px-4 py-2">物理治療師 林先生</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">19:00</td>
-              <td class="border border-gray-300 px-4 py-2">晚間照護</td>
-              <td class="border border-gray-300 px-4 py-2">護理師 王小姐</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- 醫囑指示 Section -->
-    <section id="medical" class="content-section hidden">
-      <div class="medical-container">
-        <h3 class="text-xl font-bold mb-4">醫囑指示</h3>
-        
-        <!-- 添加選擇區域 -->
-        <div class="grid grid-cols-2 gap-4 mb-6">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">病患姓名</label>
-            <select class="w-full border rounded-md px-3 py-2">
-              <option>李大華</option>
-              <option>張小明</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">日期</label>
-            <select class="w-full border rounded-md px-3 py-2">
-              <option>2024-03-15</option>
-              <option>2024-03-14</option>
-              <option>2024-03-13</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="medical-content">
-          <div class="p-4 bg-gray-50 rounded">
-            <h4 class="font-semibold mb-2">用藥指示</h4>
-            <ul class="list-disc list-inside">
-              <li>血壓藥 - 每日早晚各一次</li>
-              <li>活動 - 每日散步30分鐘</li>
-              <li>傷口 - 每日換藥兩次</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 回報紀錄 Section -->
-    <section id="support" class="hidden">
-      <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-xl font-bold mb-4">回報紀錄</h3>
-        
-        <!-- 選擇區域 -->
-        <div class="grid grid-cols-2 gap-4 mb-6">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">回報日期</label>
-            <select class="w-full border rounded-md px-3 py-2">
-              <option>2024-03-15</option>
-              <option>2024-03-14</option>
-              <option>2024-03-13</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">病患姓名</label>
-            <select class="w-full border rounded-md px-3 py-2">
-              <option>李大華</option>
-              <option>張小明</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Support Worker 資訊 -->
-        <div class="mb-6">
-          <p class="text-gray-700">Support Worker：<span class="font-semibold">張小姐</span></p>
-        </div>
-
-        <!-- 問卷表格 -->
-        <div class="report-card bg-gray-50 p-4 rounded">
-          <table class="w-full border-collapse border border-gray-300">
-            <thead>
-              <tr class="bg-gray-100">
-                <th class="border border-gray-300 px-4 py-2">題號</th>
-                <th class="border border-gray-300 px-4 py-2">問題</th>
-                <th class="border border-gray-300 px-4 py-2">回答</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="border border-gray-300 px-4 py-2">1</td>
-                <td class="border border-gray-300 px-4 py-2">病患今日精神狀況如何？</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <select class="w-full">
-                    <option>1</option>
-                    <option>3</option>
-                    <option>5</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class="border border-gray-300 px-4 py-2">2</td>
-                <td class="border border-gray-300 px-4 py-2">是否按時服用藥物？</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <div class="flex justify-center gap-4">
-                    <label><input type="radio" name="q2" value="Y"> Y</label>
-                    <label><input type="radio" name="q2" value="N"> N</label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="border border-gray-300 px-4 py-2">3</td>
-                <td class="border border-gray-300 px-4 py-2">進食狀況評分</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <select class="w-full">
-                    <option>1</option>
-                    <option>3</option>
-                    <option>5</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class="border border-gray-300 px-4 py-2">4</td>
-                <td class="border border-gray-300 px-4 py-2">是否完成今日復健活動？</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <div class="flex justify-center gap-4">
-                    <label><input type="radio" name="q4" value="Y"> Y</label>
-                    <label><input type="radio" name="q4" value="N"> N</label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="border border-gray-300 px-4 py-2">5</td>
-                <td class="border border-gray-300 px-4 py-2">睡眠品質評分</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <select class="w-full">
-                    <option>1</option>
-                    <option>3</option>
-                    <option>5</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class="border border-gray-300 px-4 py-2">6</td>
-                <td class="border border-gray-300 px-4 py-2">是否有異常症狀？</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <div class="flex justify-center gap-4">
-                    <label><input type="radio" name="q6" value="Y"> Y</label>
-                    <label><input type="radio" name="q6" value="N"> N</label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="border border-gray-300 px-4 py-2">7</td>
-                <td class="border border-gray-300 px-4 py-2">情緒穩定度評分</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <select class="w-full">
-                    <option>1</option>
-                    <option>3</option>
-                    <option>5</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class="border border-gray-300 px-4 py-2">8</td>
-                <td class="border border-gray-300 px-4 py-2">是否遵醫囑執行？</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <div class="flex justify-center gap-4">
-                    <label><input type="radio" name="q8" value="Y"> Y</label>
-                    <label><input type="radio" name="q8" value="N"> N</label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="border border-gray-300 px-4 py-2">9</td>
-                <td class="border border-gray-300 px-4 py-2">活動參與度評分</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <select class="w-full">
-                    <option>1</option>
-                    <option>3</option>
-                    <option>5</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class="border border-gray-300 px-4 py-2">10</td>
-                <td class="border border-gray-300 px-4 py-2">是否有社交互動？</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <div class="flex justify-center gap-4">
-                    <label><input type="radio" name="q10" value="Y"> Y</label>
-                    <label><input type="radio" name="q10" value="N"> N</label>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- 數據分析結果 Section -->
-    <section id="analysis" class="hidden">
-      <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-xl font-bold mb-4">數據分析結果</h3>
-        <div class="grid grid-cols-2 gap-6">
-          <div>
-            <h4 class="font-semibold mb-2">每週數據圖表</h4>
-            <canvas id="weeklyChart" class="w-full"></canvas>
-          </div>
-          <div>
-            <h4 class="font-semibold mb-2">月度統計表</h4>
-            <canvas id="monthlyChart" class="w-full"></canvas>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+<aside class="w-64 bg-gray-100 p-6 border-r">
+<h2 class="text-xl font-bold mb-6">Guardian</h2>
+<ul class="space-y-4 text-gray-700" id="sidebarLinks">
+<li><a class="sidebar-link text-indigo-700 font-semibold" href="#profile">Personal Info</a></li>
+<li><a class="sidebar-link hover:underline" href="#patient-info">Patient Info</a></li>
+<li><a class="sidebar-link hover:underline" href="#schedule">Care Schedule</a></li>
+<li><a class="sidebar-link hover:underline" href="#medical">Medical Instructions</a></li>
+<li><a class="sidebar-link hover:underline" href="#history">Patient History</a></li>
+<li><a class="sidebar-link hover:underline" href="#analysis">Data Analysis</a></li>
+</ul>
+</aside>
+<main class="flex-1 p-8">
+<!-- Section 區塊開始 -->
+<section class="content-section" id="profile">
+<!-- DIV 容器開始 -->
+<div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
+<h3 class="text-xl font-bold mb-4">Personal Info</h3>
+<!-- DIV 容器開始 -->
+<div class="flex items-center gap-8 mb-6 relative">
+<!-- DIV 容器開始 -->
+<div class="w-40 h-40">
+<img alt="Guardian Photo" class="w-full h-full object-cover rounded-full border-4 border-indigo-500" src="{{ url_for('static', filename='images/guardian_avatar.jpg') }}"/>
 </div>
+<!-- DIV 容器開始 -->
+<div class="grid grid-cols-1 gap-4">
+<!-- DIV 容器開始 -->
+<div>
+<p class="text-gray-600">Name: <span class="text-gray-800">James Wilson</span></p>
+<p class="text-gray-600">Email: <span class="text-gray-800">guardian@example.com</span></p>
+<p class="text-gray-600">Contact: <span class="text-gray-800">0912-345-678</span></p>
+</div>
+</div>
+<p class="absolute bottom-0 right-0 text-xs text-gray-500">Account created: 2024-03-15</p>
+</div>
+</div>
+</section>
+<!-- Section 區塊開始 -->
+<section class="hidden mb-8" id="patient-info">
+<!-- DIV 容器開始 -->
+<div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
+<h3 class="text-xl font-bold mb-4">Patient Info</h3>
+<!-- DIV 容器開始 -->
+<div class="flex gap-8">
+<!-- DIV 容器開始 -->
+<div class="w-48 h-48">
+<img alt="Patient Photo" class="w-full h-full object-cover rounded-lg border-4 border-indigo-500" src="{{ url_for('static', filename='images/patient_photo.jpg') }}"/>
+</div>
+<!-- DIV 容器開始 -->
+<div class="flex-1 space-y-4">
+<!-- DIV 容器開始 -->
+<div class="border-b pb-4">
+<h4 class="font-semibold mb-2">Basic Info</h4>
+<p class="text-gray-600">Patient Name: <span class="text-gray-800">Oliver Thompson</span></p>
+<p class="text-gray-600">Patient ID: <span class="text-gray-800">PT20240315001</span></p>
+<p class="text-gray-600">Health Insurance Card: <span class="text-gray-800">A123456789</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 區塊開始 -->
+<section class="hidden" id="schedule">
+<!-- DIV 容器開始 -->
+<div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
+<h3 class="text-xl font-bold mb-4">Care Schedule</h3>
+<!-- 表格區塊開始 -->
+<table class="w-full border-collapse border border-gray-300">
+<!-- 表格標題列開始 -->
+<thead>
+<!-- 表格列（tr）開始 -->
+<tr class="bg-gray-100">
+<!-- 表頭欄位（th） -->
+<th class="border border-gray-300 px-4 py-2 font-bold">Time</th>
+<!-- 表頭欄位（th） -->
+<th class="border border-gray-300 px-4 py-2 font-bold">Item</th>
+<!-- 表頭欄位（th） -->
+<th class="border border-gray-300 px-4 py-2 font-bold">Responsible Staff</th>
+</tr>
+</thead>
+<!-- 表格資料列開始 -->
+<tbody>
+<!-- 表格列（tr）開始 -->
+<tr>
+<!-- 資料欄位（td） -->
+<td class="border border-gray-300 px-4 py-2">09:00</td>
+<!-- 資料欄位（td） -->
+<td class="border border-gray-300 px-4 py-2">Morning Care</td>
+<!-- 資料欄位（td） -->
+<td class="border border-gray-300 px-4 py-2">Nurse Chen</td>
+</tr>
+<!-- 表格列（tr）開始 -->
+<tr>
+<!-- 資料欄位（td） -->
+<td class="border border-gray-300 px-4 py-2">14:00</td>
+<!-- 資料欄位（td） -->
+<td class="border border-gray-300 px-4 py-2">Rehabilitation Exercise</td>
+<!-- 資料欄位（td） -->
+<td class="border border-gray-300 px-4 py-2">Physical Therapist Lin</td>
+</tr>
+<!-- 表格列（tr）開始 -->
+<tr>
+<!-- 資料欄位（td） -->
+<td class="border border-gray-300 px-4 py-2">19:00</td>
+<!-- 資料欄位（td） -->
+<td class="border border-gray-300 px-4 py-2">Evening Care</td>
+<!-- 資料欄位（td） -->
+<td class="border border-gray-300 px-4 py-2">Nurse Wang</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Section 區塊開始 -->
+<section class="content-section hidden" id="medical">
+<!-- DIV 容器開始 -->
+<div class="medical-container">
+<h3 class="text-xl font-bold mb-4">Medical Instructions</h3>
+<!-- DIV 容器開始 -->
+<div class="grid grid-cols-2 gap-4 mb-6">
+<!-- DIV 容器開始 -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Patient Name</label>
+<select class="w-full border rounded-md px-3 py-2">
+<option>Oliver Thompson</option>
+<option>William Parker</option>
+</select>
+</div>
+<!-- DIV 容器開始 -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+<select class="w-full border rounded-md px-3 py-2">
+<option>2024-03-15</option>
+<option>2024-03-14</option>
+<option>2024-03-13</option>
+</select>
+</div>
+</div>
+<!-- DIV 容器開始 -->
+<div class="medical-content">
+<!-- DIV 容器開始 -->
+<div class="p-4 bg-gray-50 rounded">
+<h4 class="font-semibold mb-2">Medication Instructions</h4>
+<ul class="list-disc list-inside">
+<li>Blood Pressure Medication - Twice daily</li>
+<li>Activity - 30 minutes of walking daily</li>
+<li>Wound - Twice daily wound care</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 區塊開始 -->
+<section class="content-section hidden" id="history">
+<!-- DIV 容器開始 -->
+<div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
+<h3 class="text-xl font-bold mb-6">Patient History</h3>
+<!-- DIV 容器開始 -->
+<div class="grid grid-cols-2 gap-6 mb-8">
+<!-- DIV 容器開始 -->
+<div class="bg-gray-50 rounded-lg p-4">
+<!-- DIV 容器開始 -->
+<div class="flex justify-between items-center mb-3">
+<span class="font-medium text-gray-700">Report Date:</span>
+<input class="border rounded-md px-3 py-1.5 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" id="reportDate" type="date"/>
+</div>
+<!-- DIV 容器開始 -->
+<div class="flex justify-between items-center">
+<span class="font-medium text-gray-700">Support Worker:</span>
+<span class="text-gray-900 font-medium" id="supportWorkerName">No Data</span>
+</div>
+</div>
+<!-- DIV 容器開始 -->
+<div class="bg-gray-50 rounded-lg p-4">
+<!-- DIV 容器開始 -->
+<div class="flex justify-between items-center">
+<span class="font-medium text-gray-700">Patient Name:</span>
+<select class="border rounded-md px-3 py-1.5 bg-white w-48 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" id="patientSelect">
+    <option value="James Wilson">James Wilson</option>
+    <option value="Oliver Thompson">Oliver Thompson</option>
+    <option value="William Parker">William Parker</option>
+</select>
+</div>
+</div>
+</div>
+<!-- DIV 容器開始 -->
+<div class="overflow-hidden rounded-lg border border-gray-200">
+<!-- 表格區塊開始 -->
+<table class="w-full border-collapse">
+<!-- 表格標題列開始 -->
+<thead>
+<!-- 表格列（tr）開始 -->
+<tr class="bg-gray-100">
+<!-- 表頭欄位（th） -->
+<th class="text-gray-800 align-middle text-sm w-12 py-3 px-4 text-center font-semibold border-gray-200 border-b whitespace-nowrap">No.</th>
+<!-- 表頭欄位（th） -->
+<th class="border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-left">Question</th>
+<!-- 表頭欄位（th） -->
+<th class="w-48 border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-center">Answer</th>
+</tr>
+</thead>
+<!-- 表格資料列開始 -->
+<tbody id="reportTableBody">
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Section 區塊開始 -->
+<section class="hidden" id="analysis">
+<!-- DIV 容器開始 -->
+<div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
+<h3 class="text-xl font-bold mb-4">Data Analysis</h3>
+<!-- DIV 容器開始 -->
+<div class="grid grid-cols-2 gap-6">
+<!-- DIV 容器開始 -->
+<div>
+<h4 class="font-semibold mb-2">Weekly Chart</h4>
+<canvas class="w-full" id="weeklyChart"></canvas>
+</div>
+<!-- DIV 容器開始 -->
+<div>
+<h4 class="font-semibold mb-2">Monthly Statistics</h4>
+<canvas class="w-full" id="monthlyChart"></canvas>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script>
+  // 導航功能
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('main section');
 
-<!-- Navigation Script -->
-<script>
+    links.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+
+        sections.forEach(section => {
+          section.classList.add('hidden');
+          if (section.id === targetId) {
+            section.classList.remove('hidden');
+          }
+        });
+
+        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
+        this.classList.add('text-indigo-700', 'font-semibold');
+      });
+    });
+  });
+
+  // 設置預設日期為今天
+  document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.querySelectorAll('input[type="date"]').forEach(input => {
+      input.value = today;
+    });
+  });
+
+  // 定義問題列表
+  const questions = [
+      "How is the patient's mental status today?",
+      "Did the patient take their medication on time?",
+      "Food intake score",
+      "Did the patient complete today's rehabilitation activity?",
+      "Sleep quality score",
+      "Any abnormal symptoms?",
+      "Emotional stability score",
+      "Did the patient follow the doctor's instructions?",
+      "Activity participation score",
+      "Any social interaction?"
+  ];
+
+  // 定義可用的 Support Worker 列表
+  const supportWorkers = ["Michael Smith", "George Davies", "Emma Taylor"];
+
+  // 使用日期和病患名作為 key 來確保同一天同一個病患對應到同一個 Support Worker
+  function getConsistentSupportWorker(date, patient) {
+      const seed = date + patient;
+      let hash = 0;
+      for (let i = 0; i < seed.length; i++) {
+          hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+          hash = hash & hash;
+      }
+      return supportWorkers[Math.abs(hash) % supportWorkers.length];
+  }
+
+  // 修改生成答案的部分
+  function generateDailyAnswers(date, patient) {
+      // 評分對應設定
+      const ratings = {
+          1: { text: "Poor", class: "text-red-500" },
+          3: { text: "Average", class: "text-yellow-600" },
+          5: { text: "Good", class: "text-green-600" }
+      };
+
+      // 生成評分答案
+      function getRandomScore() {
+          const scores = [1, 3, 5];
+          const score = scores[Math.floor(Math.random() * 3)];
+          return { 
+              score: score.toString(),
+              text: ratings[score].text,
+              class: ratings[score].class
+          };
+      }
+
+      return [
+          // 精神狀況
+          getRandomScore(),
+          // 服藥
+          formatYesNoAnswer(Math.random() < 0.7),
+          // 進食狀況
+          getRandomScore(),
+          // 復健活動
+          formatYesNoAnswer(Math.random() < 0.6),
+          // 睡眠品質
+          getRandomScore(),
+          // 異常症狀
+          formatYesNoAnswer(Math.random() > 0.8),
+          // 情緒穩定
+          getRandomScore(),
+          // 遵醫囑
+          formatYesNoAnswer(Math.random() < 0.75),
+          // 活動參與
+          getRandomScore(),
+          // 社交互動
+          formatYesNoAnswer(Math.random() < 0.65)
+      ];
+  }
+
+  // 格式化是否答案
+  function formatYesNoAnswer(isYes) {
+      return { 
+          score: isYes ? "Yes" : "No",
+          text: isYes ? "Yes" : "No",
+          class: isYes ? "text-green-600" : "text-red-500"
+      };
+  }
+
+  // 修改 generateMonthData 函數
+  function generateMonthData() {
+    const data = {};
+    const supportWorkers = ["Michael Smith", "George Davies", "Emma Taylor"];
+    const patients = ["James Wilson", "Oliver Thompson", "William Parker"];
+    
+    // 將年份改為 2025
+    for (let day = 1; day <= 30; day++) {
+      const date = `2025-04-${day.toString().padStart(2, '0')}`;
+      
+      // 為每個病患生成資料
+      patients.forEach(patient => {
+        if (!data[patient]) {
+          data[patient] = {};
+        }
+        
+        // 隨機選擇 support worker
+        const supportWorker = supportWorkers[Math.floor(Math.random() * supportWorkers.length)];
+        
+        // 生成答案
+        const answers = questions.map(question => {
+          if (questionTypes[question] === "binary") {
+            return Math.random() > 0.3 ? "Yes" : "No";
+          } else {
+            const rand = Math.random();
+            if (rand > 0.6) return "Good";
+            if (rand > 0.3) return "Average";
+            return "Poor";
+          }
+        });
+
+        data[patient][date] = {
+          supportWorker: supportWorker,
+          answers: answers
+        };
+      });
+    }
+    
+    return data;
+  }
+
+  // 更新答案顏色映射
+  const answerColors = {
+    "Yes": "text-emerald-600",
+    "Good": "text-emerald-600",
+    "Average": "text-yellow-600",
+    "No": "text-red-600",
+    "Poor": "text-red-600"
+  };
+
+  // 問題類型定義
+  const questionTypes = {
+    "How is the patient's mental status today?": "rating",
+    "Did the patient take their medication on time?": "binary",
+    "Food intake score": "rating",
+    "Did the patient complete today's rehabilitation activity?": "binary",
+    "Sleep quality score": "rating",
+    "Any abnormal symptoms?": "binary",
+    "Emotional stability score": "rating",
+    "Did the patient follow the doctor's instructions?": "binary",
+    "Activity participation score": "rating",
+    "Any social interaction?": "binary",
+    "Life signs normal?": "binary",
+    "Any pain reaction?": "binary",
+    "Personal hygiene score": "rating",
+    "Communication expression score": "rating",
+    "Cognitive function score": "rating",
+    "Physical activity ability score": "rating",
+    "Skin condition score": "rating",
+    "Excretion condition score": "rating",
+    "Family interaction score": "rating",
+    "Treatment cooperation score": "rating"
+  };
+
+  // 生成資料
+  const reportHistory = generateMonthData();
+
+  // 更新表格顯示函數
+  function updateReport() {
+    const date = document.getElementById('reportDate').value;
+    const patient = document.getElementById('patientSelect').value;
+    const data = reportHistory[patient]?.[date];
+    
+    if (data) {
+      document.getElementById('supportWorkerName').textContent = data.supportWorker;
+      
+      const tbody = document.getElementById('reportTableBody');
+      tbody.innerHTML = questions.map((question, index) => {
+        const answer = data.answers[index];
+        const colorClass = answerColors[answer];
+        
+        return `
+<!-- 表格列（tr）開始 -->
+          <tr class="hover:bg-gray-50">
+<!-- 資料欄位（td） -->
+            <td class="border-b border-gray-300 px-6 py-4 text-base text-center text-gray-600 whitespace-nowrap">${index + 1}</td>
+<!-- 資料欄位（td） -->
+            <td class="border-b border-gray-300 px-6 py-4 text-base text-left text-gray-800">${question}</td>
+<!-- 資料欄位（td） -->
+            <td class="border-b border-gray-300 px-6 py-4">
+<!-- DIV 容器開始 -->
+              <div class="flex justify-center">
+                <span class="${colorClass} text-base font-semibold text-base font-semibold">${answer}</span>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    } else {
+      document.getElementById('supportWorkerName').textContent = 'No Data';
+      document.getElementById('reportTableBody').innerHTML = `
+<!-- 表格列（tr）開始 -->
+        <tr>
+<!-- 資料欄位（td） -->
+          <td colspan="3" class="text-center py-6 text-gray-500 bg-gray-50">
+            No report history for this date
+          </td>
+        </tr>
+      `;
+    }
+  }
+
+  // 初始化頁面時，也要將預設日期改為 2025 年
+  document.addEventListener('DOMContentLoaded', function() {
+    // 設置預設日期為 2025 年 4 月 1 日
+    document.getElementById('reportDate').value = '2025-04-01';
+    
+    // 初始化表格
+    updateReport();
+    
+    // 添加事件監聽器
+    document.getElementById('reportDate').addEventListener('change', updateReport);
+    document.getElementById('patientSelect').addEventListener('change', updateReport);
+  });
+
+  // 生成隨機數據
+  function generateRandomData(min, max, count) {
+    return Array.from({length: count}, () => 
+      Math.floor(Math.random() * (max - min + 1)) + min
+    );
+  }
+
+  // 週數標籤
+  const weeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+  
+  // 生成四個Support Worker的每週數據
+  const supportWorkersData = {
+    'Michael Smith': {
+      workHours: generateRandomData(35, 42, 4),
+      serviceScore: generateRandomData(88, 95, 4),
+      patientCount: generateRandomData(3, 5, 4),
+      color: 'rgb(75, 192, 192)'
+    },
+    'George Davies': {
+      workHours: generateRandomData(32, 40, 4),
+      serviceScore: generateRandomData(85, 92, 4),
+      patientCount: generateRandomData(2, 4, 4),
+      color: 'rgb(255, 99, 132)'
+    },
+    'Emma Taylor': {
+      workHours: generateRandomData(38, 45, 4),
+      serviceScore: generateRandomData(90, 98, 4),
+      patientCount: generateRandomData(4, 6, 4),
+      color: 'rgb(153, 102, 255)'
+    }
+  };
+
+  // 圖表配置
+  const chartConfig = {
+    type: 'line',
+    data: {
+      labels: weeks,
+      datasets: []
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Support Worker Weekly Statistics'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+
+  // 初始化圖表
+  const ctx = document.getElementById('supportWorkerChart').getContext('2d');
+  const chart = new Chart(ctx, chartConfig);
+
+  // 更新圖表數據
+  function updateChart(metric, selectedWorker) {
+    const datasets = [];
+    const metricLabels = {
+      'workHours': 'Weekly Work Hours',
+      'serviceScore': 'Weekly Service Score',
+      'patientCount': 'Weekly Service Patient Count'
+    };
+
+    const yAxisLabels = {
+      'workHours': 'Hours',
+      'serviceScore': 'Score',
+      'patientCount': 'Count'
+    };
+
+    if (selectedWorker === 'all') {
+      Object.entries(supportWorkersData).forEach(([name, data]) => {
+        datasets.push({
+          label: name,
+          data: data[metric],
+          borderColor: data.color,
+          tension: 0.1,
+          fill: false
+        });
+      });
+    } else {
+      const workerData = supportWorkersData[selectedWorker];
+      datasets.push({
+        label: selectedWorker,
+        data: workerData[metric],
+        borderColor: workerData.color,
+        tension: 0.1,
+        fill: false
+      });
+    }
+
+    chart.data.datasets = datasets;
+    chart.options.plugins.title.text = `Support Worker ${metricLabels[metric]} Statistics`;
+    chart.options.scales.y.title = {
+      display: true,
+      text: yAxisLabels[metric]
+    };
+    chart.update();
+  }
+
+  // 監聽下拉選單變化
+  document.getElementById('chartMetric').addEventListener('change', (e) => {
+    const selectedWorker = document.getElementById('supportWorkerSelect').value;
+    updateChart(e.target.value, selectedWorker);
+  });
+
+  document.getElementById('supportWorkerSelect').addEventListener('change', (e) => {
+    const selectedMetric = document.getElementById('chartMetric').value;
+    updateChart(selectedMetric, e.target.value);
+  });
+
+  // 初始化圖表顯示
+  updateChart('workHours', 'all');
+
+
+// 生成 2025 年 4 月的所有日期資料
+const mockData = {
+    "James Wilson": {},
+    "Oliver Thompson": {},
+    "William Parker": {}
+};
+
+// 生成所有日期的資料
+for (let day = 1; day <= 30; day++) {
+    const date = `2025-04-${day.toString().padStart(2, '0')}`;
+    
+    ["James Wilson", "Oliver Thompson", "William Parker"].forEach(patient => {
+        mockData[patient][date] = {
+            supportWorker: getConsistentSupportWorker(date, patient),
+            answers: generateDailyAnswers(date, patient)
+        };
+    });
+}</script><script>document.addEventListener('DOMContentLoaded', function () {
+  const links = document.querySelectorAll('.sidebar-link');
+  const sections = document.querySelectorAll('main section');
+
+  links.forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+
+      sections.forEach(section => {
+        section.classList.add('hidden');
+        if (section.id === targetId) {
+          section.classList.remove('hidden');
+        }
+      });
+
+      links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
+      this.classList.add('text-indigo-700', 'font-semibold');
+
+      if (targetId === 'history') {
+        setTimeout(() => {
+          if (typeof updateReport === 'function') updateReport();
+        }, 100);
+      }
+    });
+  });
+});
+
+
   document.addEventListener('DOMContentLoaded', function () {
     const links = document.querySelectorAll('.sidebar-link');
     const sections = document.querySelectorAll('main section');

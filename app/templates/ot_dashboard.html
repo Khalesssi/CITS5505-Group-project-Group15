@@ -1,0 +1,555 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen flex flex-col">
+  <div class="flex flex-1">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-100 p-6 border-r">
+    <h2 class="text-xl font-bold mb-6">Occupational Therapist</h2>
+    <ul id="sidebarLinks" class="space-y-4 text-gray-700">
+      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Profile</a></li>
+      <li><a href="#patient-info" class="sidebar-link hover:underline">Patient Info</a></li>
+      <li><a href="#schedule" class="sidebar-link hover:underline">Care Schedule</a></li>
+      <li><a href="#support-plan" class="sidebar-link hover:underline">Support Plan</a></li>
+      <li><a href="#report-record" class="sidebar-link hover:underline">Report Record</a></li>
+      <li><a href="#analysis" class="sidebar-link hover:underline">Data Analysis</a></li>
+      <li><a href="#share" class="sidebar-link hover:underline">Data Sharing</a></li>
+    </ul>
+  </aside>
+
+<!-- Right Content Wrapper -->
+<div class="flex-1 flex flex-col">
+  <main class="p-8 flex-1">
+   <!-- Profile Section -->
+<section id="profile" class="content-section">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-xl font-bold mb-4">Personal Information</h3>
+      <div class="flex items-center gap-8 mb-6 relative">
+        <div class="w-40 h-40">
+          <img src="{{ url_for('static', filename='images/ot.jpg') }}" 
+               alt="Occupational Therapist Photo" 
+               class="w-full h-full object-cover rounded-full border-4 border-indigo-500">
+        </div>
+        <div class="grid grid-cols-1 gap-2 text-gray-800">
+          <p><strong>Name:</strong> Dr. Emily Chen</p>
+          <p><strong>Email:</strong> ot@example.com</p>
+          <p><strong>Phone:</strong> 0421-888-123</p>
+          <p><strong>Position:</strong> Senior Occupational Therapist</p>
+          <p><strong>Specialty:</strong> Daily living independence & cognitive rehabilitation</p>
+        </div>
+        <p class="absolute bottom-0 right-0 text-xs text-gray-500">Account Created: 2024-03-15</p>
+      </div>
+  
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        <div>
+          <h4 class="font-semibold mb-2">Bio</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            Dr. Chen received her Doctorate in Occupational Therapy from the University of Queensland. 
+            She has extensive experience working with patients recovering from neurological injuries, 
+            including stroke and traumatic brain injury. Her passion lies in improving patient autonomy 
+            in daily life and enhancing their cognitive and fine motor skills.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Clinical Strengths</h4>
+          <ul class="list-disc pl-6 text-sm text-gray-700">
+            <li>Hand function & fine motor skills rehabilitation</li>
+            <li>Cognitive retraining programs</li>
+            <li>Environmental modification & adaptive equipment training</li>
+            <li>ADL (Activities of Daily Living) enhancement</li>
+          </ul>
+        </div>
+      </div>
+  
+      <!-- Education Section -->
+      <div class="mt-8">
+        <h4 class="font-semibold mb-2">Education</h4>
+        <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1">
+          <li>2009 – Bachelor of Occupational Therapy, Curtin University</li>
+          <li>2012 – Doctor of Occupational Therapy, University of Queensland</li>
+        </ul>
+      </div>
+  
+      <!-- Work Experience Section -->
+      <div class="mt-6">
+        <h4 class="font-semibold mb-2">Work Experience</h4>
+        <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1">
+          <li>2012–2016: OT Clinician, Princess Alexandra Hospital</li>
+          <li>2016–2020: Lead OT, St Vincent’s Hospital Brisbane</li>
+          <li>2020–Present: Senior OT Coordinator, Community Rehab Program</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+   <!-- Patient Information Section -->
+<section id="patient-info" class="content-section hidden mb-8">
+  <div class="bg-white rounded-lg shadow p-6">
+    <h3 class="text-xl font-bold mb-6">Patient Information</h3>
+
+    <!-- Patient 1 -->
+    <div class="flex gap-8 mb-10">
+      <div class="w-48 h-48">
+        <img src="{{ url_for('static', filename='images/patient_photo.jpg') }}" 
+             alt="Patient Photo" 
+             class="w-full h-full object-cover rounded-lg border-4 border-indigo-500">
+      </div>
+      <div class="flex-1 space-y-4">
+        <div class="border-b pb-4">
+          <h4 class="font-semibold mb-2">Basic Details</h4>
+          <p class="text-gray-600">Name: <span class="text-gray-800">Li Dahua</span></p>
+          <p class="text-gray-600">Patient ID: <span class="text-gray-800">PT20240315001</span></p>
+          <p class="text-gray-600">Insurance Number: <span class="text-gray-800">A123456789</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patient 2 -->
+    <div class="flex gap-8">
+      <div class="w-48 h-48">
+        <img src="{{ url_for('static', filename='images/patient_photo.jpg') }}" 
+             alt="Patient Photo" 
+             class="w-full h-full object-cover rounded-lg border-4 border-indigo-500">
+      </div>
+      <div class="flex-1 space-y-4">
+        <div class="border-b pb-4">
+          <h4 class="font-semibold mb-2">Basic Details</h4>
+          <p class="text-gray-600">Name: <span class="text-gray-800">Zhao Wu</span></p>
+          <p class="text-gray-600">Patient ID: <span class="text-gray-800">PT20240315002</span></p>
+          <p class="text-gray-600">Insurance Number: <span class="text-gray-800">B987654321</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Care Schedule Section -->
+<section id="schedule" class="content-section hidden">
+  <div class="bg-white rounded-lg shadow p-6">
+    <h3 class="text-xl font-bold mb-4">Care Schedule</h3>
+    <table class="w-full border-collapse border border-gray-300">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="border border-gray-300 px-4 py-2 font-bold">Time</th>
+          <th class="border border-gray-300 px-4 py-2 font-bold">Activity</th>
+          <th class="border border-gray-300 px-4 py-2 font-bold">Assigned Staff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2">09:00</td>
+          <td class="border border-gray-300 px-4 py-2">Morning Care</td>
+          <td class="border border-gray-300 px-4 py-2">Nurse Ms. Chen</td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2">14:00</td>
+          <td class="border border-gray-300 px-4 py-2">Rehabilitation Exercise</td>
+          <td class="border border-gray-300 px-4 py-2">Physiotherapist Mr. Lin</td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2">19:00</td>
+          <td class="border border-gray-300 px-4 py-2">Evening Care</td>
+          <td class="border border-gray-300 px-4 py-2">Nurse Ms. Wang</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+    <!-- Support Plan Section -->
+<section id="support-plan" class="content-section hidden">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-xl font-bold mb-6">Support Plan</h3>
+  
+      <!-- Patient and Date Selection -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
+          <select class="w-full border rounded-md px-3 py-2">
+            <option>Zhao Wu</option>
+            <option>Li Dahua</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+          <select class="w-full border rounded-md px-3 py-2">
+            <option>2024-04-21</option>
+            <option>2024-04-15</option>
+            <option>2024-04-08</option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- Support Plan Content -->
+      <div class="bg-gray-50 p-4 rounded space-y-4 text-sm text-gray-800">
+        <!-- Patient Info -->
+        <div>
+          <h4 class="font-semibold text-base mb-1">Patient Basic Information</h4>
+          <p>Name: Zhao Wu</p>
+          <p>Patient ID: PT20240315002</p>
+          <p>Gender: Male</p>
+          <p>Age: 65</p>
+        </div>
+  
+        <!-- Goals -->
+        <div>
+          <h4 class="font-semibold text-base mb-1 mt-4">Rehabilitation Goals</h4>
+          <ul class="list-disc list-inside">
+            <li>Improve lower limb strength and stability</li>
+            <li>Restore walking independence within 3 months</li>
+            <li>Reduce fall risk by 50%</li>
+          </ul>
+        </div>
+  
+        <!-- Therapy Recommendations -->
+        <div>
+          <h4 class="font-semibold text-base mb-1 mt-4">Therapy Recommendations</h4>
+          <ul class="list-disc list-inside">
+            <li>30-minute walking training daily</li>
+            <li>Resistance band exercises, 3 times/week</li>
+            <li>Stretching and flexibility routines after meals</li>
+          </ul>
+        </div>
+  
+        <!-- Assistance Suggestions -->
+        <div>
+          <h4 class="font-semibold text-base mb-1 mt-4">Daily Living Assistance</h4>
+          <ul class="list-disc list-inside">
+            <li>Use of walker in outdoor settings</li>
+            <li>Install grab bars in bathroom</li>
+            <li>Supervised showering support</li>
+          </ul>
+        </div>
+  
+        <!-- Home Modification Suggestions -->
+        <div>
+          <h4 class="font-semibold text-base mb-1 mt-4">Home Modification Suggestions</h4>
+          <ul class="list-disc list-inside">
+            <li>Install grab rails beside the toilet and shower area</li>
+            <li>Add a non-slip ramp at the front entrance</li>
+            <li>Provide a height-adjustable shower chair</li>
+            <li>Widen bedroom doorway for wheelchair access</li>
+            <li>Place visual labels and reminders on drawers/cabinets</li>
+          </ul>
+        </div>
+  
+        <!-- Tracking Points -->
+        <div>
+          <h4 class="font-semibold text-base mb-1 mt-4">Data Tracking Focus</h4>
+          <ul class="list-disc list-inside">
+            <li>Daily step count</li>
+            <li>Balance assessment results (weekly)</li>
+            <li>Patient-reported fatigue levels</li>
+          </ul>
+        </div>
+  
+        <!-- Last Updated -->
+        <div class="pt-2 text-gray-600 text-sm italic">
+          Last Updated: 2024-04-21 | Valid Until: 2024-07-21
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Report Record Section -->
+<section id="report-record" class="content-section hidden">
+  <div class="bg-white rounded-lg shadow p-6">
+    <h3 class="text-xl font-bold mb-4">Report Record</h3>
+
+    <!-- Selection Area -->
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Report Date</label>
+        <select class="w-full border rounded-md px-3 py-2">
+          <option>2024-04-21</option>
+          <option>2024-04-20</option>
+          <option>2024-04-19</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Patient Name</label>
+        <select class="w-full border rounded-md px-3 py-2">
+          <option>Zhao Wu</option>
+          <option>Li Dahua</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Support Worker Info -->
+    <div class="mb-6">
+      <p class="text-gray-700">Support Worker: <span class="font-semibold">Ms. Zhang</span></p>
+    </div>
+
+    <!-- Questionnaire Table -->
+    <div class="report-card bg-gray-50 p-4 rounded">
+      <table class="w-full border-collapse border border-gray-300">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="border border-gray-300 px-4 py-2">#</th>
+            <th class="border border-gray-300 px-4 py-2">Question</th>
+            <th class="border border-gray-300 px-4 py-2">Answer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2">1</td>
+            <td class="border border-gray-300 px-4 py-2">How was the patient's mental state today?</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <select class="w-full">
+                <option>1</option><option>3</option><option>5</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2">2</td>
+            <td class="border border-gray-300 px-4 py-2">Did the patient take medications on time?</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <div class="flex justify-center gap-4">
+                <label><input type="radio" name="q2" value="Y"> Y</label>
+                <label><input type="radio" name="q2" value="N"> N</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2">3</td>
+            <td class="border border-gray-300 px-4 py-2">Meal intake rating</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <select class="w-full">
+                <option>1</option><option>3</option><option>5</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2">4</td>
+            <td class="border border-gray-300 px-4 py-2">Did the patient complete today’s rehab tasks?</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <div class="flex justify-center gap-4">
+                <label><input type="radio" name="q4" value="Y"> Y</label>
+                <label><input type="radio" name="q4" value="N"> N</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2">5</td>
+            <td class="border border-gray-300 px-4 py-2">Sleep quality rating</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <select class="w-full">
+                <option>1</option><option>3</option><option>5</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2">6</td>
+            <td class="border border-gray-300 px-4 py-2">Any abnormal symptoms?</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <div class="flex justify-center gap-4">
+                <label><input type="radio" name="q6" value="Y"> Y</label>
+                <label><input type="radio" name="q6" value="N"> N</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2">7</td>
+            <td class="border border-gray-300 px-4 py-2">Emotional stability rating</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <select class="w-full">
+                <option>1</option><option>3</option><option>5</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2">8</td>
+            <td class="border border-gray-300 px-4 py-2">Did the patient follow medical advice?</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <div class="flex justify-center gap-4">
+                <label><input type="radio" name="q8" value="Y"> Y</label>
+                <label><input type="radio" name="q8" value="N"> N</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2">9</td>
+            <td class="border border-gray-300 px-4 py-2">Activity participation rating</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <select class="w-full">
+                <option>1</option><option>3</option><option>5</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2">10</td>
+            <td class="border border-gray-300 px-4 py-2">Was there social interaction?</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <div class="flex justify-center gap-4">
+                <label><input type="radio" name="q10" value="Y"> Y</label>
+                <label><input type="radio" name="q10" value="N"> N</label>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+    <!-- Data Analysis Section -->
+<section id="analysis" class="content-section hidden">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-xl font-bold mb-6">Data Analysis</h3>
+  
+      <!-- Patient Selector -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
+          <select class="w-full border rounded-md px-3 py-2">
+            <option>All</option>
+            <option>Zhao Wu</option>
+            <option>Li Dahua</option>
+          </select>
+        </div>
+        <div class="flex items-end justify-end">
+          <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Download Data</button>
+        </div>
+      </div>
+  
+      <!-- Chart Area -->
+      <div class="grid grid-cols-2 gap-6 mb-8">
+        <div>
+          <h4 class="font-semibold mb-2">Weekly Progress Chart</h4>
+          <canvas id="weeklyChart" class="w-full h-64 bg-white border rounded"></canvas>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Monthly Statistics Chart</h4>
+          <canvas id="monthlyChart" class="w-full h-64 bg-white border rounded"></canvas>
+        </div>
+      </div>
+  
+      <!-- Daily Life Task Assessment Table -->
+      <div class="mt-6">
+        <h4 class="text-lg font-semibold mb-3">Daily Life Task Assessment</h4>
+        <table class="w-full border-collapse border border-gray-300 text-sm text-gray-800">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="border border-gray-300 px-4 py-2">Task</th>
+              <th class="border border-gray-300 px-4 py-2">2024-04-21</th>
+              <th class="border border-gray-300 px-4 py-2">2024-04-14</th>
+              <th class="border border-gray-300 px-4 py-2">2024-04-07</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Dressing</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">4</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">3</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">2</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Brushing Teeth</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">5</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">5</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">4</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Toileting</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">3</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">2</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">2</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Meal Preparation</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">4</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">3</td>
+              <td class="border border-gray-300 px-4 py-2 text-center">3</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="mt-2 text-xs text-gray-500 italic">Scoring: 5 = Independent | 1 = Total Assistance Required</p>
+      </div>
+    </div>
+  </section>
+
+   <!-- Data Sharing Section -->
+<section id="share" class="content-section hidden">
+  <div class="bg-white rounded-lg shadow p-6">
+    <h3 class="text-xl font-bold mb-6">Data Sharing</h3>
+
+    <!-- Share Form -->
+    <div class="grid grid-cols-2 gap-6 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
+        <select class="w-full border rounded px-3 py-2">
+          <option>Chen Er</option>
+          <option>Zhao Wu</option>
+          <option>Li Dahua</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Select Data to Share</label>
+        <select multiple class="w-full border rounded px-3 py-2 h-32">
+          <option>Line Chart</option>
+          <option>Bar Chart</option>
+          <option>Heatmap</option>
+          <option>Support Plan</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Select Recipient</label>
+        <select class="w-full border rounded px-3 py-2">
+          <option>Dr. Li - Psychotherapist</option>
+          <option>Dr. Wang - Occupational Therapist</option>
+          <option>Dr. Chen - Supervisor</option>
+        </select>
+      </div>
+      <div class="flex items-end gap-4">
+        <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Share</button>
+        <button class="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700">Download</button>
+      </div>
+    </div>
+
+    <!-- Sharing History -->
+    <div class="grid grid-cols-2 gap-6">
+      <!-- Shared By Me -->
+      <div>
+        <h4 class="font-semibold mb-2">Patients I Shared</h4>
+        <div class="border rounded p-4 bg-gray-50 text-sm text-gray-700 space-y-2">
+          <p>Chen Er – Line Chart, Support Plan (to Dr. Li)</p>
+          <p>Zhao Wu – Heatmap (to Dr. Wang)</p>
+        </div>
+      </div>
+      <!-- Shared With Me -->
+      <div>
+        <h4 class="font-semibold mb-2">Shared With Me</h4>
+        <div class="border rounded p-4 bg-gray-50 text-sm text-gray-700 space-y-2">
+          <p>Liu Yi – Line Chart (from Dr. Li)</p>
+          <p>Wang Fang – Bar Chart, Support Plan (from Dr. Wang)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JS for Sidebar Highlighting and Section Switching -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('main section');
+
+    links.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+
+        sections.forEach(section => {
+          section.classList.add('hidden');
+          if (section.id === targetId) {
+            section.classList.remove('hidden');
+          }
+        });
+
+        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
+        this.classList.add('text-indigo-700', 'font-semibold');
+      });
+    });
+  });
+</script>
+{% endblock %}
