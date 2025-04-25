@@ -6,18 +6,18 @@
   <aside class="w-64 bg-gray-100 p-6 border-r">
     <h2 class="text-xl font-bold mb-6">Admin</h2>
     <ul id="sidebarLinks" class="space-y-4 text-gray-700">
-      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">個人資訊</a></li>
-      <li><a href="#user-list" class="sidebar-link hover:underline">使用者清單</a></li>
+      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Personal Info</a></li>
+      <li><a href="#user-list" class="sidebar-link hover:underline">User List</a></li>
     </ul>
   </aside>
 
   <!-- Main Content -->
   <main class="flex-1 p-8">
-    <!-- 個人資訊 Section -->
+    <!-- Personal Info Section -->
     <section id="profile" class="content-section space-y-6">
-      <!-- 個人資訊卡片 -->
-      <div class="bg-white rounded-lg shadow p-6 relative hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-4">個人資訊</h3>
+      <!-- Personal Info Card -->
+      <div class="bg-white rounded-lg shadow p-6 relative transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+        <h3 class="text-xl font-bold mb-4">Personal Information</h3>
         <div class="flex items-center gap-8 mb-6">
           <div class="w-40 h-40">
             <img src="{{ url_for('static', filename='images/admin_avatar.jpg') }}" 
@@ -26,48 +26,48 @@
           </div>
           <div class="grid grid-cols-1 gap-4">
             <div>
-              <p class="text-gray-600">姓名：<span class="text-gray-800">Admin</span></p>
-              <p class="text-gray-600">Email：<span class="text-gray-800">admin@example.com</span></p>
-              <p class="text-gray-600">職位：<span class="text-gray-800">系統管理員</span></p>
+              <p class="text-gray-600">Name: <span class="text-gray-800">Admin</span></p>
+              <p class="text-gray-600">Email: <span class="text-gray-800">admin@example.com</span></p>
+              <p class="text-gray-600">Position: <span class="text-gray-800">System Administrator</span></p>
             </div>
           </div>
-          <p class="absolute bottom-0 right-0 p-6 text-xs text-gray-500">帳號建立日：2024-03-15</p>
+          <p class="absolute bottom-0 right-0 p-6 text-xs text-gray-500">Account Created: 2024-03-15</p>
         </div>
       </div>
 
-      <!-- 學歷卡片 -->
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-4">學歷</h3>
+      <!-- Education Card -->
+      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+        <h3 class="text-xl font-bold mb-4">Education</h3>
         <ul class="list-disc list-inside text-gray-600 space-y-2">
-          <li>2015 - 台灣大學資訊工程系學士</li>
-          <li>2017 - 台灣大學資訊工程所碩士</li>
+          <li>2015 - Bachelor of Computer Science, National Taiwan University</li>
+          <li>2017 - Master of Computer Science, National Taiwan University</li>
         </ul>
       </div>
 
-      <!-- 工作經歷卡片 -->
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-4">工作經歷</h3>
+      <!-- Work Experience Card -->
+      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+        <h3 class="text-xl font-bold mb-4">Work Experience</h3>
         <ul class="list-disc list-inside text-gray-600 space-y-2">
-          <li>2017-2020 資深系統工程師</li>
-          <li>2020-2022 系統架構師</li>
-          <li>2022-至今 系統管理員</li>
+          <li>2017-2020 Senior Systems Engineer</li>
+          <li>2020-2022 Systems Architect</li>
+          <li>2022-Present System Administrator</li>
         </ul>
       </div>
     </section>
 
-    <!-- 使用者清單 Section -->
+    <!-- User List Section -->
     <section id="user-list" class="content-section hidden">
-      <div class="bg-white rounded-lg shadow overflow-hidden">
+      <div class="bg-white rounded-lg shadow overflow-hidden transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
         <div class="p-6">
-          <h3 class="text-xl font-semibold mb-4">使用者清單</h3>
+          <h3 class="text-xl font-semibold mb-4">User List</h3>
           <div class="overflow-x-auto">
             <table class="min-w-full">
               <thead>
                 <tr class="bg-gray-50">
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">姓名</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">角色</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最後登入時間</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Login</th>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
@@ -79,7 +79,7 @@
                         <img class="h-10 w-10 rounded-full" src="{{ url_for('static', filename='images/supervisor_avatar.jpg') }}" alt="">
                       </div>
                       <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">陳主任</div>
+                        <div class="text-sm font-medium text-gray-900">Chen Director</div>
                       </div>
                     </div>
                   </td>
@@ -104,7 +104,7 @@
                         <img class="h-10 w-10 rounded-full" src="{{ url_for('static', filename='images/guardian_avatar.jpg') }}" alt="">
                       </div>
                       <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">王小明</div>
+                        <div class="text-sm font-medium text-gray-900">Wang Xiaoming</div>
                       </div>
                     </div>
                   </td>
@@ -129,7 +129,7 @@
                         <img class="h-10 w-10 rounded-full" src="{{ url_for('static', filename='images/support_worker_avatar.jpg') }}" alt="">
                       </div>
                       <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">張小華</div>
+                        <div class="text-sm font-medium text-gray-900">Zhang Xiaohua</div>
                       </div>
                     </div>
                   </td>
@@ -154,7 +154,7 @@
                         <img class="h-10 w-10 rounded-full" src="{{ url_for('static', filename='images/physio_avatar.jpg') }}" alt="">
                       </div>
                       <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">李醫師</div>
+                        <div class="text-sm font-medium text-gray-900">Dr. Li</div>
                       </div>
                     </div>
                   </td>
@@ -179,7 +179,7 @@
                         <img class="h-10 w-10 rounded-full" src="{{ url_for('static', filename='images/ot_avatar.jpg') }}" alt="">
                       </div>
                       <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">陳治療師</div>
+                        <div class="text-sm font-medium text-gray-900">Therapist Chen</div>
                       </div>
                     </div>
                   </td>
@@ -204,7 +204,7 @@
                         <img class="h-10 w-10 rounded-full" src="{{ url_for('static', filename='images/psycho_avatar.jpg') }}" alt="">
                       </div>
                       <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">林心理師</div>
+                        <div class="text-sm font-medium text-gray-900">Psychologist Lin</div>
                       </div>
                     </div>
                   </td>
