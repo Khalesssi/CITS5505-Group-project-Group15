@@ -24,3 +24,19 @@ def ot_dashboard():
 @app.route("/psych")
 def psych_dashboard():
     return render_template("psych_dashboard.html")
+
+@app.route("/admin")
+def admin_dashboard():
+    return render_template("admin.html")
+
+@app.route("/guardian")
+def guardian_dashboard():
+    return render_template("guardian.html")
+
+@app.route("/supervisor")
+def supervisor_dashboard():
+    return render_template("supervisor.html")
+
+@app.route("/support_worker")
+def support_worker_dashboard():
+    return render_template("support_worker.html")
