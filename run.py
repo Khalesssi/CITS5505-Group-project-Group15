@@ -87,6 +87,12 @@ def login():
                 return redirect(url_for('psych_dashboard'))
             elif user.role == "Supervisor":
                 return redirect(url_for('supervisor_dashboard'))
+            elif user.role == "Occupational Therapist":
+                return redirect(url_for('ot_dashboard'))
+            elif user.role == "Guardian":
+                return redirect(url_for('guardian_dashboard'))
+            elif user.role == "Admin":
+                return redirect(url_for('admin_dashboard'))
             else:
                 return redirect(url_for('dashboard'))  
         else:
@@ -109,9 +115,13 @@ def logout():
 
 
 # Guardian route
-@app.route('/guardian')
+@app.route('/guardian_dashboard')
 def guardian_dashboard():
+    if 'user_id' not in session or session.get('role') != "Guardian":
+        flash("Access denied.")
+        return redirect(url_for('login'))
     return render_template('guardian.html')
+
 
 # Supervisor route
 @app.route('/supervisor_dashboard')
@@ -130,9 +140,13 @@ def support_worker_page():
     return render_template('support_worker.html')
 
 # Admin route
-@app.route('/admin')
+@app.route('/admin_dashboard')
 def admin_dashboard():
+    if 'user_id' not in session or session.get('role') != "Admin":
+        flash("Access denied.")
+        return redirect(url_for('login'))
     return render_template('admin.html')
+
 
 
 # Physiotherapist dashboard
@@ -146,6 +160,9 @@ def physio_dashboard():
 # Occupational Therapist dashboard
 @app.route('/ot_dashboard')
 def ot_dashboard():
+    if 'user_id' not in session or session.get('role') != "Occupational Therapist":
+        flash("Access denied.")
+        return redirect(url_for('login'))
     return render_template('ot_dashboard.html')
 
 # Psychotherapist dashboard
