@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
+
 app = Flask(__name__,
             template_folder="app/templates",     
             static_folder="app/static") 
@@ -70,6 +71,46 @@ def login():
 
     return render_template("login.html")
 
+# Guardian route
+@app.route('/guardian')
+def guardian_dashboard():
+    return render_template('guardian.html')
+
+# Supervisor route
+@app.route('/supervisor')
+def supervisor_dashboard():
+    return render_template('supervisor.html')
+
+# Support Worker route
+@app.route('/support_worker')
+def support_worker_dashboard():
+    return render_template('support_worker.html')
+
+# Admin route
+@app.route('/admin')
+def admin_dashboard():
+    return render_template('admin.html')
+
+
+# Physiotherapist dashboard
+@app.route('/physio_dashboard')
+def physio_dashboard():
+    return render_template('physio_dashboard.html')
+
+# Occupational Therapist dashboard
+@app.route('/ot_dashboard')
+def ot_dashboard():
+    return render_template('ot_dashboard.html')
+
+# Psychotherapist dashboard
+@app.route('/psych_dashboard')
+def psych_dashboard():
+    return render_template('psych_dashboard.html')
+
+# # guardian_updated dashboard
+# @app.route('/guardian_updated')
+# def guardian_updated():
+#     return render_template('guardian_updated.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

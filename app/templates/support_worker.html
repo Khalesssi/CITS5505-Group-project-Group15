@@ -6,13 +6,13 @@
   <aside class="w-64 bg-gray-100 p-6 border-r">
     <h2 class="text-xl font-bold mb-6">Support Worker</h2>
     <ul id="sidebarLinks" class="space-y-4 text-gray-700">
-      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">個人資訊</a></li>
-      <li><a href="#schedule" class="sidebar-link hover:underline">今日排班</a></li>
-      <li><a href="#daily-report" class="sidebar-link hover:underline">回報今日病患狀況</a></li>
-      <li><a href="#history" class="sidebar-link hover:underline">病患狀況歷史</a></li>
-      <li><a href="#analysis" class="sidebar-link hover:underline">數據分析結果</a></li>
-      <li><a href="#medical" class="sidebar-link hover:underline">醫囑與Guardian需求</a></li>
-      <li><a href="#weekly-overview" class="sidebar-link hover:underline">本週概覽(可選)</a></li>
+      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Personal Info</a></li>
+      <li><a href="#schedule" class="sidebar-link hover:underline">Today's Schedule</a></li>
+      <li><a href="#daily-report" class="sidebar-link hover:underline">Daily Report</a></li>
+      <li><a href="#report-record" class="sidebar-link hover:underline">Report Record</a></li>
+      <li><a href="#analysis" class="sidebar-link hover:underline">Data Analysis</a></li>
+      <li><a href="#medical" class="sidebar-link hover:underline">Medical Instructions</a></li>
+      <li><a href="#weekly-overview" class="sidebar-link hover:underline">Weekly Overview</a></li>
     </ul>
   </aside>
 
@@ -21,8 +21,8 @@
     <!-- 個人資訊 Section -->
     <section id="profile" class="content-section space-y-6">
       <!-- 個人資訊卡片 -->
-      <div class="bg-white rounded-lg shadow p-6 relative hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-4">個人資訊</h3>
+      <div class="bg-white rounded-lg shadow p-6 relative transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+        <h3 class="text-xl font-bold mb-4">Personal Information</h3>
         <div class="flex items-center gap-8 mb-6">
           <div class="w-40 h-40">
             <img src="{{ url_for('static', filename='images/support_worker_avatar.jpg') }}" 
@@ -31,38 +31,38 @@
           </div>
           <div class="grid grid-cols-1 gap-4">
             <div>
-              <p class="text-gray-600">姓名：<span class="text-gray-800">王小明</span></p>
-              <p class="text-gray-600">Email：<span class="text-gray-800">support@example.com</span></p>
-              <p class="text-gray-600">聯絡電話：<span class="text-gray-800">0912-345-678</span></p>
+              <p class="text-gray-600">Name: <span class="text-gray-800">Wang Xiaoming</span></p>
+              <p class="text-gray-600">Email: <span class="text-gray-800">support@example.com</span></p>
+              <p class="text-gray-600">Phone: <span class="text-gray-800">0912-345-678</span></p>
             </div>
           </div>
-          <p class="absolute bottom-0 right-0 p-6 text-xs text-gray-500">帳號建立日：2024-03-15</p>
+          <p class="absolute bottom-0 right-0 p-6 text-xs text-gray-500">Account Created: 2024-03-15</p>
         </div>
       </div>
 
       <!-- 學歷卡片 -->
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-4">學歷</h3>
+      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+        <h3 class="text-xl font-bold mb-4">Education</h3>
         <ul class="list-disc list-inside text-gray-600 space-y-2">
-          <li>2018 - 台北護理大學護理系學士</li>
-          <li>2020 - 照護師證照</li>
+          <li>2018 - Bachelor of Nursing, Taipei Nursing University</li>
+          <li>2020 - Caregiver Certification</li>
         </ul>
       </div>
 
       <!-- 工作經歷卡片 -->
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-4">工作經歷</h3>
+      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+        <h3 class="text-xl font-bold mb-4">Work Experience</h3>
         <ul class="list-disc list-inside text-gray-600 space-y-2">
-          <li>2020-2022 台北醫院照護師</li>
-          <li>2022-至今 居家照護師</li>
+          <li>2020-2022 Caregiver at Taipei Hospital</li>
+          <li>2022-Present Home Caregiver</li>
         </ul>
       </div>
     </section>
 
     <!-- 今日排班 Section -->
     <section id="schedule" class="content-section hidden">
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-4">今日病患資訊</h3>
+      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+        <h3 class="text-xl font-bold mb-4">Today's Patient Information</h3>
         <div class="flex gap-8">
           <div class="w-48 h-48">
             <img src="{{ url_for('static', filename='images/patient_photo.jpg') }}" 
@@ -71,29 +71,29 @@
           </div>
           <div class="flex-1 space-y-4">
             <div class="border-b pb-4">
-              <h4 class="font-semibold mb-2">基本資料</h4>
-              <p class="text-gray-600">病患姓名：<span class="text-gray-800">李大華</span></p>
-              <p class="text-gray-600">病患 ID：<span class="text-gray-800">PT20240315001</span></p>
-              <p class="text-gray-600">健保卡號：<span class="text-gray-800">A123456789</span></p>
+              <h4 class="font-semibold mb-2">Basic Information</h4>
+              <p class="text-gray-600">Patient Name: <span class="text-gray-800">Li Dahua</span></p>
+              <p class="text-gray-600">Patient ID: <span class="text-gray-800">PT20240315001</span></p>
+              <p class="text-gray-600">Insurance Number: <span class="text-gray-800">A123456789</span></p>
             </div>
           </div>
         </div>
 
         <!-- 今日任務卡片 -->
-        <div class="mt-6 bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300">
-          <h4 class="font-semibold mb-4">今日任務</h4>
+        <div class="mt-6 bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+          <h4 class="font-semibold mb-4">Today's Tasks</h4>
           <ul class="space-y-2">
             <li class="flex items-center gap-2">
               <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span>早上 9:00 - 協助用藥</span>
+              <span>09:00 - Medication Assistance</span>
             </li>
             <li class="flex items-center gap-2">
               <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span>上午 10:30 - 復健運動</span>
+              <span>10:30 - Rehabilitation Exercise</span>
             </li>
             <li class="flex items-center gap-2">
               <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span>下午 2:00 - 生命徵象檢測</span>
+              <span>14:00 - Vital Signs Check</span>
             </li>
           </ul>
         </div>
@@ -102,18 +102,18 @@
 
     <!-- 回報今日病患狀況 Section -->
     <section id="daily-report" class="content-section hidden">
-      <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-6">回報今日病患狀況</h3>
+      <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+        <h3 class="text-xl font-bold mb-6">Daily Patient Report</h3>
 
         <!-- 基本資訊 - 使用 grid 兩欄排列 -->
         <div class="grid grid-cols-2 gap-6 mb-8">
           <div class="flex items-center">
-            <span class="text-gray-700 font-medium min-w-32">回報日期：</span>
+            <span class="text-gray-700 font-medium min-w-32">Report Date:</span>
             <span class="text-gray-900">2024-03-15</span>
           </div>
           <div class="flex items-center">
-            <span class="text-gray-700 font-medium min-w-32">病患姓名：</span>
-            <span class="text-gray-900">李大華</span>
+            <span class="text-gray-700 font-medium min-w-32">Patient Name:</span>
+            <span class="text-gray-900">Li Dahua</span>
           </div>
         </div>
 
@@ -123,134 +123,134 @@
             <table class="w-full border-collapse">
               <thead class="sticky top-0 bg-white">
                 <tr class="bg-gray-100">
-                  <th class="w-24 border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-center">題號</th>
-                  <th class="max-w-xl border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-left">題目</th>
-                  <th class="w-48 border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-center">回答</th>
+                  <th class="w-24 border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-center">No.</th>
+                  <th class="max-w-xl border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-left">Question</th>
+                  <th class="w-48 border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-center">Answer</th>
                 </tr>
               </thead>
               <tbody>
                 <!-- 1. 精神狀況 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">1</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">病患今日精神狀況如何？</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">How is the patient's mental status today?</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 2. 服藥情況 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">2</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">是否按時服用藥物？</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Did the patient take their medication on time?</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>是</option>
-                      <option>否</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Yes</option>
+                      <option>No</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 3. 進食狀況 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">3</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">進食狀況評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Food intake score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 4. 復健活動 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">4</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">是否完成今日復健活動？</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Did the patient complete today's rehabilitation activity?</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>是</option>
-                      <option>否</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Yes</option>
+                      <option>No</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 5. 睡眠品質 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">5</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">睡眠品質評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Sleep quality score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 6. 異常症狀 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">6</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">是否有異常症狀？</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Any abnormal symptoms?</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>是</option>
-                      <option>否</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Yes</option>
+                      <option>No</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 7. 情緒穩定度 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">7</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">情緒穩定度評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Emotional stability score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 8. 遵醫囑執行 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">8</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">是否遵醫囑執行？</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Did the patient follow the doctor's instructions?</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>是</option>
-                      <option>否</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Yes</option>
+                      <option>No</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 9. 活動參與度 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">9</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">活動參與度評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Activity participation score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 10. 社交互動 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">10</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">是否有社交互動？</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Any social interaction?</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>是</option>
-                      <option>否</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Yes</option>
+                      <option>No</option>
                     </select>
                   </td>
                 </tr>
@@ -258,127 +258,127 @@
                 <!-- 11. 溝通能力 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">11</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">溝通表達能力評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Communication ability score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 12. 飲水狀況 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">12</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">是否攝取足夠水分？</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Did the patient drink enough water?</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>是</option>
-                      <option>否</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Yes</option>
+                      <option>No</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 13. 個人衛生 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">13</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">個人衛生狀況評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Personal hygiene score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 14. 疼痛狀況 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">14</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">是否有疼痛不適？</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Any pain or discomfort?</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>是</option>
-                      <option>否</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Yes</option>
+                      <option>No</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 15. 認知能力 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">15</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">認知能力評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Cognitive ability score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 16. 家屬互動 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">16</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">是否與家屬有良好互動？</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Good interaction with family members?</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>是</option>
-                      <option>否</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Yes</option>
+                      <option>No</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 17. 運動配合度 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">17</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">運動配合度評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Exercise compliance score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 18. 環境適應 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">18</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">環境適應程度評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Environment adaptation score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 19. 生活自理 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">19</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">生活自理能力評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Self-care ability score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
                 <!-- 20. 治療配合 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">20</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">治療配合度評分</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Treatment compliance score</td>
                   <td class="border-b border-gray-200 px-6 py-4">
                     <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>請選擇</option>
-                      <option>差</option>
-                      <option>普通</option>
-                      <option>良好</option>
+                      <option value="" disabled selected>Select</option>
+                      <option>Poor</option>
+                      <option>Average</option>
+                      <option>Good</option>
                     </select>
                   </td>
                 </tr>
@@ -390,57 +390,50 @@
         <!-- 提交按鈕 -->
         <div class="mt-6 flex justify-end">
           <button class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-colors">
-            提交回報
+            Submit Report
           </button>
         </div>
       </div>
     </section>
 
     <!-- 病患狀況歷史 Section -->
-    <section id="history" class="content-section hidden">
-      <!-- 主卡片 - 保留 hover 效果 -->
-      <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-6">回報紀錄</h3>
-        
-        <!-- 資訊欄位 - 移除 hover 效果 -->
+    <section id="report-record" class="content-section hidden">
+      <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+        <h3 class="text-xl font-bold mb-6">Patient History</h3>
+        <!-- Selection Area -->
         <div class="grid grid-cols-2 gap-6 mb-8">
           <div class="bg-gray-50 rounded-lg p-4">
             <div class="flex justify-between items-center mb-3">
-              <span class="font-medium text-gray-700">回報日期：</span>
-              <input type="date" 
-                     id="reportDate"
-                     class="border rounded-md px-3 py-1.5 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+              <span class="font-medium text-gray-700">Report Date:</span>
+              <input class="border rounded-md px-3 py-1.5 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" id="reportDate" type="date"/>
             </div>
             <div class="flex justify-between items-center">
-              <span class="font-medium text-gray-700">Support Worker：</span>
-              <span id="supportWorkerName" class="text-gray-900 font-medium">陳小明</span>
+              <span class="font-medium text-gray-700">Support Worker:</span>
+              <span class="text-gray-900 font-medium" id="supportWorkerName">No Data</span>
             </div>
           </div>
           <div class="bg-gray-50 rounded-lg p-4">
             <div class="flex justify-between items-center">
-              <span class="font-medium text-gray-700">病患姓名：</span>
-              <select id="patientSelect" 
-                      class="border rounded-md px-3 py-1.5 bg-white w-48 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="李大華">李大華</option>
-                <option value="張小明">張小明</option>
-                <option value="王大明">王大明</option>
+              <span class="font-medium text-gray-700">Patient Name:</span>
+              <select class="border rounded-md px-3 py-1.5 bg-white w-48 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" id="patientSelect">
+                <option value="James Wilson">James Wilson</option>
+                <option value="Oliver Thompson">Oliver Thompson</option>
+                <option value="William Parker">William Parker</option>
               </select>
             </div>
           </div>
         </div>
-
-        <!-- 回報紀錄表格 -->
+        <!-- Table Area -->
         <div class="overflow-hidden rounded-lg border border-gray-200">
           <table class="w-full border-collapse">
             <thead>
               <tr class="bg-gray-100">
-                <th class="w-12 border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-center">題號</th>
-                <th class="border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-left">題目</th>
-                <th class="w-48 border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-center">回答</th>
+                <th class="text-gray-800 align-middle text-sm w-12 py-3 px-4 text-center font-semibold border-gray-200 border-b whitespace-nowrap">No.</th>
+                <th class="border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-left">Question</th>
+                <th class="w-48 border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-center">Answer</th>
               </tr>
             </thead>
             <tbody id="reportTableBody">
-              <!-- 動態生成的表格內容 -->
             </tbody>
           </table>
         </div>
@@ -449,15 +442,15 @@
 
     <!-- 數據分析結果 Section -->
     <section id="analysis" class="content-section hidden">
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-4">數據分析</h3>
+      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+        <h3 class="text-xl font-bold mb-4">Data Analysis Results</h3>
         <div class="grid grid-cols-2 gap-6">
           <div>
-            <h4 class="font-semibold mb-2">每週數據圖表</h4>
+            <h4 class="font-semibold mb-2">Weekly Data Chart</h4>
             <canvas id="weeklyChart" class="w-full"></canvas>
           </div>
-      <div>
-            <h4 class="font-semibold mb-2">月度統計表</h4>
+          <div>
+            <h4 class="font-semibold mb-2">Monthly Statistics</h4>
             <canvas id="monthlyChart" class="w-full"></canvas>
           </div>
         </div>
@@ -466,52 +459,52 @@
 
     <!-- 醫囑與Guardian需求 Section -->
     <section id="medical" class="content-section hidden">
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-300">
-        <h3 class="text-xl font-bold mb-6">醫囑與Guardian需求</h3>
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-bold mb-6">Medical Instructions and Guardian Requirements</h3>
         
         <!-- 醫囑內容 -->
         <div class="mb-8">
-          <h4 class="text-lg font-semibold mb-4">醫囑指示</h4>
-          <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-400">
+          <h4 class="text-lg font-semibold mb-4">Medical Instructions</h4>
+          <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-400 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
             <ul class="space-y-2">
               <li class="flex items-start">
                 <span class="text-yellow-600 mr-2">•</span>
-                <span>血壓藥 - 每日早晚各一次，飯後服用</span>
+                <span>Blood pressure medication - Take twice daily, after meals</span>
               </li>
               <li class="flex items-start">
                 <span class="text-yellow-600 mr-2">•</span>
-                <span>活動 - 每日散步30分鐘，需有人陪同</span>
+                <span>Activity - 30 minutes of walking daily, requires accompaniment</span>
               </li>
               <li class="flex items-start">
                 <span class="text-yellow-600 mr-2">•</span>
-                <span>傷口 - 每日換藥兩次，注意保持清潔</span>
+                <span>Wound care - Change dressing twice daily, maintain cleanliness</span>
               </li>
-        </ul>
-      </div>
+            </ul>
+          </div>
         </div>
 
         <!-- Guardian需求 -->
-      <div>
-          <h4 class="text-lg font-semibold mb-4">Guardian需求</h4>
-          <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-400">
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Guardian Requirements</h4>
+          <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-400 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
             <p class="text-gray-700 mb-4">
-              特別注意事項：
+              Special Notes:
             </p>
             <ul class="space-y-2">
               <li class="flex items-start">
                 <span class="text-blue-600 mr-2">•</span>
-                <span>請特別注意病患的飲食習慣，確保按時用餐且營養均衡</span>
+                <span>Please pay special attention to the patient's eating habits, ensure meals are on time and nutritionally balanced</span>
               </li>
               <li class="flex items-start">
                 <span class="text-blue-600 mr-2">•</span>
-                <span>病患喜歡聽古典音樂，建議在下午休息時間播放音樂</span>
+                <span>The patient enjoys classical music, recommend playing music during afternoon rest time</span>
               </li>
               <li class="flex items-start">
                 <span class="text-blue-600 mr-2">•</span>
-                <span>需要定期協助病患進行簡單的伸展運動</span>
+                <span>Regular assistance with simple stretching exercises is required</span>
               </li>
-        </ul>
-      </div>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -519,7 +512,7 @@
     <!-- 本週概覽 Section -->
     <section id="weekly-overview" class="content-section hidden">
       <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-xl font-bold mb-6">本週概覽</h3>
+        <h3 class="text-xl font-bold mb-6">Weekly Overview</h3>
         
         <!-- 週期選擇 -->
         <div class="mb-6">
@@ -529,7 +522,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <span class="text-lg font-medium">2024年3月第2週</span>
+            <span class="text-lg font-medium">Week 2, March 2024</span>
             <button class="text-gray-500 hover:text-gray-700">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -540,74 +533,74 @@
 
         <!-- 本週統計 -->
         <div class="grid grid-cols-3 gap-6 mb-8">
-          <div class="bg-green-50 p-4 rounded-lg hover:shadow-lg transition-shadow duration-300">
-            <h4 class="text-sm text-green-600 font-medium mb-2">完成照護次數</h4>
-            <p class="text-2xl font-bold text-green-700">15次</p>
-            <p class="text-sm text-green-600 mt-1">較上週 +2</p>
+          <div class="bg-green-50 p-4 rounded-lg transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+            <h4 class="text-sm text-green-600 font-medium mb-2">Completed Care Sessions</h4>
+            <p class="text-2xl font-bold text-green-700">15 sessions</p>
+            <p class="text-sm text-green-600 mt-1">+2 from last week</p>
           </div>
-          <div class="bg-blue-50 p-4 rounded-lg hover:shadow-lg transition-shadow duration-300">
-            <h4 class="text-sm text-blue-600 font-medium mb-2">照護總時數</h4>
-            <p class="text-2xl font-bold text-blue-700">32小時</p>
-            <p class="text-sm text-blue-600 mt-1">較上週 +4</p>
+          <div class="bg-blue-50 p-4 rounded-lg transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+            <h4 class="text-sm text-blue-600 font-medium mb-2">Total Care Hours</h4>
+            <p class="text-2xl font-bold text-blue-700">32 hours</p>
+            <p class="text-sm text-blue-600 mt-1">+4 from last week</p>
           </div>
-          <div class="bg-purple-50 p-4 rounded-lg hover:shadow-lg transition-shadow duration-300">
-            <h4 class="text-sm text-purple-600 font-medium mb-2">服務病患數</h4>
-            <p class="text-2xl font-bold text-purple-700">4位</p>
-            <p class="text-sm text-purple-600 mt-1">較上週 +1</p>
+          <div class="bg-purple-50 p-4 rounded-lg transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+            <h4 class="text-sm text-purple-600 font-medium mb-2">Patients Served</h4>
+            <p class="text-2xl font-bold text-purple-700">4 patients</p>
+            <p class="text-sm text-purple-600 mt-1">+1 from last week</p>
           </div>
         </div>
 
         <!-- 本週工作概覽 -->
         <div class="mb-8">
-          <h4 class="text-lg font-semibold mb-4">工作日程表</h4>
-          <div class="bg-gray-50 rounded-lg p-4 hover:shadow-lg transition-shadow duration-300">
+          <h4 class="text-lg font-semibold mb-4">Work Schedule</h4>
+          <div class="bg-gray-50 rounded-lg p-4 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
             <table class="w-full">
               <thead>
                 <tr class="text-gray-500 text-sm">
-                  <th class="py-2">週一</th>
-                  <th class="py-2">週二</th>
-                  <th class="py-2">週三</th>
-                  <th class="py-2">週四</th>
-                  <th class="py-2">週五</th>
-                  <th class="py-2">週六</th>
-                  <th class="py-2">週日</th>
+                  <th class="py-2">Mon</th>
+                  <th class="py-2">Tue</th>
+                  <th class="py-2">Wed</th>
+                  <th class="py-2">Thu</th>
+                  <th class="py-2">Fri</th>
+                  <th class="py-2">Sat</th>
+                  <th class="py-2">Sun</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="text-center">
                   <td class="p-2">
-                    <div class="bg-green-100 text-green-700 rounded p-2">
-                      早班<br>2次照護
+                    <div class="bg-green-100 text-green-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+                      Morning<br>2 sessions
                     </div>
                   </td>
                   <td class="p-2">
-                    <div class="bg-yellow-100 text-yellow-700 rounded p-2">
-                      中班<br>3次照護
+                    <div class="bg-yellow-100 text-yellow-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+                      Afternoon<br>3 sessions
                     </div>
                   </td>
                   <td class="p-2">
-                    <div class="bg-green-100 text-green-700 rounded p-2">
-                      早班<br>2次照護
+                    <div class="bg-green-100 text-green-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+                      Morning<br>2 sessions
                     </div>
                   </td>
                   <td class="p-2">
-                    <div class="bg-red-100 text-red-700 rounded p-2">
-                      休假
+                    <div class="bg-red-100 text-red-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+                      Day Off
                     </div>
                   </td>
                   <td class="p-2">
-                    <div class="bg-yellow-100 text-yellow-700 rounded p-2">
-                      中班<br>2次照護
+                    <div class="bg-yellow-100 text-yellow-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+                      Afternoon<br>2 sessions
                     </div>
                   </td>
                   <td class="p-2">
-                    <div class="bg-green-100 text-green-700 rounded p-2">
-                      早班<br>3次照護
+                    <div class="bg-green-100 text-green-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+                      Morning<br>3 sessions
                     </div>
                   </td>
                   <td class="p-2">
-                    <div class="bg-red-100 text-red-700 rounded p-2">
-                      休假
+                    <div class="bg-red-100 text-red-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+                      Day Off
                     </div>
                   </td>
                 </tr>
@@ -617,20 +610,20 @@
         </div>
 
         <!-- 本週表現分析 -->
-      <div>
-          <h4 class="text-lg font-semibold mb-4">表現分析</h4>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Performance Analysis</h4>
           <div class="grid grid-cols-2 gap-6">
-            <div class="bg-gray-50 p-4 rounded-lg hover:shadow-lg transition-shadow duration-300">
-              <h5 class="text-sm font-medium text-gray-600 mb-3">照護評分分布</h5>
+            <div class="bg-gray-50 p-4 rounded-lg transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+              <h5 class="text-sm font-medium text-gray-600 mb-3">Care Rating Distribution</h5>
               <canvas id="weeklyRatingChart" class="w-full h-48"></canvas>
             </div>
-            <div class="bg-gray-50 p-4 rounded-lg hover:shadow-lg transition-shadow duration-300">
-              <h5 class="text-sm font-medium text-gray-600 mb-3">工作時數分布</h5>
+            <div class="bg-gray-50 p-4 rounded-lg transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+              <h5 class="text-sm font-medium text-gray-600 mb-3">Work Hours Distribution</h5>
               <canvas id="weeklyHoursChart" class="w-full h-48"></canvas>
             </div>
+          </div>
         </div>
       </div>
-    </div>
     </section>
   </main>
 </div>
@@ -669,20 +662,20 @@
 
   // 定義問題列表
   const questions = [
-      "病患今日精神狀況如何？",
-      "是否按時服用藥物？",
-      "進食狀況評分",
-      "是否完成今日復健活動？",
-      "睡眠品質評分",
-      "是否有異常症狀？",
-      "情緒穩定度評分",
-      "是否遵醫囑執行？",
-      "活動參與度評分",
-      "是否有社交互動？"
+      "How is the patient's mental status today?",
+      "Did the patient take their medication on time?",
+      "Food intake score",
+      "Did the patient complete today's rehabilitation activity?",
+      "Sleep quality score",
+      "Any abnormal symptoms?",
+      "Emotional stability score",
+      "Did the patient follow the doctor's instructions?",
+      "Activity participation score",
+      "Any social interaction?"
   ];
 
   // 定義可用的 Support Worker 列表
-  const supportWorkers = ["陳小明", "王小華", "林美玲", "張志明"];
+  const supportWorkers = ["Michael Smith", "George Davies", "Emma Taylor"];
 
   // 使用日期和病患名作為 key 來確保同一天同一個病患對應到同一個 Support Worker
   function getConsistentSupportWorker(date, patient) {
@@ -699,9 +692,9 @@
   function generateDailyAnswers(date, patient) {
       // 評分對應設定
       const ratings = {
-          1: { text: "差", class: "text-red-500" },
-          3: { text: "普通", class: "text-yellow-600" },
-          5: { text: "好", class: "text-green-600" }
+          1: { text: "Poor", class: "text-red-500" },
+          3: { text: "Average", class: "text-yellow-600" },
+          5: { text: "Good", class: "text-green-600" }
       };
 
       // 生成評分答案
@@ -716,25 +709,15 @@
       }
 
       return [
-          // 精神狀況
           getRandomScore(),
-          // 服藥
           formatYesNoAnswer(Math.random() < 0.7),
-          // 進食狀況
           getRandomScore(),
-          // 復健活動
           formatYesNoAnswer(Math.random() < 0.6),
-          // 睡眠品質
           getRandomScore(),
-          // 異常症狀
           formatYesNoAnswer(Math.random() > 0.8),
-          // 情緒穩定
           getRandomScore(),
-          // 遵醫囑
           formatYesNoAnswer(Math.random() < 0.75),
-          // 活動參與
           getRandomScore(),
-          // 社交互動
           formatYesNoAnswer(Math.random() < 0.65)
       ];
   }
@@ -742,24 +725,24 @@
   // 格式化是否答案
   function formatYesNoAnswer(isYes) {
       return { 
-          score: isYes ? "是" : "否",
-          text: isYes ? "是" : "否",
+          score: isYes ? "Yes" : "No",
+          text: isYes ? "Yes" : "No",
           class: isYes ? "text-green-600" : "text-red-500"
       };
   }
 
   // 生成 2025 年 4 月的所有日期資料
   const mockData = {
-      "李大華": {},
-      "張小明": {},
-      "王大明": {}
+      "James Wilson": {},
+      "Oliver Thompson": {},
+      "William Parker": {}
   };
 
   // 生成所有日期的資料
   for (let day = 1; day <= 30; day++) {
       const date = `2025-04-${day.toString().padStart(2, '0')}`;
       
-      ["李大華", "張小明", "王大明"].forEach(patient => {
+      ["James Wilson", "Oliver Thompson", "William Parker"].forEach(patient => {
           mockData[patient][date] = {
               supportWorker: getConsistentSupportWorker(date, patient),
               answers: generateDailyAnswers(date, patient)
@@ -767,45 +750,36 @@
       });
   }
 
-  // 更新表格內容的渲染函數
+  // 更新表格顯示函數
   function updateReport() {
-      const date = document.querySelector('#reportDate').value;
-      const patient = document.querySelector('#patientSelect').value;
+      const date = document.getElementById('reportDate').value;
+      const patient = document.getElementById('patientSelect').value;
+      const data = mockData[patient]?.[date];
       
-      if (mockData[patient] && mockData[patient][date]) {
-          const data = mockData[patient][date];
+      if (data) {
+          document.getElementById('supportWorkerName').textContent = data.supportWorker;
           
-          // 更新 Support Worker
-          document.querySelector('#supportWorkerName').textContent = data.supportWorker;
-          
-          // 更新表格內容
-          const tbody = document.querySelector('#reportTableBody');
-          tbody.innerHTML = '';
-          
-          questions.forEach((question, index) => {
+          const tbody = document.getElementById('reportTableBody');
+          tbody.innerHTML = questions.map((question, index) => {
               const answer = data.answers[index];
-              const row = document.createElement('tr');
-              row.className = 'hover:bg-gray-50 transition-colors duration-150';
-              
-              row.innerHTML = `
-                  <td class="border-b border-gray-200 px-4 py-3 text-center text-gray-600">${index + 1}</td>
-                  <td class="border-b border-gray-200 px-4 py-3 text-left font-medium text-gray-800">${question}</td>
-                  <td class="border-b border-gray-200 px-4 py-3">
-                      <div class="flex justify-center">
-                          <span class="${answer.class} font-semibold">${answer.text}</span>
-                      </div>
-                  </td>
+              return `
+                  <tr class="hover:bg-gray-50">
+                      <td class="border-b border-gray-300 px-6 py-4 text-base text-center text-gray-600 whitespace-nowrap">${index + 1}</td>
+                      <td class="border-b border-gray-300 px-6 py-4 text-base text-left text-gray-800">${question}</td>
+                      <td class="border-b border-gray-300 px-6 py-4">
+                          <div class="flex justify-center">
+                              <span class="${answer.class} text-base font-semibold">${answer.text}</span>
+                          </div>
+                      </td>
+                  </tr>
               `;
-              
-              tbody.appendChild(row);
-          });
+          }).join('');
       } else {
-          // 無資料時的顯示
-          document.querySelector('#supportWorkerName').textContent = "無資料";
-          document.querySelector('#reportTableBody').innerHTML = `
+          document.getElementById('supportWorkerName').textContent = 'No Data';
+          document.getElementById('reportTableBody').innerHTML = `
               <tr>
                   <td colspan="3" class="text-center py-6 text-gray-500 bg-gray-50">
-                      該日期無回報紀錄
+                      No report history for this date
                   </td>
               </tr>
           `;
@@ -814,12 +788,15 @@
 
   // 初始化頁面
   document.addEventListener('DOMContentLoaded', function() {
-      document.querySelector('#reportDate').value = '2025-04-14';
+      // 設置預設日期為 2025 年 4 月 1 日
+      document.getElementById('reportDate').value = '2025-04-01';
+      
+      // 初始化表格
       updateReport();
+      
+      // 添加事件監聽器
+      document.getElementById('reportDate').addEventListener('change', updateReport);
+      document.getElementById('patientSelect').addEventListener('change', updateReport);
   });
-
-  // 監聽日期和病患選擇的變化
-  document.querySelector('#reportDate').addEventListener('change', updateReport);
-  document.querySelector('#patientSelect').addEventListener('change', updateReport);
 </script>
 {% endblock %}
