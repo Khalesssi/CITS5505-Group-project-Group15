@@ -7,12 +7,9 @@
     <h2 class="text-xl font-bold mb-6">Support Worker</h2>
     <ul id="sidebarLinks" class="space-y-4 text-gray-700">
       <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Personal Info</a></li>
-      <li><a href="#schedule" class="sidebar-link hover:underline">Today's Schedule</a></li>
       <li><a href="#daily-report" class="sidebar-link hover:underline">Daily Report</a></li>
       <li><a href="#report-record" class="sidebar-link hover:underline">Report Record</a></li>
-      <li><a href="#analysis" class="sidebar-link hover:underline">Data Analysis</a></li>
       <li><a href="#medical" class="sidebar-link hover:underline">Medical Instructions</a></li>
-      <li><a href="#weekly-overview" class="sidebar-link hover:underline">Weekly Overview</a></li>
     </ul>
   </aside>
 
@@ -29,12 +26,10 @@
                  alt="Support Worker Photo" 
                  class="w-full h-full object-cover rounded-full border-4 border-indigo-500">
           </div>
-          <div class="grid grid-cols-1 gap-4">
-            <div>
-              <p class="text-gray-600">Name: <span class="text-gray-800">Wang Xiaoming</span></p>
-              <p class="text-gray-600">Email: <span class="text-gray-800">support@example.com</span></p>
-              <p class="text-gray-600">Phone: <span class="text-gray-800">0912-345-678</span></p>
-            </div>
+          <div class="grid grid-cols-1 gap-2">
+            <p class="text-gray-600">Name: <span class="text-gray-800">Wang Xiaoming</span></p>
+            <p class="text-gray-600">Email: <span class="text-gray-800">support@example.com</span></p>
+            <p class="text-gray-600">Phone: <span class="text-gray-800">0912-345-678</span></p>
           </div>
           <p class="absolute bottom-0 right-0 p-6 text-xs text-gray-500">Account Created: 2024-03-15</p>
         </div>
@@ -43,7 +38,7 @@
       <!-- 學歷卡片 -->
       <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
         <h3 class="text-xl font-bold mb-4">Education</h3>
-        <ul class="list-disc list-inside text-gray-600 space-y-2">
+        <ul class="list-disc list-inside text-gray-600 space-y-1">
           <li>2018 - Bachelor of Nursing, Taipei Nursing University</li>
           <li>2020 - Caregiver Certification</li>
         </ul>
@@ -52,51 +47,10 @@
       <!-- 工作經歷卡片 -->
       <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
         <h3 class="text-xl font-bold mb-4">Work Experience</h3>
-        <ul class="list-disc list-inside text-gray-600 space-y-2">
+        <ul class="list-disc list-inside text-gray-600 space-y-1">
           <li>2020-2022 Caregiver at Taipei Hospital</li>
           <li>2022-Present Home Caregiver</li>
         </ul>
-      </div>
-    </section>
-
-    <!-- 今日排班 Section -->
-    <section id="schedule" class="content-section hidden">
-      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-        <h3 class="text-xl font-bold mb-4">Today's Patient Information</h3>
-        <div class="flex gap-8">
-          <div class="w-48 h-48">
-            <img src="{{ url_for('static', filename='images/patient_photo.jpg') }}" 
-                 alt="Patient Photo" 
-                 class="w-full h-full object-cover rounded-lg border-4 border-indigo-500">
-          </div>
-          <div class="flex-1 space-y-4">
-            <div class="border-b pb-4">
-              <h4 class="font-semibold mb-2">Basic Information</h4>
-              <p class="text-gray-600">Patient Name: <span class="text-gray-800">Li Dahua</span></p>
-              <p class="text-gray-600">Patient ID: <span class="text-gray-800">PT20240315001</span></p>
-              <p class="text-gray-600">Insurance Number: <span class="text-gray-800">A123456789</span></p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 今日任務卡片 -->
-        <div class="mt-6 bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-          <h4 class="font-semibold mb-4">Today's Tasks</h4>
-          <ul class="space-y-2">
-            <li class="flex items-center gap-2">
-              <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span>09:00 - Medication Assistance</span>
-            </li>
-            <li class="flex items-center gap-2">
-              <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span>10:30 - Rehabilitation Exercise</span>
-            </li>
-            <li class="flex items-center gap-2">
-              <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span>14:00 - Vital Signs Check</span>
-            </li>
-          </ul>
-        </div>
       </div>
     </section>
 
@@ -440,186 +394,92 @@
       </div>
     </section>
 
-    <!-- 數據分析結果 Section -->
-    <section id="analysis" class="content-section hidden">
-      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-        <h3 class="text-xl font-bold mb-4">Data Analysis Results</h3>
-        <div class="grid grid-cols-2 gap-6">
-          <div>
-            <h4 class="font-semibold mb-2">Weekly Data Chart</h4>
-            <canvas id="weeklyChart" class="w-full"></canvas>
+    <!-- 醫囑 Section -->
+    <section id="medical" class="content-section hidden">
+      <div class="medical-container">
+        <h3 class="text-xl font-bold mb-4">Medical Instructions</h3>
+        
+        <!-- 添加選擇區域 -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          <div class="bg-white rounded-lg shadow p-4 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Patient Name</label>
+            <select class="w-full border rounded-md px-3 py-2">
+              <option>Li Dahua</option>
+              <option>Zhang Xiaoming</option>
+            </select>
           </div>
-          <div>
-            <h4 class="font-semibold mb-2">Monthly Statistics</h4>
-            <canvas id="monthlyChart" class="w-full"></canvas>
+          <div class="bg-white rounded-lg shadow p-4 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+            <select class="w-full border rounded-md px-3 py-2">
+              <option>2024-03-15</option>
+              <option>2024-03-14</option>
+              <option>2024-03-13</option>
+            </select>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- 醫囑與Guardian需求 Section -->
-    <section id="medical" class="content-section hidden">
-      <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-xl font-bold mb-6">Medical Instructions and Guardian Requirements</h3>
         
         <!-- 醫囑內容 -->
         <div class="mb-8">
-          <h4 class="text-lg font-semibold mb-4">Medical Instructions</h4>
-          <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-400 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-            <ul class="space-y-2">
-              <li class="flex items-start">
-                <span class="text-yellow-600 mr-2">•</span>
-                <span>Blood pressure medication - Take twice daily, after meals</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-yellow-600 mr-2">•</span>
-                <span>Activity - 30 minutes of walking daily, requires accompaniment</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-yellow-600 mr-2">•</span>
-                <span>Wound care - Change dressing twice daily, maintain cleanliness</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Guardian需求 -->
-        <div>
-          <h4 class="text-lg font-semibold mb-4">Guardian Requirements</h4>
-          <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-400 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-            <p class="text-gray-700 mb-4">
-              Special Notes:
-            </p>
-            <ul class="space-y-2">
-              <li class="flex items-start">
-                <span class="text-blue-600 mr-2">•</span>
-                <span>Please pay special attention to the patient's eating habits, ensure meals are on time and nutritionally balanced</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-blue-600 mr-2">•</span>
-                <span>The patient enjoys classical music, recommend playing music during afternoon rest time</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-blue-600 mr-2">•</span>
-                <span>Regular assistance with simple stretching exercises is required</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 本週概覽 Section -->
-    <section id="weekly-overview" class="content-section hidden">
-      <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-xl font-bold mb-6">Weekly Overview</h3>
-        
-        <!-- 週期選擇 -->
-        <div class="mb-6">
-          <div class="flex items-center gap-4">
-            <button class="text-gray-500 hover:text-gray-700">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <span class="text-lg font-medium">Week 2, March 2024</span>
-            <button class="text-gray-500 hover:text-gray-700">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- 本週統計 -->
-        <div class="grid grid-cols-3 gap-6 mb-8">
-          <div class="bg-green-50 p-4 rounded-lg transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-            <h4 class="text-sm text-green-600 font-medium mb-2">Completed Care Sessions</h4>
-            <p class="text-2xl font-bold text-green-700">15 sessions</p>
-            <p class="text-sm text-green-600 mt-1">+2 from last week</p>
-          </div>
-          <div class="bg-blue-50 p-4 rounded-lg transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-            <h4 class="text-sm text-blue-600 font-medium mb-2">Total Care Hours</h4>
-            <p class="text-2xl font-bold text-blue-700">32 hours</p>
-            <p class="text-sm text-blue-600 mt-1">+4 from last week</p>
-          </div>
-          <div class="bg-purple-50 p-4 rounded-lg transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-            <h4 class="text-sm text-purple-600 font-medium mb-2">Patients Served</h4>
-            <p class="text-2xl font-bold text-purple-700">4 patients</p>
-            <p class="text-sm text-purple-600 mt-1">+1 from last week</p>
-          </div>
-        </div>
-
-        <!-- 本週工作概覽 -->
-        <div class="mb-8">
-          <h4 class="text-lg font-semibold mb-4">Work Schedule</h4>
-          <div class="bg-gray-50 rounded-lg p-4 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-            <table class="w-full">
-              <thead>
-                <tr class="text-gray-500 text-sm">
-                  <th class="py-2">Mon</th>
-                  <th class="py-2">Tue</th>
-                  <th class="py-2">Wed</th>
-                  <th class="py-2">Thu</th>
-                  <th class="py-2">Fri</th>
-                  <th class="py-2">Sat</th>
-                  <th class="py-2">Sun</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center">
-                  <td class="p-2">
-                    <div class="bg-green-100 text-green-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-                      Morning<br>2 sessions
-                    </div>
-                  </td>
-                  <td class="p-2">
-                    <div class="bg-yellow-100 text-yellow-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-                      Afternoon<br>3 sessions
-                    </div>
-                  </td>
-                  <td class="p-2">
-                    <div class="bg-green-100 text-green-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-                      Morning<br>2 sessions
-                    </div>
-                  </td>
-                  <td class="p-2">
-                    <div class="bg-red-100 text-red-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-                      Day Off
-                    </div>
-                  </td>
-                  <td class="p-2">
-                    <div class="bg-yellow-100 text-yellow-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-                      Afternoon<br>2 sessions
-                    </div>
-                  </td>
-                  <td class="p-2">
-                    <div class="bg-green-100 text-green-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-                      Morning<br>3 sessions
-                    </div>
-                  </td>
-                  <td class="p-2">
-                    <div class="bg-red-100 text-red-700 rounded p-2 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-                      Day Off
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- 本週表現分析 -->
-        <div>
-          <h4 class="text-lg font-semibold mb-4">Performance Analysis</h4>
-          <div class="grid grid-cols-2 gap-6">
-            <div class="bg-gray-50 p-4 rounded-lg transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-              <h5 class="text-sm font-medium text-gray-600 mb-3">Care Rating Distribution</h5>
-              <canvas id="weeklyRatingChart" class="w-full h-48"></canvas>
+          <!-- Psychotherapist Instructions -->
+          <div class="mb-6">
+            <h5 class="text-md font-semibold mb-2">Psychotherapist Instructions</h5>
+            <div class="bg-orange-50 p-4 rounded border-l-4 border-orange-400 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+              <ul class="space-y-2">
+                <li class="flex items-start">
+                  <span class="text-orange-600 mr-2">•</span>
+                  <span>Encourage patient to express feelings about recovery process</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-orange-600 mr-2">•</span>
+                  <span>Practice relaxation techniques during stressful moments</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-orange-600 mr-2">•</span>
+                  <span>Monitor for signs of anxiety or depression</span>
+                </li>
+              </ul>
             </div>
-            <div class="bg-gray-50 p-4 rounded-lg transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-              <h5 class="text-sm font-medium text-gray-600 mb-3">Work Hours Distribution</h5>
-              <canvas id="weeklyHoursChart" class="w-full h-48"></canvas>
+          </div>
+          
+          <!-- Physiotherapist Instructions -->
+          <div class="mb-6">
+            <h5 class="text-md font-semibold mb-2">Physiotherapist Instructions</h5>
+            <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-400 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+              <ul class="space-y-2">
+                <li class="flex items-start">
+                  <span class="text-yellow-600 mr-2">•</span>
+                  <span>Blood pressure medication - Take twice daily, after meals</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-yellow-600 mr-2">•</span>
+                  <span>Activity - 30 minutes of walking daily, requires accompaniment</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-yellow-600 mr-2">•</span>
+                  <span>Wound care - Change dressing twice daily, maintain cleanliness</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Occupational Therapist Instructions -->
+          <div class="mb-6">
+            <h5 class="text-md font-semibold mb-2">Occupational Therapist Instructions</h5>
+            <div class="bg-green-50 p-4 rounded border-l-4 border-green-400 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+              <ul class="space-y-2">
+                <li class="flex items-start">
+                  <span class="text-green-600 mr-2">•</span>
+                  <span>Practice daily living activities with supervision</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-600 mr-2">•</span>
+                  <span>Use adaptive equipment for meal preparation</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-600 mr-2">•</span>
+                  <span>Encourage participation in leisure activities</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
