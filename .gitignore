@@ -1,6 +1,15 @@
+# Python
 __pycache__/
-*.pyc
-instance/
+*.py[cod]
+*.sqlite3
+*.db
+
+# Virtual Environments
 venv/
 .venv/
-newenv/
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
