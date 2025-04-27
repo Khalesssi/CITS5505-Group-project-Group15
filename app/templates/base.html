@@ -26,11 +26,11 @@
       <!-- Center Nav -->
     <nav class="flex-1 text-center hidden md:block">
       <div class="inline-flex space-x-6">
-        <a href="#Home" class="text-gray-700 hover:text-indigo-700">Home</a>
-        <a href="#About" class="text-gray-700 hover:text-indigo-700">About</a>
-        <a href="#Upload" class="text-gray-700 hover:text-indigo-700">Upload</a>
-        <a href="#Visualise" class="text-gray-700 hover:text-indigo-700">Visualise</a>
-        <a href="#Share" class="text-gray-700 hover:text-indigo-700">Share</a>
+        <a href="{{ url_for('home') }}#Home" class="text-gray-700 hover:text-indigo-700">Home</a>
+        <a href="{{ url_for('home') }}#About" class="text-gray-700 hover:text-indigo-700">About</a>
+        <a href="{{ url_for('home') }}#Upload" class="text-gray-700 hover:text-indigo-700">Upload</a>
+        <a href="{{ url_for('home') }}#Visualise" class="text-gray-700 hover:text-indigo-700">Visualise</a>
+        <a href="{{ url_for('home') }}#Share" class="text-gray-700 hover:text-indigo-700">Share</a>
       </div>
     </nav>
     
