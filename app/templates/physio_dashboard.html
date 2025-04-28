@@ -149,110 +149,117 @@
 
     <!-- Support Plan Section -->
 <section id="support-plan" class="content-section hidden">
-  <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-    <h3 class="text-xl font-bold mb-6">Support Plan</h3>
-
-    <!-- Patient and Date Selection -->
-    <div class="grid grid-cols-2 gap-4 mb-6">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
-        <select class="w-full border rounded-md px-3 py-2">
-          <option>Zhao Wu</option>
-          <option>Li Dahua</option>
-        </select>
+    <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+      <h3 class="text-xl font-bold mb-6">Support Plan</h3>
+  
+      <!-- Patient and Date Selection -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
+          <select id="patient-select" class="w-full border rounded-md px-3 py-2">
+            <option value="">-- Select Patient --</option>
+            <option value="Zhao Wu">Zhao Wu</option>
+            <option value="Li Dahua">Li Dahua</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+          <input type="date" id="plan-date" class="w-full border rounded-md px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Valid Until</label>
+          <input type="date" id="valid-until" class="w-full border rounded-md px-3 py-2" />
+        </div>
       </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
-        <select class="w-full border rounded-md px-3 py-2">
-          <option>2024-04-21</option>
-          <option>2024-04-15</option>
-          <option>2024-04-08</option>
-        </select>
+  
+      <!-- Auto-Fill Patient Info -->
+      <div id="patient-info" class="bg-gray-50 p-4 rounded space-y-2 text-sm text-gray-800 hidden">
+        <h4 class="font-semibold text-base mb-2">Patient Basic Information</h4>
+        <p id="patient-name"></p>
+        <p id="patient-id"></p>
+        <p id="patient-gender"></p>
+        <p id="patient-age"></p>
       </div>
-    </div>
-
-    <!-- Support Plan Content -->
-    <div class="bg-gray-50 p-4 rounded space-y-4 text-sm text-gray-800">
-      <!-- Patient Info -->
-      <div>
-        <h4 class="font-semibold text-base mb-1">Patient Basic Information</h4>
-        <p>Name: Zhao Wu</p>
-        <p>Patient ID: PT20240315002</p>
-        <p>Gender: Male</p>
-        <p>Age: 65</p>
+  
+      <!-- Fillable Sections -->
+      <div class="space-y-6 mt-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Rehabilitation Goals</label>
+          <textarea id="goals" rows="3" class="w-full border rounded-md px-3 py-2"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Therapy Recommendations</label>
+          <textarea id="therapy" rows="3" class="w-full border rounded-md px-3 py-2"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Daily Living Assistance</label>
+          <textarea id="assistance" rows="3" class="w-full border rounded-md px-3 py-2"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Data Tracking Focus</label>
+          <textarea id="tracking" rows="3" class="w-full border rounded-md px-3 py-2"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Exercise Prescription Library</label>
+          <textarea id="exercise" rows="3" class="w-full border rounded-md px-3 py-2"></textarea>
+        </div>
       </div>
-
-      <!-- Goals -->
-      <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Rehabilitation Goals</h4>
-        <ul class="list-disc list-inside">
-          <li>Improve lower limb strength and stability</li>
-          <li>Restore walking independence within 3 months</li>
-          <li>Reduce fall risk by 50%</li>
-        </ul>
-      </div>
-
-      <!-- Therapy Recommendations -->
-      <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Therapy Recommendations</h4>
-        <ul class="list-disc list-inside">
-          <li>30-minute walking training daily</li>
-          <li>Resistance band exercises, 3 times/week</li>
-          <li>Stretching and flexibility routines after meals</li>
-        </ul>
-      </div>
-
-      <!-- Assistance Suggestions -->
-      <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Daily Living Assistance</h4>
-        <ul class="list-disc list-inside">
-          <li>Use of walker in outdoor settings</li>
-          <li>Install grab bars in bathroom</li>
-          <li>Supervised showering support</li>
-        </ul>
-      </div>
-
-      <!-- Tracking Points -->
-      <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Data Tracking Focus</h4>
-        <ul class="list-disc list-inside">
-          <li>Daily step count</li>
-          <li>Balance assessment results (weekly)</li>
-          <li>Patient-reported fatigue levels</li>
-        </ul>
-      </div>
-
-      <!-- Exercise Prescription Library -->
-      <div>
-        <h4 class="font-semibold text-base mb-1 mt-4">Exercise Prescription Library</h4>
-        <p class="text-sm mb-2">Standard training plans for common conditions:</p>
-        <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
-          <li>
-            <span class="font-medium">Post-Stroke Recovery:</span>
-            Balance board training, sit-to-stand drills, stair stepping.
-          </li>
-          <li>
-            <span class="font-medium">Knee Osteoarthritis:</span>
-            Low-impact cycling, wall squats, quadriceps strengthening.
-          </li>
-          <li>
-            <span class="font-medium">Lower Back Pain:</span>
-            Core stability exercises, pelvic tilts, lumbar mobility stretches.
-          </li>
-          <li>
-            <span class="font-medium">Hip Replacement Rehab:</span>
-            Heel slides, glute bridges, supported side leg lifts.
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Last Updated -->
-      <div class="pt-2 text-gray-600 text-sm italic">
-        Last Updated: 2024-04-21 | Valid Until: 2024-07-21
+  
+      <!-- Preview and Submit -->
+      <div class="mt-8">
+        <h4 class="text-lg font-bold mb-4">Summary Preview</h4>
+        <div id="summary" class="bg-gray-100 p-4 rounded space-y-3 text-sm"></div>
+        <button id="submit-plan" class="mt-6 bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700">Send to Guardian</button>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  
+  <script>
+    // Patient info database
+    const patients = {
+      'Zhao Wu': { id: 'PT20240315002', gender: 'Male', age: 65 },
+      'Li Dahua': { id: 'PT20240315003', gender: 'Female', age: 70 }
+    };
+  
+    document.getElementById('patient-select').addEventListener('change', function() {
+      const selected = this.value;
+      const infoDiv = document.getElementById('patient-info');
+      if (patients[selected]) {
+        infoDiv.classList.remove('hidden');
+        document.getElementById('patient-name').innerText = `Name: ${selected}`;
+        document.getElementById('patient-id').innerText = `Patient ID: ${patients[selected].id}`;
+        document.getElementById('patient-gender').innerText = `Gender: ${patients[selected].gender}`;
+        document.getElementById('patient-age').innerText = `Age: ${patients[selected].age}`;
+      } else {
+        infoDiv.classList.add('hidden');
+      }
+    });
+  
+    document.getElementById('submit-plan').addEventListener('click', function() {
+      const patient = document.getElementById('patient-select').value;
+      const date = document.getElementById('plan-date').value;
+      const validUntil = document.getElementById('valid-until').value;
+      const goals = document.getElementById('goals').value;
+      const therapy = document.getElementById('therapy').value;
+      const assistance = document.getElementById('assistance').value;
+      const tracking = document.getElementById('tracking').value;
+      const exercise = document.getElementById('exercise').value;
+  
+      const summaryDiv = document.getElementById('summary');
+      summaryDiv.innerHTML = `
+        <p><strong>Patient:</strong> ${patient}</p>
+        <p><strong>Date:</strong> ${date}</p>
+        <p><strong>Valid Until:</strong> ${validUntil}</p>
+        <p><strong>Rehabilitation Goals:</strong><br>${goals.replace(/\n/g, '<br>')}</p>
+        <p><strong>Therapy Recommendations:</strong><br>${therapy.replace(/\n/g, '<br>')}</p>
+        <p><strong>Daily Living Assistance:</strong><br>${assistance.replace(/\n/g, '<br>')}</p>
+        <p><strong>Data Tracking Focus:</strong><br>${tracking.replace(/\n/g, '<br>')}</p>
+        <p><strong>Exercise Prescription Library:</strong><br>${exercise.replace(/\n/g, '<br>')}</p>
+      `;
+  
+      // 這裡可以加一個真正"發送給Guardian"的後端接口調用，例如fetch API，這裡暫時只是Preview
+    });
+  </script>
 
     <!-- Report Record Section -->
 <section id="report-record" class="content-section hidden">
@@ -319,7 +326,7 @@
     </div>
 
     <!-- Chart Area -->
-    <div class="grid grid-cols-2 gap-6 mb-10">
+    <div class="grid grid-cols-2 gap-6 mb-8">
       <div>
         <h4 class="font-semibold mb-2">Weekly Progress Chart</h4>
         <canvas id="weeklyChart" class="w-full h-64 bg-white border rounded"></canvas>
@@ -329,6 +336,60 @@
         <canvas id="monthlyChart" class="w-full h-64 bg-white border rounded"></canvas>
       </div>
     </div>
+
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Weekly Progress Chart
+      const ctxWeekly = document.getElementById('weeklyChart').getContext('2d');
+      const weeklyChart = new Chart(ctxWeekly, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Step Count',
+            data: [3000, 5000, 5200, 4800, 5200, 5800, 6000],
+            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+            borderColor: 'rgba(59, 130, 246, 1)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // Monthly Statistics Chart
+      const ctxMonthly = document.getElementById('monthlyChart').getContext('2d');
+      const monthlyChart = new Chart(ctxMonthly, {
+        type: 'bar',
+        data: {
+          labels: ['Hip', 'Knee', 'Ankle'],
+          datasets: [{
+            label: 'Range of Motion',
+            data: [110, 140, 70],
+            backgroundColor: 'rgba(34, 197, 94, 0.5)',
+            borderColor: 'rgba(34, 197, 94, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
 
     <!-- Rehab Progress Tracker -->
     <div class="mt-8">
@@ -357,7 +418,7 @@
     <h3 class="text-xl font-bold mb-6">Data Sharing</h3>
 
     <!-- Share Form -->
-    <div class="grid grid-cols-2 gap-6 mb-6">
+    <div class="space-y-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
         <select class="w-full border rounded px-3 py-2">
@@ -366,6 +427,7 @@
           <option>Li Dahua</option>
         </select>
       </div>
+
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Select Data to Share</label>
         <select multiple class="w-full border rounded px-3 py-2 h-32">
@@ -375,6 +437,7 @@
           <option>Support Plan</option>
         </select>
       </div>
+
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Select Recipient</label>
         <select class="w-full border rounded px-3 py-2">
@@ -383,7 +446,8 @@
           <option>Dr. Chen - Supervisor</option>
         </select>
       </div>
-      <div class="flex items-end gap-4">
+
+      <div class="flex justify-center gap-6 mt-4">
         <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Share</button>
         <button class="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700">Download</button>
       </div>
@@ -392,15 +456,16 @@
     <!-- Sharing History -->
     <div class="grid grid-cols-2 gap-6">
       <!-- Shared By Me -->
-      <div>
+      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition duration-300">
         <h4 class="font-semibold mb-2">Patients I Shared</h4>
         <div class="border rounded p-4 bg-gray-50 text-sm text-gray-700 space-y-2">
           <p>Chen Er – Line Chart, Support Plan (to Dr. Li)</p>
           <p>Zhao Wu – Heatmap (to Dr. Wang)</p>
         </div>
       </div>
+
       <!-- Shared With Me -->
-      <div>
+      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition duration-300">
         <h4 class="font-semibold mb-2">Shared With Me</h4>
         <div class="border rounded p-4 bg-gray-50 text-sm text-gray-700 space-y-2">
           <p>Liu Yi – Line Chart (from Dr. Li)</p>
