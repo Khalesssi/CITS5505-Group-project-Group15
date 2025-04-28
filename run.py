@@ -3,6 +3,8 @@ import re
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime, date
+
 
 # Flask setup
 app = Flask(__name__,
@@ -12,12 +14,31 @@ app.secret_key = "your-secret-key"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
-# Create database 
+# ---------------------- Create database ------------------------
+
+# User table
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True) # User id
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False) 
     role = db.Column(db.String(50), nullable=False)
+    last_login = db.Column(db.DateTime, default=datetime.utcnow)  # Default login time is now
+
+# Patient table
+class Patient(db.Model):
+    id = db.Column(db.Integer, primary_key=True)  # Patient ID
+    name = db.Column(db.String(100), nullable=False)
+    date_of_birth = db.Column(db.Date, nullable=False)
+    gender = db.Column(db.String(10), nullable=False)
+    guardian_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Link to the Gardian
+    medical_info = db.Column(db.Text, nullable=True)
+    notes = db.Column(db.Text, nullable=True)
+
+# Assignment table
+class Assignment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # SW or Therapist
+    patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
 
 with app.app_context():
     db.create_all()
@@ -178,6 +199,132 @@ def psych_dashboard():
 # def guardian_updated():
 #     return render_template('guardian_updated.html')
 
+# Test data
+
+# Test user data
+from werkzeug.security import generate_password_hash
+from run import db, User
+from run import app  # 确保导入了app对象
+
+with app.app_context():
+
+# Test user data
+
+#     if User.query.first() is None:
+#         guardian = User(
+#         email='guardian@outlook.com',
+#         password=generate_password_hash('112233'),
+#         role='Guardian'
+#     )
+#         support_worker = User(
+#         email='supportworker@outlook.com',
+#         password=generate_password_hash('12345678'),
+#         role='Support Worker'
+#     )
+#         physiotherapist = User(
+#         email='physio@example.com',
+#         password=generate_password_hash('11223344'),
+#         role='Physiotherapist'
+#     )
+#         ot = User(
+#         email='OT@outlook.com',
+#         password=generate_password_hash('123456'),
+#         role='Occupational Therapist'
+#     )
+#         psychotherapist = User(
+#         email='psych@outlook.com',
+#         password=generate_password_hash('7654321'),
+#         role='Psychotherapist'
+#     )
+#         admin = User(
+#         email='admin@outlook.com',
+#         password=generate_password_hash('13579'),
+#         role='Admin'
+#     )
+
+#         db.session.add_all([guardian, support_worker, physiotherapist, ot, psychotherapist, admin])
+#         db.session.commit()
+#         print('Successfully add user!')
+#     else:
+#         print('Users exist!')
+
+# from run import Patient
+
+# with app.app_context():
+#     if Patient.query.first() is None:
+#         patient1 = Patient(
+#             name="Alice Johnson",
+#             date_of_birth=date(1990, 5, 10),
+#             gender="Female",
+#             guardian_id=1,
+#             medical_info="Loss of coordination",
+#             notes="Needs inhaler during exercise."
+#         )
+#         patient2 = Patient(
+#             name="Bob Smith",
+#             date_of_birth=date(1985, 8, 20),
+#             gender="Male",
+#             guardian_id=1,
+#             medical_info="Delusions",
+#             notes="Requires insulin shots."
+#         )
+#         patient3 = Patient(
+#             name="Charlie Lee",
+#             date_of_birth=date(2000, 3, 5),
+#             gender="Male",
+#             guardian_id=1,
+#             medical_info="Vision loss",
+#             notes="Healthy"
+#         )
+#         patient4 = Patient(
+#             name="Diana Moore",
+#             date_of_birth=date(1995, 12, 12),
+#             gender="Female",
+#             guardian_id=1,
+#             medical_info="Depression",
+#             notes="Avoid certain foods."
+#         )
+#         patient5 = Patient(
+#             name="Ethan Brown",
+#             date_of_birth=date(1992, 9, 9),
+#             gender="Male",
+#             guardian_id=1,
+#             medical_info="Epilepsy",
+#             notes="Takes medication daily."
+#         )
+
+#         db.session.add_all([patient1, patient2, patient3, patient4, patient5])
+#         db.session.commit()
+#         print('Successfully add patients!')
+#     else:
+#         print('Patients exist!')
+
+# Test data for assignment arrangement
+
+    # from run import Assignment
+    # with app.app_context():
+    #     if Assignment.query.first() is None:
+    #         assignment1 = Assignment(user_id=2, patient_id=1)  # Support Worker has patient 1&2
+    #         assignment2 = Assignment(user_id=2, patient_id=2)  
+        
+    #         assignment3 = Assignment(user_id=3, patient_id=2)  # Physiotherapist has patient 2&3
+    #         assignment4 = Assignment(user_id=3, patient_id=3)  
+        
+    #         assignment5 = Assignment(user_id=4, patient_id=4)  # OT has patient 4&5
+    #         assignment6 = Assignment(user_id=4, patient_id=5)  
+        
+    #         assignment7 = Assignment(user_id=5, patient_id=1)  # Psychotherapist has patient 1&5
+    #         assignment8 = Assignment(user_id=5, patient_id=5)  
+
+    #         db.session.add_all([assignment1, assignment2, assignment3, assignment4, assignment5, assignment6, assignment7, assignment8])
+    #         db.session.commit()
+    #         print('Successfully add assignment!')
+    #     else:
+    #         print('Assignment exist!')
+
+
+
+
 # start app
-if __name__ == "__main__":
-    app.run(debug=True)
+    if __name__ == "__main__":
+        app.run(debug=True)
