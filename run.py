@@ -3,7 +3,7 @@ import re
 from flask import render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import app, db  # ✅ 只导入，不重新创建
+from app import app, db  # 只导入，不重新创建
 from datetime import date
 from app.models import User, Patient, Assignment, Report
 
