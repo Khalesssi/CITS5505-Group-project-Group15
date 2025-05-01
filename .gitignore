@@ -11,5 +11,7 @@ venv/
 # VSCode
 .vscode/
 
+instance/site.db
+
 # macOS
 .DS_Store

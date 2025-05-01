@@ -1,44 +1,21 @@
 # import part 
 import re
-from flask import Flask, render_template, request, redirect, url_for, flash, session
-from flask_sqlalchemy import SQLAlchemy
+from flask import render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime, date
+
+from app import app, db  # ✅ 只导入，不重新创建
+from datetime import date
+from app.models import User, Patient, Assignment, Report
 
 
-# Flask setup
-app = Flask(__name__,
-            template_folder="app/templates",
-            static_folder="app/static")
-app.secret_key = "your-secret-key"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
+# Flask stup
+#app = Flask(__name__,
+#            template_folder="app/templates",
+#            static_folder="app/static")
+#app.secret_key = "your-secret-key"
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+#db = SQLAlchemy(app)
 
-# ---------------------- Create database ------------------------
-
-# User table
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True) # User id
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False) 
-    role = db.Column(db.String(50), nullable=False)
-    last_login = db.Column(db.DateTime, default=datetime.utcnow)  # Default login time is now
-
-# Patient table
-class Patient(db.Model):
-    id = db.Column(db.Integer, primary_key=True)  # Patient ID
-    name = db.Column(db.String(100), nullable=False)
-    date_of_birth = db.Column(db.Date, nullable=False)
-    gender = db.Column(db.String(10), nullable=False)
-    guardian_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Link to the Gardian
-    medical_info = db.Column(db.Text, nullable=True)
-    notes = db.Column(db.Text, nullable=True)
-
-# Assignment table
-class Assignment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # SW or Therapist
-    patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
 
 with app.app_context():
     db.create_all()
@@ -126,7 +103,6 @@ def login():
 
 
 
-
 # Logout
 @app.route('/logout')
 def logout():
@@ -158,7 +134,16 @@ def support_worker_page():
     if 'user_id' not in session or session.get('role') != "Support Worker":
         flash("Access denied.")
         return redirect(url_for('login'))
-    return render_template('support_worker.html')
+
+    # Grt current sw id
+    sw_id = session['user_id']
+    print("SW ID in session:", sw_id)
+
+    # check all the client assignmented for sw
+    assigned_patients = db.session.query(Patient).join(Assignment).filter(Assignment.user_id == sw_id).all()
+    return render_template('support_worker.html', patients=assigned_patients)
+
+
 
 # Admin route
 @app.route('/admin_dashboard')
@@ -194,19 +179,73 @@ def psych_dashboard():
         return redirect(url_for('login'))
     return render_template('psych_dashboard.html')
 
-# # guardian_updated dashboard
+@app.route('/submit_report', methods=['POST'])
+def submit_report():
+    # Get user information
+    support_worker_id = session.get('user_id')
+    patient_id = request.form.get('patient_id')
+    print("Received patient_id:", patient_id)
+
+    if not patient_id:
+        flash("Please select a patient.")
+        return redirect(url_for('support_worker_page'))  
+
+    # Get answer
+    report = Report(
+        support_worker_id=support_worker_id,
+        patient_id=patient_id,
+        report_date=date.today(),
+
+        q1_emotion_stable=request.form.get('question1'),
+        q2_pain_present=request.form.get('question2'),
+        q3_energy_level=request.form.get('question3'),
+        q4_food_intake=request.form.get('question4'),
+        q5_daily_activity=request.form.get('question5'),
+
+        q6_physio_completion=request.form.get('question6'),
+        q7_post_exercise_pain=request.form.get('question7'),
+        q8_balance_score=request.form.get('question8'),
+
+        q9_selfcare_willingness=request.form.get('question9'),
+        q10_household_task=request.form.get('question10'),
+        q11_skill_learning=request.form.get('question11'),
+
+        q12_emotion_fluctuation=request.form.get('question12'),
+        q13_social_willingness=request.form.get('question13'),
+        q14_therapy_response=request.form.get('question14'),
+        q15_anxiety_depression=request.form.get('question15')
+    )
+
+    # Put in the database
+    db.session.add(report)
+    db.session.commit()
+    flash(" Report submitted successfully!")
+
+    return redirect(url_for('support_worker_page'))
+
+# guardian_updated dashboard
 # @app.route('/guardian_updated')
 # def guardian_updated():
 #     return render_template('guardian_updated.html')
 
-# Test data
+#------------------------------ Test data-----------------------------------
 
-# Test user data
-from werkzeug.security import generate_password_hash
-from run import db, User
-from run import app  # 确保导入了app对象
+# # Test data for new sw
+# from app import app, db
+# from app.models import User
+# from werkzeug.security import generate_password_hash
 
-with app.app_context():
+# with app.app_context():
+#     sw1 = User(email='sw1@outlook.com', password=generate_password_hash('sw1'), role='Support Worker')
+#     sw2 = User(email='sw2@outlook.com', password=generate_password_hash('sw2'), role='Support Worker')
+#     sw3 = User(email='sw3@outlook.com', password=generate_password_hash('sw3'), role='Support Worker')
+
+#     db.session.add_all([sw1, sw2, sw3])
+#     db.session.commit()
+
+#     print('SWs inserted successfully!')
+
+
 
 # Test user data
 
@@ -323,8 +362,22 @@ with app.app_context():
     #         print('Assignment exist!')
 
 
+    
+# from app.models import Assignment
+# from app import db, app
+
+# with app.app_context():
+#     assignments = [
+#         Assignment(user_id=7, patient_id=1),
+#         Assignment(user_id=7, patient_id=2),
+#         Assignment(user_id=7, patient_id=3)
+#     ]
+#     db.session.add_all(assignments)
+#     db.session.commit()
+#     print("Successfully import Support Worker 7 with client 1, 2, 3")
+
 
 
 # start app
-    if __name__ == "__main__":
-        app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
