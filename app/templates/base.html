@@ -33,15 +33,20 @@
         <a href="{{ url_for('home') }}#Share" class="text-gray-700 hover:text-indigo-700">Share</a>
       </div>
     </nav>
-    
-    
-      <!-- Right Buttons -->
-    <div class="hidden md:flex items-center space-x-3">
-      <a href="/login" class="text-indigo-600 font-medium">Login</a>
-      <a href="/register" class="bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 whitespace-nowrap">Get Started</a>
-    </div>
+
+    <!-- Right Buttons -->
+     <div class="hidden md:flex items-center space-x-4">
+      {% if current_user.is_authenticated %}
+      <span class="text-gray-700">Welcome, {{ current_user.email }} ({{ current_user.role }})</span>
+      <a href="{{ url_for('auth.logout') }}" class="text-red-600 hover:underline">Logout</a>
+      {% else %}
+      <a href="{{ url_for('auth.login') }}" class="text-indigo-600 font-medium">Login</a>
+      <a href="{{ url_for('auth.register') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 whitespace-nowrap">Get Started</a>
+      {% endif %}
     </div>
   </div>
+</div>
+</div>
 
   <!-- Space between nav bar and content -->
   <div class="h-20"></div>
@@ -87,10 +92,6 @@
     </div>
     <p class="text-center text-sm mt-8 text-gray-500">© 2025 Best Care — Made with ❤️ by your team.</p>
   </footer>
-
-  <!-- I think there is a duplicate one -->
-  <!-- FontAwesome
-  <script src="https://kit.fontawesome.com/aa08d20a7f.js" crossorigin="anonymous"></script> -->
 
   <!-- JS -->
   <script src="{{ url_for('static', filename='js/home.js') }}"></script>
