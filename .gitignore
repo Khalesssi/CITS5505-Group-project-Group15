@@ -3,13 +3,22 @@ __pycache__/
 *.py[cod]
 *.sqlite3
 # *.db
+instance/
 
 # Virtual Environments
 venv/
 .venv/
+venv-*/
+.venv-*/
+venv-feature-refactor/
 
 # VSCode
 .vscode/
 
 # macOS
 .DS_Store
+
+# pycache
+__pycache__/
+*.pyc
+*.pyo
