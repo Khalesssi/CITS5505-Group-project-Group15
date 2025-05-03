@@ -10,7 +10,7 @@ venv/
 
 # VSCode
 .vscode/
-
+__pycache__/
 instance/site.db
 
 # macOS
