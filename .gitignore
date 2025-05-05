@@ -14,11 +14,8 @@ venv-feature-refactor/
 
 # VSCode
 .vscode/
+__pycache__/
+instance/site.db
 
 # macOS
 .DS_Store
-
-# pycache
-__pycache__/
-*.pyc
-*.pyo
