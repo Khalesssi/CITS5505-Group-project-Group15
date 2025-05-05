@@ -37,7 +37,7 @@
     <!-- Right Buttons -->
      <div class="hidden md:flex items-center space-x-4">
       {% if current_user.is_authenticated %}
-      <span class="text-gray-700">Welcome, {{ current_user.email }} ({{ current_user.role }})</span>
+      <span class="text-gray-700">Welcome, {{ current_user.role }} {{ current_user.full_name }}</span>
       <a href="{{ url_for('auth.logout') }}" class="text-red-600 hover:underline">Logout</a>
       {% else %}
       <a href="{{ url_for('auth.login') }}" class="text-indigo-600 font-medium">Login</a>
