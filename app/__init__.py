@@ -1,14 +1,40 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+# app/__init__.py
 
-db = SQLAlchemy()
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+from flask import Flask,render_template
+from config import Config
+from app.extensions import db, login_manager, migrate
 
 
-db.init_app(app) 
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-from app import routes, models  
+    # 初始化扩展
+    db.init_app(app)
+    login_manager.init_app(app)
+    login_manager.login_view = "auth.login"
+    migrate.init_app(app, db)
+
+    # 注册蓝图
+
+    from app.auth import auth_bp
+    from app.dashboard import dashboard_bp
+    # from app.questionnaire import questionnaire_bp
+    # from app.chart import chart_bp
+    # from app.plan import plan_bp
+    # from app.share import share_bp
+
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(dashboard_bp)
+    # app.register_blueprint(questionnaire_bp)
+    # app.register_blueprint(chart_bp)
+    # app.register_blueprint(plan_bp)
+    # app.register_blueprint(share_bp)
+
+    @app.route("/")
+    def home():
+        return render_template("home.html")
+
+    from app import models
+
+    return app
