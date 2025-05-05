@@ -5,7 +5,7 @@
   <div class="flex flex-1">
   <!-- Sidebar -->
   <aside class="w-64 bg-gray-100 p-6 border-r">
-    <h2 class="text-xl font-bold mb-6">Physiotherapist</h2>
+    <h2 class="text-xl font-bold mb-6">{{ current_user.role  }} - {{ current_user.specialty  }}</h2>
     <ul id="sidebarLinks" class="space-y-4 text-gray-700">
       <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Profile</a></li>
       <li><a href="#patient-info" class="sidebar-link hover:underline">Patient Info</a></li>
@@ -74,45 +74,9 @@
 </section>
 
    <!-- Patient Information Section -->
-<section id="patient-info" class="content-section hidden mb-8">
-  <!-- Patient 1 Card -->
-  <div class="bg-white rounded-lg shadow p-6 mb-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-    <div class="flex gap-8">
-      <div class="w-48 h-48">
-        <img src="{{ url_for('static', filename='images/patient_photo.jpg') }}" 
-             alt="Patient Photo" 
-             class="w-full h-full object-cover rounded-lg border-4 border-indigo-500">
-      </div>
-      <div class="flex-1 space-y-4">
-        <div class="pb-4">
-          <h4 class="font-semibold mb-2">Basic Details</h4>
-          <p class="text-gray-600">Name: <span class="text-gray-800">Li Dahua</span></p>
-          <p class="text-gray-600">Patient ID: <span class="text-gray-800">PT20240315001</span></p>
-          <p class="text-gray-600">Insurance Number: <span class="text-gray-800">A123456789</span></p>
-        </div>
-      </div>
-    </div>
-  </div>
+   {% include "dashboard/patient_info.html" %}
 
-  <!-- Patient 2 Card -->
-  <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-    <div class="flex gap-8">
-      <div class="w-48 h-48">
-        <img src="{{ url_for('static', filename='images/patient_photo.jpg') }}" 
-             alt="Patient Photo" 
-             class="w-full h-full object-cover rounded-lg border-4 border-indigo-500">
-      </div>
-      <div class="flex-1 space-y-4">
-        <div class="pb-4">
-          <h4 class="font-semibold mb-2">Basic Details</h4>
-          <p class="text-gray-600">Name: <span class="text-gray-800">Zhao Wu</span></p>
-          <p class="text-gray-600">Patient ID: <span class="text-gray-800">PT20240315002</span></p>
-          <p class="text-gray-600">Insurance Number: <span class="text-gray-800">B987654321</span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
     <!-- Care Schedule Section -->
 <section id="schedule" class="content-section hidden">
