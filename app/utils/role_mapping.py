@@ -1,8 +1,11 @@
-# 当前用户角色 → Patient 表字段映射
+# app/utils/role_mapping.py
 role_to_patient_field = {
-    'Physiotherapist': 'physio_id',
-    'Psychotherapist': 'psych_id',
-    'Occupational Therapist': 'ot_id',
-    'Support Worker': 'sw_id',
-    'Guardian': 'guardian_id'
+    "Guardian": "guardian_id",
+    "Support Worker": "sw_id"
+}
+
+specialty_to_field = {
+    "psych": "psych_id",
+    "physio": "physio_id",
+    "ot": "ot_id"
 }
