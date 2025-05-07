@@ -41,6 +41,22 @@ def admin_dashboard():
     users = User.query.all()
     return render_template('dashboard/admin.html', users=users)
 
+@dashboard_bp.route('/redirect')
+@login_required
+def dashboard_redirect():
+    role = current_user.role
+    if role == "Support Worker":
+        return redirect(url_for("dashboard.sw_dashboard"))
+    elif role == "Guardian":
+        return redirect(url_for("dashboard.guardian_dashboard"))
+    elif role == "Therapist":
+        return redirect(url_for("dashboard.therapist_dashboard"))
+    elif role == "Admin":
+        return redirect(url_for("dashboard.admin_dashboard"))
+    else:
+        flash("No dashboard defined for this role.")
+        return redirect(url_for("auth.login"))
+
 # @dashboard_bp.route('/guardian')
 # @login_required
 # def guardian_dashboard():
