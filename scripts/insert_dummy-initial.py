@@ -8,7 +8,7 @@ from datetime import date, datetime, timezone
 app = create_app()
 
 with app.app_context():
-    # 插入用户
+    # User dummy data
     guardian = User(email='guardian@outlook.com', password_hash=generate_password_hash('112233'), role='Guardian')
     sw = User(email='supportworker@outlook.com', password_hash=generate_password_hash('12345678'), role='Support Worker')
     physio = User(email='physio@example.com', password_hash=generate_password_hash('11223344'), role='Therapist', specialty='physio')
@@ -19,7 +19,7 @@ with app.app_context():
     db.session.add_all([guardian, sw, physio, ot, psych, admin])
     db.session.commit()
 
-    # 插入一个病人
+    # Patient dummy data
     patient = Patient(
         name="Test Patient",
         date_of_birth=date(1990, 1, 1),

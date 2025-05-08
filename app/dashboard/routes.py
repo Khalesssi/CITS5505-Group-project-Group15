@@ -5,6 +5,9 @@ from app.dashboard import bp
 
 from flask_login import login_required
 
+from app.models import Patient
+
+
 @bp.route('/guardian')
 @login_required
 def guardian_dashboard():
@@ -13,7 +16,12 @@ def guardian_dashboard():
 @bp.route('/sw')
 @login_required
 def sw_dashboard():
-    return render_template('dashboard/sw.html')
+    # 查询 Patient
+    patients = Patient.query.all()
+
+    return render_template('dashboard/sw.html',patients=[{
+            'id': patient.id, 'name': patient.name
+        } for patient in patients])
 
 @bp.route('/therapist')
 @login_required
