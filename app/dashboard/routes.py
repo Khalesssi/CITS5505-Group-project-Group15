@@ -16,7 +16,7 @@ def guardian_dashboard():
 @bp.route('/sw')
 @login_required
 def sw_dashboard():
-    # 查询 Patient
+    # Find Patient
     patients = Patient.query.all()
 
     return render_template('dashboard/sw.html',patients=[{

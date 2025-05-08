@@ -280,7 +280,7 @@
   <div class="bg-gray-50 rounded-lg p-4">
     <div class="flex justify-between items-center">
       <span class="font-medium text-gray-700">Patient Name:</span>
-      <select class="border rounded-md px-3 py-1.5 bg-white w-48 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" id="patientSelect">
+      <select class="border rounded-md px-3 py-1.5 bg-white w-48 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
         <option value="James Wilson">James Wilson</option>
         <option value="Oliver Thompson">Oliver Thompson</option>
         <option value="William Parker">William Parker</option>
@@ -314,25 +314,25 @@
     <div class="grid grid-cols-2 gap-4 mb-6">
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
-        <select class="w-full border rounded-md px-3 py-2">
-          <option>All</option>
-          <option>Zhao Wu</option>
-          <option>Li Dahua</option>
-        </select>
+            <select id="patientSelect" class="w-full border rounded-md px-3 py-2">
+                <option value="All">All</option>
+            </select>
       </div>
       <div class="flex items-end justify-end">
-        <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Download Data</button>
+        <a href="/chart/therapist/download-data">
+          <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Download Data</button>
+        </a>
       </div>
     </div>
 
     <!-- Chart Area -->
     <div class="grid grid-cols-2 gap-6 mb-8">
       <div>
-        <h4 class="font-semibold mb-2">Weekly Progress Chart</h4>
+        <h4 id="weeklyChartTitle" class="font-semibold mb-2">Weekly Progress Chart</h4>
         <canvas id="weeklyChart" class="w-full h-64 bg-white border rounded"></canvas>
       </div>
       <div>
-        <h4 class="font-semibold mb-2">Monthly Statistics Chart</h4>
+        <h4 id="monthlyChartTitle" class="font-semibold mb-2">Monthly Statistics Chart</h4>
         <canvas id="monthlyChart" class="w-full h-64 bg-white border rounded"></canvas>
       </div>
     </div>
@@ -340,72 +340,246 @@
     <!-- 引入 Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      // Weekly Progress Chart
-      const ctxWeekly = document.getElementById('weeklyChart').getContext('2d');
-      const weeklyChart = new Chart(ctxWeekly, {
-        type: 'line',
-        data: {
-          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          datasets: [{
-            label: 'Step Count',
-            data: [3000, 5000, 5200, 4800, 5200, 5800, 6000],
-            backgroundColor: 'rgba(59, 130, 246, 0.2)',
-            borderColor: 'rgba(59, 130, 246, 1)',
-            borderWidth: 2,
-            fill: true,
-            tension: 0.3
-          }]
+      let weeklyChart, monthlyChart, balanceChart;
+    
+      function renderCharts(patient = 'All') {
+    fetch(`/chart/therapist/chart-data?patient=${encodeURIComponent(patient)}`)
+    .then(res => res.json())
+    .then(result => {
+      const specialty = result.specialty;
+      const data = result.data;
+
+      const labels = data.map(d => new Date(d[3]).toISOString().split('T')[0]);
+
+      // Delete old char
+      if (weeklyChart) weeklyChart.destroy();
+      if (monthlyChart) monthlyChart.destroy();
+      if (balanceChart) balanceChart.destroy();
+
+      // ------------------- Physio  -------------------
+      if (specialty === 'physio') {
+        const q6_training = data.map(d => d[0]);
+        const q7_pain = data.map(d => d[1]);
+        const q8_balance = data.map(d => d[2]);
+
+        document.getElementById('weeklyChartTitle').innerText = 'Training Score Trend';
+        document.getElementById('monthlyChartTitle').innerText = 'Training vs Pain Level';
+        document.getElementById('balanceChartTitle').innerText = 'Balance Score Distribution';
+
+        weeklyChart = new Chart(document.getElementById('weeklyChart'), {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Training Score (q6)',
+              data: q6_training,
+              borderColor: 'rgba(59, 130, 246, 1)',
+              backgroundColor: 'rgba(59, 130, 246, 0.2)',
+              borderWidth: 2,
+              fill: true,
+              tension: 0.3
+            }]
+          },
+          options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+
+        monthlyChart = new Chart(document.getElementById('monthlyChart'), {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Training Score (q6)',
+                data: q6_training,
+                backgroundColor: 'rgba(34, 197, 94, 0.5)',
+                borderColor: 'rgba(34, 197, 94, 1)',
+                borderWidth: 1
+              },
+              {
+                label: 'Post-exercise Pain (q7)',
+                data: q7_pain,
+                type: 'line',
+                borderColor: 'rgba(239, 68, 68, 1)',
+                backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                borderWidth: 2,
+                fill: false,
+                tension: 0.3
+              }
+            ]
+          },
+          options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+
+        const scoreCounts = {};
+        q8_balance.forEach(score => {
+          scoreCounts[score] = (scoreCounts[score] || 0) + 1;
+        });
+
+        balanceChart = new Chart(document.getElementById('balanceChart'), {
+          type: 'pie',
+          data: {
+            labels: Object.keys(scoreCounts),
+            datasets: [{
+              label: 'Balance Score Distribution',
+              data: Object.values(scoreCounts),
+              backgroundColor: ['#60a5fa', '#34d399', '#fbbf24', '#f87171', '#a78bfa']
+            }]
+          }
+        });
+      }
+
+      // ------------------- OT  -------------------
+      else if (specialty === 'ot') {
+        const q9_selfcare = data.map(d => d[0]);
+        const q10_task = data.map(d => d[1]);  // mapping to int 0/3/5
+        const q11_skill = data.map(d => d[2]); // mapping to 1/3/5
+
+        document.getElementById('weeklyChartTitle').innerText = 'Self Care Score Trend';
+        document.getElementById('monthlyChartTitle').innerText = 'Household Task Completion';
+        document.getElementById('balanceChartTitle').innerText = 'Skill Learning Level';
+
+        weeklyChart = new Chart(document.getElementById('weeklyChart'), {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Self Care Ability (q9)',
+              data: q9_selfcare,
+              borderColor: '#6366f1',
+              backgroundColor: 'rgba(99, 102, 241, 0.2)',
+              tension: 0.3,
+              fill: true
+            }]
+          },
+          options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+
+        const taskCounts = { Completed: 0, Partially: 0, Not: 0 };
+        q10_task.forEach(score => {
+          if (score === 5) taskCounts.Completed++;
+          else if (score === 3) taskCounts.Partially++;
+          else taskCounts.Not++;
+        });
+
+        monthlyChart = new Chart(document.getElementById('monthlyChart'), {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Skill Learning (q11)',
+              data: q11_skill,
+              backgroundColor: '#3b82f6'
+            }]
         },
         options: {
           responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
+          scales: { y: { beginAtZero: true } }
         }
+        });
+
+        balanceChart = new Chart(document.getElementById('balanceChart'), {
+            type: 'pie',
+            data: {
+              labels: Object.keys(taskCounts),
+          datasets: [{
+              data: Object.values(taskCounts),
+              backgroundColor: ['#10b981', '#facc15', '#ef4444']
+            }]
+          },
+          options: {
+            responsive: true
+          }
+          });
+        }
+    // ------------------- OT  -------------------
+        else if (specialty === 'psych') {
+              const q12_emotion = data.map(d => d[0]); 
+              const q13_social = data.map(d => d[1]); 
+              const q14_response = data.map(d => d[2]); 
+              const q15_depression = data.map(d => d[3]); 
+              const labels = data.map(d => new Date(d[4]).toISOString().split('T')[0]);
+
+          document.getElementById('weeklyChartTitle').innerText = 'Emotional Fluctuation Trend';
+          document.getElementById('monthlyChartTitle').innerText = 'Social Willingness & Therapist Response';
+          document.getElementById('balanceChartTitle').innerText = 'Anxiety/Depression Distribution';
+
+        // Chart 1: Line char - Mood Fluctuation Trend
+        weeklyChart = new Chart(document.getElementById('weeklyChart'), {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+              label: 'Emotional Fluctuations',
+              data: q12_emotion,
+              borderColor: '#f97316',
+              backgroundColor: 'rgba(251, 191, 36, 0.2)',
+              fill: true,
+              tension: 0.3
+          }]
+         },
+        options: { responsive: true, scales: { y: { beginAtZero: true } } }
       });
 
-      // Monthly Statistics Chart
-      const ctxMonthly = document.getElementById('monthlyChart').getContext('2d');
-      const monthlyChart = new Chart(ctxMonthly, {
-        type: 'bar',
-        data: {
-          labels: ['Hip', 'Knee', 'Ankle'],
+        // Chart 2: Bar Chart – Social Willingness & Therapy Feedback
+        monthlyChart = new Chart(document.getElementById('monthlyChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+              {
+                label: 'Social Willingness (q13)',
+                data: q13_social,
+                backgroundColor: '#4f46e5'
+              },
+            {
+                label: 'Therapist Response (q14)',
+                data: q14_response,
+                backgroundColor: '#38bdf8'
+              }
+            ]
+          },
+          options: { responsive: true, scales: { y: { beginAtZero: true } } }
+      });
+
+      // Chart 3: Pie Chart – Depression Symptom Distribution
+          const depressionCounts = { Yes: 0, No: 0 };
+          q15_depression.forEach(val => {
+          if (val === 1) depressionCounts.Yes++;
+              else depressionCounts.No++;
+          });
+
+        balanceChart = new Chart(document.getElementById('balanceChart'), {
+          type: 'pie',
+          data: {
+          labels: ['Yes', 'No'],
           datasets: [{
-            label: 'Range of Motion',
-            data: [110, 140, 70],
-            backgroundColor: 'rgba(34, 197, 94, 0.5)',
-            borderColor: 'rgba(34, 197, 94, 1)',
-            borderWidth: 1
+              data: [depressionCounts.Yes, depressionCounts.No],
+               backgroundColor: ['#ef4444', '#10b981']
           }]
         },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
+          options: { responsive: true }
+        });
+    }
+      });
+    }
+
+      // Initialize chart loading when page loads
+      renderCharts();
+    
+      // Reload chart when switching patients
+      document.getElementById('patientSelect').addEventListener('change', (e) => {
+        renderCharts(e.target.value);
       });
     </script>
+
 
     <!-- Rehab Progress Tracker -->
     <div class="mt-8">
       <h4 class="text-lg font-semibold mb-4 text-indigo-700">Rehab Progress Tracker</h4>
-      <div class="grid grid-cols-3 gap-6">
+      <div class="grid grid-cols-4 gap-6">
         <div>
-          <h5 class="font-medium mb-2">Step Count</h5>
-          <canvas id="stepsChart" class="w-full h-56 bg-white border rounded"></canvas>
-        </div>
-        <div>
-          <h5 class="font-medium mb-2">Range of Motion</h5>
-          <canvas id="romChart" class="w-full h-56 bg-white border rounded"></canvas>
-        </div>
-        <div>
-          <h5 class="font-medium mb-2">Muscle Strength</h5>
-          <canvas id="strengthChart" class="w-full h-56 bg-white border rounded"></canvas>
+          <h5 id="balanceChartTitle" class="font-medium mb-2">Balance Score Distribution</h5>
+          <canvas id="balanceChart" class="w-full h-56 bg-white border rounded"></canvas>
         </div>
       </div>
     </div>
@@ -501,246 +675,38 @@
   });
 </script>
 
-<!-- JS for Forms and Charts -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% block scripts %}
+
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const links = document.querySelectorAll('.sidebar-link');
-    const sections = document.querySelectorAll('main section');
-
-    links.forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-
-        sections.forEach(section => {
-          section.classList.add('hidden');
-          if (section.id === targetId) {
-            section.classList.remove('hidden');
-          }
-        });
-
-        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
-        this.classList.add('text-indigo-700', 'font-semibold');
+  document.addEventListener('DOMContentLoaded', () => {
+    const selector = document.getElementById('patientSelect');
+    if (!selector) {
+      console.error(" patientSelect not exsit!");
+      return;
+    }
+  
+    console.log("start fetch request");
+    fetch('/chart/therapist/patients')
+      .then(res => res.json())
+      .then(data => {
+        console.log("Get patient data:", data);
+        selector.innerHTML = '<option value="All">All</option>';
+  
+        for (const name of data) {
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = name;
+          selector.appendChild(opt);
+        }
+  
+        console.log("Insertion complete. Current dropdown list HTML:", selector.innerHTML);
+      })
+      .catch(err => {
+        console.error("Loading error", err);
       });
-    });
-
-    // Rehab Progress Tracker charts
-    const stepsCtx = document.getElementById('stepsChart').getContext('2d');
-    const romCtx = document.getElementById('romChart').getContext('2d');
-    const strengthCtx = document.getElementById('strengthChart').getContext('2d');
-
-    new Chart(stepsCtx, {
-      type: 'line',
-      data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [{
-          label: 'Daily Steps',
-          data: [3200, 4500, 5000, 3900, 4700, 5100, 5600],
-          borderColor: '#6366f1',
-          backgroundColor: 'rgba(99, 102, 241, 0.1)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false }},
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    new Chart(romCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Hip', 'Knee', 'Ankle'],
-        datasets: [{
-          label: 'ROM (°)',
-          data: [110, 135, 70],
-          backgroundColor: '#34d399',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false }},
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    new Chart(strengthCtx, {
-      type: 'radar',
-      data: {
-        labels: ['Quadriceps', 'Hamstrings', 'Calf'],
-        datasets: [{
-          label: 'Strength (1–5)',
-          data: [4, 3, 5],
-          backgroundColor: 'rgba(239, 68, 68, 0.2)',
-          borderColor: '#ef4444',
-          borderWidth: 2,
-          pointBackgroundColor: '#ef4444'
-        }]
-      },
-      options: {
-        responsive: true,
-        elements: { line: { tension: 0.2 } },
-        scales: {
-          r: {
-            min: 0,
-            max: 5,
-            ticks: { stepSize: 1 }
-          }
-        }
-      }
-    });
-
   });
-</script>
+  </script>
+  
+{% endblock %}
 
-<!-- Add this JavaScript code before the closing </script> tag -->
-<script>
-// 定義問題列表
-const questions = [
-    "How is the patient's mental status today?",
-    "Did the patient take their medication on time?",
-    "Food intake score",
-    "Did the patient complete today's rehabilitation activity?",
-    "Sleep quality score",
-    "Any abnormal symptoms?",
-    "Emotional stability score",
-    "Did the patient follow the doctor's instructions?",
-    "Activity participation score",
-    "Any social interaction?"
-];
-
-// 定義可用的 Support Worker 列表
-const supportWorkers = ["Michael Smith", "George Davies", "Emma Taylor"];
-
-// 使用日期和病患名作為 key 來確保同一天同一個病患對應到同一個 Support Worker
-function getConsistentSupportWorker(date, patient) {
-    const seed = date + patient;
-    let hash = 0;
-    for (let i = 0; i < seed.length; i++) {
-        hash = ((hash << 5) - hash) + seed.charCodeAt(i);
-        hash = hash & hash;
-    }
-    return supportWorkers[Math.abs(hash) % supportWorkers.length];
-}
-
-// 修改生成答案的部分
-function generateDailyAnswers(date, patient) {
-    // 評分對應設定
-    const ratings = {
-        1: { text: "Poor", class: "text-red-500" },
-        3: { text: "Average", class: "text-yellow-600" },
-        5: { text: "Good", class: "text-green-600" }
-    };
-
-    // 生成評分答案
-    function getRandomScore() {
-        const scores = [1, 3, 5];
-        const score = scores[Math.floor(Math.random() * 3)];
-        return { 
-            score: score.toString(),
-            text: ratings[score].text,
-            class: ratings[score].class
-        };
-    }
-
-    return [
-        getRandomScore(),
-        formatYesNoAnswer(Math.random() < 0.7),
-        getRandomScore(),
-        formatYesNoAnswer(Math.random() < 0.6),
-        getRandomScore(),
-        formatYesNoAnswer(Math.random() > 0.8),
-        getRandomScore(),
-        formatYesNoAnswer(Math.random() < 0.75),
-        getRandomScore(),
-        formatYesNoAnswer(Math.random() < 0.65)
-    ];
-}
-
-// 格式化是否答案
-function formatYesNoAnswer(isYes) {
-    return { 
-        score: isYes ? "Yes" : "No",
-        text: isYes ? "Yes" : "No",
-        class: isYes ? "text-green-600" : "text-red-500"
-    };
-}
-
-// 生成 2025 年 4 月的所有日期資料
-const mockData = {
-    "James Wilson": {},
-    "Oliver Thompson": {},
-    "William Parker": {}
-};
-
-// 生成所有日期的資料
-for (let day = 1; day <= 30; day++) {
-    const date = `2025-04-${day.toString().padStart(2, '0')}`;
-    
-    ["James Wilson", "Oliver Thompson", "William Parker"].forEach(patient => {
-        mockData[patient][date] = {
-            supportWorker: getConsistentSupportWorker(date, patient),
-            answers: generateDailyAnswers(date, patient)
-        };
-    });
-}
-
-// 更新表格顯示函數
-function updateReport() {
-    const date = document.getElementById('reportDate').value;
-    const patient = document.getElementById('patientSelect').value;
-    const data = mockData[patient]?.[date];
-    
-    if (data) {
-        document.getElementById('supportWorkerName').textContent = data.supportWorker;
-        
-        const tbody = document.getElementById('reportTableBody');
-        tbody.innerHTML = questions.map((question, index) => {
-            const answer = data.answers[index];
-            return `
-                <tr class="hover:bg-gray-50">
-                    <td class="border-b border-gray-300 px-6 py-4 text-base text-center text-gray-600 whitespace-nowrap">${index + 1}</td>
-                    <td class="border-b border-gray-300 px-6 py-4 text-base text-left text-gray-800">${question}</td>
-                    <td class="border-b border-gray-300 px-6 py-4">
-                        <div class="flex justify-center">
-                            <span class="${answer.class} text-base font-semibold">${answer.text}</span>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-    } else {
-        document.getElementById('supportWorkerName').textContent = 'No Data';
-        document.getElementById('reportTableBody').innerHTML = `
-            <tr>
-                <td colspan="3" class="text-center py-6 text-gray-500 bg-gray-50">
-                    No report history for this date
-                </td>
-            </tr>
-        `;
-    }
-}
-
-// 初始化頁面
-document.addEventListener('DOMContentLoaded', function() {
-    // 設置預設日期為 2025 年 4 月 1 日
-    document.getElementById('reportDate').value = '2025-04-01';
-    
-    // 初始化表格
-    updateReport();
-    
-    // 添加事件監聽器
-    document.getElementById('reportDate').addEventListener('change', updateReport);
-    document.getElementById('patientSelect').addEventListener('change', updateReport);
-});
-</script>
 {% endblock %}
