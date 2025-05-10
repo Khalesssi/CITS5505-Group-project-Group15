@@ -42,6 +42,32 @@ def get_chart_data():
         query = query.filter(Patient.name == patient_name)
 
     # Return different fields of data based on therapist type
+    general_data = query.with_entities(
+        QuestionnaireAnswer.q1_emotion_stable,
+        QuestionnaireAnswer.q2_pain_present,
+        QuestionnaireAnswer.q3_energy_level,
+        QuestionnaireAnswer.q4_food_intake,
+        QuestionnaireAnswer.q5_daily_activities
+    ).all()
+
+    emotion = {"Yes": 0, "No": 0}
+    pain = {"Yes": 0, "No": 0}
+    food = {"Normal": 0, "Reduced": 0, "Excessive": 0}
+    activity = {"Yes": 0, "No": 0}
+    energy_total = 0
+    energy_count = 0
+
+    for r in general_data:
+        q1, q2, q3, q4, q5 = r
+        if q1 in emotion: emotion[q1] += 1
+        if q2 in pain: pain[q2] += 1
+        if q3 is not None:
+            energy_total += q3
+            energy_count += 1
+        if q4 in food: food[q4] += 1
+        if q5 in activity: activity[q5] += 1
+
+    energy_avg = round(energy_total / energy_count, 2) if energy_count else 0
 #-------------------------Physio char------------------------------------------
     if specialty == 'physio':
         data = query.with_entities(
@@ -52,9 +78,17 @@ def get_chart_data():
         ).all()
         # Result return format：[["q6", "q7", "q8"], ...]
         return jsonify({
-        "specialty": specialty,
-        "data": [list(r) for r in data]
-    })
+            "specialty": specialty,
+            "data": [list(r) for r in data],
+            "general": {
+                "emotion_stable": emotion,
+                "pain_present": pain,
+                "energy_avg": energy_avg,
+                "food_intake": food,
+                "daily_activities": activity
+            }
+        })
+
 #-------------------------OT char------------------------------------------
     elif specialty == 'ot':
         data = query.with_entities(
@@ -80,9 +114,17 @@ def get_chart_data():
             ])
 
         return jsonify({
-        "specialty": specialty,
-        "data": formatted
+            "specialty": specialty,
+            "data": formatted,
+            "general": {
+                "emotion_stable": emotion,
+                "pain_present": pain,
+                "energy_avg": energy_avg,
+                "food_intake": food,
+                "daily_activities": activity
+            }
         })
+
 #-------------------------psych char------------------------------------------
     elif specialty == 'psych':
         data = query.with_entities(
@@ -93,7 +135,7 @@ def get_chart_data():
             QuestionnaireAnswer.submitted_at
         ).all()
 
-    # 映射 q15：Yes -> 1, No -> 0
+    # mapping q15：Yes -> 1, No -> 0
         depression_map = {'Yes': 1, 'No': 0}
     
         formatted = []
@@ -108,22 +150,16 @@ def get_chart_data():
             ])
 
         return jsonify({
-        "specialty": specialty,
-        "data": formatted
+            "specialty": specialty,
+            "data": formatted,
+            "general": {
+                "emotion_stable": emotion,
+                "pain_present": pain,
+                "energy_avg": energy_avg,
+                "food_intake": food,
+                "daily_activities": activity
+            }
         })
-
-    else:
-        
-        data = query.with_entities(
-            QuestionnaireAnswer.q1_emotion_stable,
-            QuestionnaireAnswer.q2_pain_present,
-            QuestionnaireAnswer.q3_energy_level,
-            QuestionnaireAnswer.q4_food_intake,
-            QuestionnaireAnswer.q5_daily_activities
-        ).all()
-        return jsonify([list(r) for r in data])
-
-
 
 
 
@@ -171,7 +207,7 @@ def download_data():
         task_map = {'Completed': 5, 'Partially': 3, 'Not': 0}
         skill_map = {'Good': 5, 'Average': 3, 'Poor': 1}
 
-        # 生成 CSV
+        # CSV
         output = io.StringIO()
         writer = csv.writer(output)
         writer.writerow(['Patient', 'Self Care Score', 'Task Score', 'Skill Score', 'Submitted At'])
@@ -209,4 +245,6 @@ def download_data():
         return Response(output.getvalue(), mimetype='text/csv',
                     headers={"Content-Disposition": "attachment; filename=psych_data.csv"})
 
+
     return "Unsupported therapist type", 400
+

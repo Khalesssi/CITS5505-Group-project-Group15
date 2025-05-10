@@ -340,7 +340,7 @@
     <!-- 引入 Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      let weeklyChart, monthlyChart, balanceChart;
+      let weeklyChart, monthlyChart, balanceChart, generalHealthChart;
     
       function renderCharts(patient = 'All') {
     fetch(`/chart/therapist/chart-data?patient=${encodeURIComponent(patient)}`)
@@ -560,6 +560,74 @@
           options: { responsive: true }
         });
     }
+ // ------------------- For all therapist ---------------------------------------
+ if (result.specialty === 'general' || ['physio', 'ot', 'psych'].includes(result.specialty)) {
+  fetch(`/chart/therapist/chart-data?patient=${encodeURIComponent(patient)}`)
+    .then(r => r.json())
+    .then(full => {
+      const g = full.general;
+
+      // Delete old char
+      if (generalHealthChart) generalHealthChart.destroy();
+
+      generalHealthChart = new Chart(document.getElementById('generalHealthChart'), {
+        type: 'radar',
+        data: {
+          labels: [
+            'Emotion Stable',
+            'Pain Present',
+            'Energy Level (avg)',
+            'Food: Normal',
+            'Food: Reduced',
+            'Food: Excessive',
+            'Activities Done'
+          ],
+          datasets: [{
+            label: 'General Health Overview',
+            data: [
+              g.emotion_stable.Yes || 0,
+              g.pain_present.Yes || 0,
+              g.energy_avg || 0,
+              g.food_intake.Normal || 0,
+              g.food_intake.Reduced || 0,
+              g.food_intake.Excessive || 0,
+              g.daily_activities.Yes || 0
+            ],
+            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+            borderColor: '#3b82f6',
+            borderWidth: 2,
+            pointBackgroundColor: '#3b82f6'
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            r: {
+              suggestedMin: 0,
+              suggestedMax: 5,
+              angleLines: { display: true },
+              pointLabels: {
+                font: { size: 13 }
+              },
+              ticks: {
+                stepSize: 1,
+                backdropColor: 'transparent'
+              }
+            }
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: ctx => `${ctx.label}: ${ctx.formattedValue}`
+              }
+            }
+          }
+        }
+      });
+    });
+}
+
+
       });
     }
 
@@ -574,16 +642,26 @@
 
 
     <!-- Rehab Progress Tracker -->
-    <div class="mt-8">
-      <h4 class="text-lg font-semibold mb-4 text-indigo-700">Rehab Progress Tracker</h4>
-      <div class="grid grid-cols-4 gap-6">
-        <div>
-          <h5 id="balanceChartTitle" class="font-medium mb-2">Balance Score Distribution</h5>
-          <canvas id="balanceChart" class="w-full h-56 bg-white border rounded"></canvas>
-        </div>
-      </div>
+<!-- Rehab Progress Tracker -->
+<div class="mt-8">
+  <h4 class="text-lg font-semibold mb-4 text-indigo-700">Rehab Progress Tracker</h4>
+  <div class="flex justify-between gap-6 transform scale-90 origin-top-left">
+    <!-- Pie char -->
+    <div class="w-1/4">
+      <h5 id="balanceChartTitle" class="font-medium mb-2">Anxiety/Depression Distribution</h5>
+      <canvas id="balanceChart" class="w-full h-48 bg-white border rounded"></canvas>
+    </div>
+
+    <!-- radar char -->
+    <div class="w-[380px] flex flex-col items-end">
+      <h5 class="font-medium mb-2 self-start" id="generalHealthChartTitle">General Health Overview</h5>
+      <canvas id="generalHealthChart" class="w-full h-56 bg-white border rounded"></canvas>
     </div>
   </div>
+</div>
+
+
+
 </section>
 
    <!-- Data Sharing Section -->
