@@ -7,6 +7,7 @@
     <h2 class="text-xl font-bold mb-6">Support Worker</h2>
     <ul id="sidebarLinks" class="space-y-4 text-gray-700">
       <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Personal Info</a></li>
+      <li><a href="#patient-info" class="sidebar-link hover:underline">Patient Information</a></li>
       <li><a href="#daily-report" class="sidebar-link hover:underline">Daily Report</a></li>
       <li><a href="#report-record" class="sidebar-link hover:underline">Report Record</a></li>
       <li><a href="#medical" class="sidebar-link hover:underline">Medical Instructions</a></li>
@@ -17,42 +18,13 @@
   <main class="flex-1 p-8">
     <!-- Personal profile Section -->
     <section id="profile" class="content-section space-y-6">
-      <!-- Personal profile content -->
-      <div class="bg-white rounded-lg shadow p-6 relative transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-        <h3 class="text-xl font-bold mb-4">Personal Information</h3>
-        <div class="flex items-center gap-8 mb-6">
-          <div class="w-40 h-40">
-            <img src="{{ url_for('static', filename='images/support_worker_avatar.jpg') }}" 
-                 alt="Support Worker Photo" 
-                 class="w-full h-full object-cover rounded-full border-4 border-indigo-500">
-          </div>
-          <div class="grid grid-cols-1 gap-2">
-            <p class="text-gray-600">Name: <span class="text-gray-800">Wang Xiaoming</span></p>
-            <p class="text-gray-600">Email: <span class="text-gray-800">support@example.com</span></p>
-            <p class="text-gray-600">Phone: <span class="text-gray-800">0912-345-678</span></p>
-          </div>
-          <p class="absolute bottom-0 right-0 p-6 text-xs text-gray-500">Account Created: 2024-03-15</p>
-        </div>
-      </div>
-
-      <!-- education -->
-      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-        <h3 class="text-xl font-bold mb-4">Education</h3>
-        <ul class="list-disc list-inside text-gray-600 space-y-1">
-          <li>2018 - Bachelor of Nursing, Taipei Nursing University</li>
-          <li>2020 - Caregiver Certification</li>
-        </ul>
-      </div>
-
-      <!-- experience -->
-      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-        <h3 class="text-xl font-bold mb-4">Work Experience</h3>
-        <ul class="list-disc list-inside text-gray-600 space-y-1">
-          <li>2020-2022 Caregiver at Taipei Hospital</li>
-          <li>2022-Present Home Caregiver</li>
-        </ul>
-      </div>
+      {% include "dashboard/profile.html" %}
     </section>
+
+     <!-- Patient Info Section -->
+      <section id="patient-info" class="content-section hidden mb-8">
+        {% include "dashboard/patient_info.html" %}
+      </section>
 
 
     <!-- 回報今日病患狀況 Section -->
@@ -296,10 +268,12 @@
               </button>
             </div>
         </form>
+      </div>
+    </section>
         
-      </form>
+  
 
-    <!-- 病患狀況歷史 Section -->
+    <!-- Report Answers Section -->
     <section id="report-record" class="content-section hidden">
       <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
         <h3 class="text-xl font-bold mb-6">Patient History</h3>

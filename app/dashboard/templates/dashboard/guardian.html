@@ -21,43 +21,12 @@
   <main class="flex-1 p-8">
     <!-- 個人資訊 Section -->
     <section class="content-section" id="profile">
-      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-        <h3 class="text-xl font-bold mb-4">Personal Information</h3>
-        <div class="flex items-center gap-8 mb-6 relative">
-          <div class="w-40 h-40">
-            <img alt="Guardian Photo" class="w-full h-full object-cover rounded-full border-4 border-indigo-500" src="{{ url_for('static', filename='images/guardian_avatar.jpg') }}"/>
-          </div>
-          <div class="grid grid-cols-1 gap-4">
-            <div>
-              <p>Welcome, {{ current_user.email }} ({{ current_user.role }})</p>
-              <p class="text-gray-600">Name: <span class="text-gray-800">Wang Xiaoming</span></p>
-              <p class="text-gray-600">Email: <span class="text-gray-800">guardian@example.com</span></p>
-              <p class="text-gray-600">Phone: <span class="text-gray-800">0912-345-678</span></p>
-            </div>
-          </div>
-          <p class="absolute bottom-0 right-0 text-xs text-gray-500">Account Created: 2024-03-15</p>
-        </div>
-      </div>
+      {% include "dashboard/profile.html" %}
     </section>
     
     <!-- 病患資訊 Section -->
     <section class="hidden mb-8" id="patient-info">
-      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-        <h3 class="text-xl font-bold mb-4">Patient Information</h3>
-        <div class="flex gap-8">
-          <div class="w-48 h-48">
-            <img alt="Patient Photo" class="w-full h-full object-cover rounded-lg border-4 border-indigo-500" src="{{ url_for('static', filename='images/patient_photo.jpg') }}"/>
-          </div>
-          <div class="flex-1 space-y-4">
-            <div class="border-b pb-4">
-              <h4 class="font-semibold mb-2">Basic Information</h4>
-              <p class="text-gray-600">Patient Name: <span class="text-gray-800">Li Dahua</span></p>
-              <p class="text-gray-600">Patient ID: <span class="text-gray-800">PT20240315001</span></p>
-              <p class="text-gray-600">Insurance Number: <span class="text-gray-800">A123456789</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include "dashboard/patient_info.html" %}
     </section>
 
     <!-- 照護時程表 Section -->
