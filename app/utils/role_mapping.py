@@ -9,3 +9,10 @@ specialty_to_field = {
     "physio": "physio_id",
     "ot": "ot_id"
 }
+
+# def specialty_to_field(specialty):
+#     return {
+#         'psych': 'psych_id',
+#         'physio': 'physio_id',
+#         'ot': 'ot_id'
+#     }.get(specialty)
