@@ -5,6 +5,8 @@ from app.models.questionnaire import QuestionnaireAnswer
 from datetime import date
 from app.models.patient import Patient
 from app.questionnaire import questionnaire_bp
+from flask import render_template
+from datetime import datetime
 
 
 
@@ -16,6 +18,17 @@ def submit_questionnaire():
     patient_id = request.form.get('patient_id')
     if not patient_id:
         flash('Patient selection is required.')
+        return redirect(url_for('dashboard.sw_dashboard'))
+    
+    date_str = request.form.get('date')
+    if not date_str:
+        flash('Please select a date.')
+        return redirect(url_for('dashboard.sw_dashboard'))
+
+    try:
+        selected_date = datetime.strptime(date_str, '%Y-%m-%d').date()
+    except ValueError:
+        flash('Invalid date format.')
         return redirect(url_for('dashboard.sw_dashboard'))
 
     answers = {}
@@ -31,7 +44,7 @@ def submit_questionnaire():
     new_entry = QuestionnaireAnswer(
         support_worker_id=current_user.id,
         patient_id=patient_id,
-        # report_date=date.today(),
+        report_date=selected_date,
         q1_emotion_stable=answers['question1'],
         q2_pain_present=answers['question2'],
         q3_energy_level=answers['question3'],

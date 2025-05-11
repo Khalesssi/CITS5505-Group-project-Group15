@@ -1,5 +1,6 @@
 from app.extensions import db
 from datetime import datetime
+from datetime import date
 
 class QuestionnaireAnswer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -7,7 +8,7 @@ class QuestionnaireAnswer(db.Model):
     # Basic info
     support_worker_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
-    submitted_at = db.Column(db.DateTime, default=datetime.now())
+    report_date = db.Column(db.Date, nullable=False, default=date.today)
 
     # Question answer part
     q1_emotion_stable = db.Column(db.String(10))         # Yes-1/No-0
