@@ -3,10 +3,12 @@ from flask_login import current_user, login_required
 from app.extensions import db
 from app.models.questionnaire import QuestionnaireAnswer
 from datetime import date
+from app.models.patient import Patient
+from app.questionnaire import questionnaire_bp
 
-bp = Blueprint('questionnaire', __name__)
 
-@bp.route('/submit_questionnaire', methods=['POST'])
+
+@questionnaire_bp.route('/questionnaire', methods=['POST'])
 @login_required
 def submit_questionnaire():
     # print(request.form)

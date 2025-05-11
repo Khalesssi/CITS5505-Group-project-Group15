@@ -1,25 +1,19 @@
 # app/chart/routes.py
-from flask import Blueprint, render_template, request, jsonify, Response
+from flask import render_template, request, jsonify, Response
 from flask_login import login_required, current_user
 from app.models.patient import Patient
 from app.models.questionnaire import QuestionnaireAnswer
 import csv
 import io
+from . import chart_bp
 
-bp = Blueprint('chart', __name__, url_prefix='/chart')
+
 
 # Entry point
-@bp.route('/therapist/chart')
-@login_required
-def therapist_chart():
-    if current_user.role != 'Therapist':
-        return "Access Denied", 403
 
-    specialty = current_user.specialty.lower()
-    return render_template("chart/therapist_chart.html", specialty=specialty)
 
 # API：Get all patient name in database
-@bp.route('/therapist/patients')
+@chart_bp.route('/patients')
 @login_required
 def get_patient_names():
     patients = Patient.query.all()
@@ -27,7 +21,7 @@ def get_patient_names():
     return jsonify(names)
 
 # API: Get chart data, filtered by specialty and optionally by patient
-@bp.route('/therapist/chart-data')
+@chart_bp.route('/chart-data')
 @login_required
 def get_chart_data():
     if current_user.role != 'Therapist':
@@ -163,7 +157,7 @@ def get_chart_data():
 
 
 
-@bp.route('/therapist/download-data')
+@chart_bp.route('/download_data')
 @login_required
 def download_data():
     if current_user.role != 'Therapist':
