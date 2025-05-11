@@ -102,7 +102,7 @@ def sw_dashboard():
             grouped_plans[therapist.specialty].append(plan)
 
     return render_template(
-        'dashboard/shared_plan_view.html',  # ✅ 与 guardian 共用模板
+        'dashboard/sw.html',  # ✅ 与 guardian 共用模板
         patients=patients,
         grouped_plans=grouped_plans,
         plan_patient_ids=plan_patient_ids,
