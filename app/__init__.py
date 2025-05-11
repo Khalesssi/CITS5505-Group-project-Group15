@@ -21,14 +21,14 @@ def create_app():
     from app.dashboard import dashboard_bp
     # from app.questionnaire import questionnaire_bp
     # from app.chart import chart_bp
-    # from app.plan import plan_bp
+    from app.plan import plan_bp
     # from app.share import share_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(dashboard_bp)
     # app.register_blueprint(questionnaire_bp)
     # app.register_blueprint(chart_bp)
-    # app.register_blueprint(plan_bp)
+    app.register_blueprint(plan_bp)
     # app.register_blueprint(share_bp)
 
     @app.route("/")

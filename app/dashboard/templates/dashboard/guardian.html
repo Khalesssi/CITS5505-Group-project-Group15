@@ -19,12 +19,12 @@
   </aside>
   <!-- Main Content -->
   <main class="flex-1 p-8">
-    <!-- 個人資訊 Section -->
+    <!-- Profile Section -->
     <section class="content-section" id="profile">
       {% include "dashboard/profile.html" %}
     </section>
     
-    <!-- 病患資訊 Section -->
+    <!-- patient info Section -->
     <section class="hidden mb-8" id="patient-info">
       {% include "dashboard/patient_info.html" %}
     </section>
@@ -63,91 +63,9 @@
     </section>
     <!-- 醫囑指示 Section -->
     <section class="content-section hidden" id="medical">
-      <div class="medical-container">
-        <h3 class="text-xl font-bold mb-4">Medical Instructions</h3>
-        <!-- 添加選擇區域 -->
-        <div class="grid grid-cols-2 gap-4 mb-6">
-          <div class="bg-white rounded-lg shadow p-4 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Patient Name</label>
-            <select class="w-full border rounded-md px-3 py-2">
-              <option>Li Dahua</option>
-              <option>Zhang Xiaoming</option>
-            </select>
-          </div>
-          <div class="bg-white rounded-lg shadow p-4 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
-            <select class="w-full border rounded-md px-3 py-2">
-              <option>2024-03-15</option>
-              <option>2024-03-14</option>
-              <option>2024-03-13</option>
-            </select>
-          </div>
-        </div>
-        <!-- 醫囑內容 -->
-        <div class="mb-8">
-          <!-- Psychotherapist Instructions -->
-          <div class="mb-6">
-            <h5 class="text-md font-semibold mb-2">Psychotherapist Instructions</h5>
-            <div class="bg-orange-50 p-4 rounded border-l-4 border-orange-400 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-              <ul class="space-y-2">
-                <li class="flex items-start">
-                  <span class="text-orange-600 mr-2">•</span>
-                  <span>Encourage patient to express feelings about recovery process</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-orange-600 mr-2">•</span>
-                  <span>Practice relaxation techniques during stressful moments</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-orange-600 mr-2">•</span>
-                  <span>Monitor for signs of anxiety or depression</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- Physiotherapist Instructions -->
-          <div class="mb-6">
-            <h5 class="text-md font-semibold mb-2">Physiotherapist Instructions</h5>
-            <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-400 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-              <ul class="space-y-2">
-                <li class="flex items-start">
-                  <span class="text-yellow-600 mr-2">•</span>
-                  <span>Blood pressure medication - Take twice daily, after meals</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-yellow-600 mr-2">•</span>
-                  <span>Activity - 30 minutes of walking daily, requires accompaniment</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-yellow-600 mr-2">•</span>
-                  <span>Wound care - Change dressing twice daily, maintain cleanliness</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- Occupational Therapist Instructions -->
-          <div class="mb-6">
-            <h5 class="text-md font-semibold mb-2">Occupational Therapist Instructions</h5>
-            <div class="bg-green-50 p-4 rounded border-l-4 border-green-400 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-              <ul class="space-y-2">
-                <li class="flex items-start">
-                  <span class="text-green-600 mr-2">•</span>
-                  <span>Practice daily living activities with supervision</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-green-600 mr-2">•</span>
-                  <span>Use adaptive equipment for meal preparation</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-green-600 mr-2">•</span>
-                  <span>Encourage participation in leisure activities</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include "plan/display_plan.html" %}
     </section>
+
     <!-- 回報紀錄 Section -->
     <section class="content-section hidden" id="report-record">
       <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
