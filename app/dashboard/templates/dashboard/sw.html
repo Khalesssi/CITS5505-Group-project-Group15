@@ -14,8 +14,19 @@
     </ul>
   </aside>
 
+
   <!-- Main Content -->
   <main class="flex-1 p-8">
+
+     <!--  Flash message block insert -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="p-4 mb-4 text-sm text-green-800 bg-green-100 rounded-lg border border-green-300">
+      {{ messages[0] }}
+      </div>
+    {% endif %}
+    {% endwith %}
+    
     <!-- Personal profile Section -->
     <section id="profile" class="content-section space-y-6">
       {% include "dashboard/profile.html" %}
@@ -27,251 +38,10 @@
       </section>
 
 
-    <!-- 回報今日病患狀況 Section -->
-    <section id="daily-report" class="content-section hidden">
-      <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-        <h3 class="text-xl font-bold mb-6">Daily Patient Report</h3>
-
-        <!-- 基本資訊 - 使用 grid 兩欄排列 -->
-    <div class="grid grid-cols-2 gap-6 mb-8">
-      <div class="flex items-center">
-       <span class="text-gray-700 font-medium min-w-32">Report Date:</span>
-        <span class="text-gray-900">2024-03-15</span>
-    </div>
-    <div class="flex items-center">
-      <span class="text-gray-700 font-medium min-w-32">Patient Name:</span>
-
-      <form action="/submit_report" method="POST" onsubmit="return validateForm()">
-      <!--Patient selection-->
-      <select name="patient_id" required class="w-40 h-10 border rounded-md px-2 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-        <option value="" disabled selected>Select a patient</option>
-        {% for patient in patients %}
-          <option value="{{ patient.id }}">{{ patient.name }}</option>
-        {% endfor %}
-      </select>
-
-    </div>
-    </div>
-
-        <!-- 問卷表格 - 調整對齊方式 -->
-
-        <div class="overflow-hidden rounded-lg border border-gray-200">
-          <div class="max-h-[800px] overflow-y-auto">
-            <table class="w-full border-collapse">
-              <thead class="sticky top-0 bg-white">
-                <tr class="bg-gray-100">
-                  <th class="w-24 border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-center">No.</th>
-                  <th class="max-w-xl border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-left">Question</th>
-                  <th class="w-48 border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-center">Answer</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- 1. Emotional Stability -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">1</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Is the patient's emotion stable today?
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <select name="question1" required class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>Select</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </td>
-                </tr>
-                <!-- 2. Pain Occurrence -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">2</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Did the patient experience any pain today?</td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <select class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
-                      <option value="" disabled selected>Select</option>
-                      <option>Yes</option>
-                      <option>No</option>
-                    </select>
-                  </td>
-                </tr>
-                <!-- 3. Physical Energy Level -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">3</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Patient's physical energy level (1-5)
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <input type="number" name="question3" min="1" max="5" required 
-                           class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" />
-                  </td>
-                </tr>
-                <!-- 4. Food Intake -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">4</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Patient's food intake today 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <select name="question4" class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" required>
-                      <option value="" disabled selected>Select</option>
-                      <option value="Normal">Normal</option>
-                      <option value="Reduced">Reduced</option>
-                      <option value="Excessive">Excessive</option>
-                    </select>
-                  </td>
-                </tr>
-                <!-- 5. Daily Activities Completion -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">5</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Did the patient complete daily activities today? 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <select name="question5" class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" required>
-                      <option value="" disabled selected>Select</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </td>
-                </tr>
-                <!-- 6. Physical Training Completion -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">6</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Physical training completion percentage (0-100%) 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <input type="number" name="question6" min="0" max="100" required 
-                           class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" />
-                  </td>
-                </tr>
-                <!-- 7. Post-Exercise Pain Score -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">7</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Post-exercise pain score (1-10) 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <input type="number" name="question7" min="1" max="10" required 
-                           class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" />
-                  </td>
-                </tr>
-                <!-- 8. Balance Ability Score -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">8</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Patient's balance ability score (1-5) 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <input type="number" name="question8" min="1" max="5" required 
-                           class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" />
-                  </td>
-                </tr>
-                <!-- 9. Self-Care Participation Willingness -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">9</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Willingness to participate in self-care activities (1-5) 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <input type="number" name="question9" min="1" max="5" required 
-                           class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" />
-                  </td>
-                </tr>
-                <!-- 10. Household Task Completion -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">10</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    How did the patient complete household tasks today? 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <select name="question10" class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" required>
-                      <option value="" disabled selected>Select</option>
-                      <option value="Completed">Completed</option>
-                      <option value="Partially Completed">Partially Completed</option>
-                      <option value="Not Completed">Not Completed</option>
-                    </select>
-                  </td>
-                </tr>
-                <!-- 新增的10題 -->
-                <!-- 11. New Skill Learning Performance -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">11</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    How was the patient's performance in learning new skills? 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <select name="question11" class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" required>
-                      <option value="" disabled selected>Select</option>
-                      <option value="Good">Good</option>
-                      <option value="Average">Average</option>
-                      <option value="Poor">Poor</option>
-                    </select>
-                  </td>
-                </tr>
-                <!-- 12. Emotional Fluctuations Count -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">12</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Number of emotional fluctuations today 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <input type="number" name="question12" min="0" required 
-                           class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" />
-                  </td>
-                </tr>
-                <!-- 13. Social Interaction Willingness -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">13</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Willingness for social interaction (1-5) 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <input type="number" name="question13" min="1" max="5" required 
-                           class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" />
-                  </td>
-                </tr>
-                <!-- 14. Therapist Guidance Responsiveness -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">14</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Patient's responsiveness to therapist's guidance (1-5) 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <input type="number" name="question14" min="1" max="5" required 
-                           class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" />
-                  </td>
-                </tr>
-                <!-- 15. Signs of Anxiety or Depression -->
-                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">15</td>
-                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
-                    Were any signs of anxiety or depression observed today? 
-                  </td>
-                  <td class="border-b border-gray-200 px-6 py-4">
-                    <select name="question15" class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" required>
-                      <option value="" disabled selected>Select</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </td>
-                </tr>
-                
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!--Button-->
-        <form action="/submit_report" method="POST" onsubmit="return validateForm()">
-            <div class="mt-6 flex justify-end">
-              <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-colors">
-                Submit Report
-              </button>
-            </div>
-        </form>
-      </div>
+    <!-- Daily report Section -->
+     <section id="daily-report" class="content-section hidden">
+      {% include "questionnaire/questions.html" %}
     </section>
-        
-  
 
     <!-- Report Answers Section -->
     <section id="report-record" class="content-section hidden">
@@ -324,6 +94,7 @@
   </main>
 </div>
 
+<!-- 这个干嘛的 -->
 <script>
   // 導航功能
   document.addEventListener('DOMContentLoaded', function () {
@@ -494,19 +265,21 @@
       document.getElementById('reportDate').addEventListener('change', updateReport);
       document.getElementById('patientSelect').addEventListener('change', updateReport);
   });
+</script>
 
-  
-  // function validateForm() {
-  //   const inputs = document.querySelectorAll('form select, form input[type="number"]');
-  //   for (let input of inputs) {
-  //     if (!input.value) {
-  //       alert("⚠️ Please complete all questions before submitting.");
-  //       input.focus();
-  //       return false;  // 阻止提交
-  //     }
-  //   }
-  //   return true;  // 所有都填了才允许提交
-  // }
-
+<!-- 这个干嘛的 -->
+<script>
+  function validateForm() {
+  const form = document.getElementById('daily-form');
+  const inputs = form.querySelectorAll('select, input[type="number"]');
+  for (let input of inputs) {
+    if (!input.value) {
+      alert("Please complete all questions before submitting.");
+      input.focus();
+      return false;
+    }
+  }
+  return true;
+}
 </script>
 {% endblock %}

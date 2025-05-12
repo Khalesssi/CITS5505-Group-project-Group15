@@ -48,7 +48,7 @@
     </div>
   </div>
 </div>
-</div>
+
 
   <!-- Space between nav bar and content -->
   <div class="h-20"></div>
@@ -96,8 +96,8 @@
   </footer>
 
   <!-- JS -->
-  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
-
+  <!-- <script src="{{ url_for('static', filename='js/home.js') }}"></script> -->
+  {% block scripts %}{% endblock %}
 </body>
 </html>
 

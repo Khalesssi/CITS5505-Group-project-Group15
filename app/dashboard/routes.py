@@ -14,6 +14,8 @@ from flask import flash, redirect, url_for
 from datetime import datetime
 from flask import request
 from app.extensions import db
+from flask import render_template
+
 
 @dashboard_bp.route('/guardian')
 @login_required
@@ -110,7 +112,6 @@ def sw_dashboard():
         selected_patient_id=selected_patient_id,
         selected_date_str=selected_date_str
     )
-
 
 
 @dashboard_bp.route('/therapist')

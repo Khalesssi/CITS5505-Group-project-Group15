@@ -1,0 +1,358 @@
+   <!-- Data Analysis Section -->
+  <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+    <h3 class="text-xl font-bold mb-6">Data Analysis</h3>
+
+    <!-- Patient Selector -->
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Select Patient</label>
+            <select id="patientSelect" class="w-full border rounded-md px-3 py-2">
+                <option value="All">All</option>
+            </select>
+      </div>
+      <div class="flex items-end justify-end">
+        <a href="{{ url_for('chart.download_data') }}">
+          <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Download Data</button>
+        </a>
+      </div>
+    </div>
+
+    <!-- Chart Area -->
+    <div class="grid grid-cols-2 gap-6 mb-8">
+      <div>
+        <h4 id="LeftOneTitle" class="font-semibold mb-2">LeftOne</h4>
+        <canvas id="LeftOne" class="w-full h-64 bg-white border rounded"></canvas>
+      </div>
+      <div>
+        <h4 id="RightOneTitle" class="font-semibold mb-2">RightOne</h4>
+        <canvas id="RightOne" class="w-full h-64 bg-white border rounded"></canvas>
+      </div>
+      
+    </div>
+       
+<!-- 第二行图表：饼图 + 雷达图 -->
+<div class="grid grid-cols-2 gap-6 mb-8">
+  <div class="flex justify-center">
+    <div class="w-1/2">
+      <h4 id="LeftTwoTitle" class="font-semibold mb-2 text-center">Anxiety/Depression Distribution</h4>
+      <canvas id="LeftTwo" class="w-full h-40 bg-white border rounded"></canvas>
+    </div>
+  </div>
+  <div>
+    <h4 id="generalHealthChartTitle" class="font-semibold mb-2">General Health Overview</h4>
+    <canvas id="generalHealthChart" class="w-full h-64 bg-white border rounded"></canvas>
+  </div>
+</div>
+  </div>
+
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      let LeftOne, RightOne, LeftTwo, generalHealthChart;
+      const chartDataUrl = "{{ url_for('chart.get_chart_data') }}";
+      const patientListUrl = "{{ url_for('chart.get_patient_names') }}";
+    
+      function renderCharts(patient = 'All') {
+    fetch(`${chartDataUrl}?patient=${encodeURIComponent(patient)}`)
+    .then(res => res.json())
+    .then(result => {
+      const specialty = result.specialty;
+      const data = result.data;
+
+      
+
+      // Delete old char
+      if (LeftOne) LeftOne.destroy();
+      if (RightOne) RightOne.destroy();
+      if (LeftTwo) LeftTwo.destroy();
+
+      // ------------------- Physio  -------------------
+      if (specialty === 'physio') {
+        data.sort((a, b) => new Date(a[3]) - new Date(b[3]));
+        const labels = data.map(d => new Date(d[3]).toISOString().split('T')[0]);
+        const q6_training = data.map(d => d[0]);
+        const q7_pain = data.map(d => d[1]);
+        const q8_balance = data.map(d => d[2]);
+
+        document.getElementById('LeftOneTitle').innerText = 'Training Score Trend';
+        document.getElementById('RightOneTitle').innerText = 'Training vs Pain Level';
+        document.getElementById('LeftTwoTitle').innerText = 'Balance Score Distribution';
+
+        LeftOne = new Chart(document.getElementById('LeftOne'), {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Training Score (q6)',
+              data: q6_training,
+              borderColor: 'rgba(59, 130, 246, 1)',
+              backgroundColor: 'rgba(59, 130, 246, 0.2)',
+              borderWidth: 2,
+              fill: true,
+              tension: 0.3
+            }]
+          },
+          options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+
+        RightOne = new Chart(document.getElementById('RightOne'), {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Training Score (q6)',
+                data: q6_training,
+                backgroundColor: 'rgba(34, 197, 94, 0.5)',
+                borderColor: 'rgba(34, 197, 94, 1)',
+                borderWidth: 1
+              },
+              {
+                label: 'Post-exercise Pain (q7)',
+                data: q7_pain,
+                type: 'line',
+                borderColor: 'rgba(239, 68, 68, 1)',
+                backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                borderWidth: 2,
+                fill: false,
+                tension: 0.3
+              }
+            ]
+          },
+          options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+
+        const scoreCounts = {};
+        q8_balance.forEach(score => {
+          scoreCounts[score] = (scoreCounts[score] || 0) + 1;
+        });
+
+        LeftTwo = new Chart(document.getElementById('LeftTwo'), {
+          type: 'pie',
+          data: {
+            labels: Object.keys(scoreCounts),
+            datasets: [{
+              label: 'Balance Score Distribution',
+              data: Object.values(scoreCounts),
+              backgroundColor: ['#60a5fa', '#34d399', '#fbbf24', '#f87171', '#a78bfa']
+            }]
+          }
+        });
+      }
+
+      // ------------------- OT  -------------------
+      else if (specialty === 'ot') {
+        data.sort((a, b) => new Date(a[3]) - new Date(b[3]));
+        const labels = data.map(d => new Date(d[3]).toISOString().split('T')[0]);
+        const q9_selfcare = data.map(d => d[0]);
+        const q10_task = data.map(d => d[1]);  // mapping to int 0/3/5
+        const q11_skill = data.map(d => d[2]); // mapping to 1/3/5
+
+        document.getElementById('LeftOneTitle').innerText = 'Self Care Score Trend';
+        document.getElementById('RightOneTitle').innerText = 'Household Task Completion';
+        document.getElementById('LeftTwoTitle').innerText = 'Skill Learning Level';
+
+        LeftOne = new Chart(document.getElementById('LeftOne'), {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Self Care Ability (q9)',
+              data: q9_selfcare,
+              borderColor: '#6366f1',
+              backgroundColor: 'rgba(99, 102, 241, 0.2)',
+              tension: 0.3,
+              fill: true
+            }]
+          },
+          options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+
+        const taskCounts = { Completed: 0, Partially: 0, Not: 0 };
+        q10_task.forEach(score => {
+          if (score === 5) taskCounts.Completed++;
+          else if (score === 3) taskCounts.Partially++;
+          else taskCounts.Not++;
+        });
+
+        RightOne = new Chart(document.getElementById('RightOne'), {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Skill Learning (q11)',
+              data: q11_skill,
+              backgroundColor: '#3b82f6'
+            }]
+        },
+        options: {
+          responsive: true,
+          scales: { y: { beginAtZero: true } }
+        }
+        });
+
+        LeftTwo = new Chart(document.getElementById('LeftTwo'), {
+            type: 'pie',
+            data: {
+              labels: Object.keys(taskCounts),
+          datasets: [{
+              data: Object.values(taskCounts),
+              backgroundColor: ['#10b981', '#facc15', '#ef4444']
+            }]
+          },
+          options: {
+            responsive: true
+          }
+          });
+        }
+    // ------------------- psych  -------------------
+        else if (specialty === 'psych') {
+              data.sort((a, b) => new Date(a[4]) - new Date(b[4]));
+              const q12_emotion = data.map(d => d[0]); 
+              const q13_social = data.map(d => d[1]); 
+              const q14_response = data.map(d => d[2]); 
+              const q15_depression = data.map(d => d[3]); 
+              const labels = data.map(d => new Date(d[4]).toISOString().split('T')[0]);
+
+          document.getElementById('LeftOneTitle').innerText = 'Emotional Fluctuation Trend';
+          document.getElementById('RightOneTitle').innerText = 'Social Willingness & Therapist Response';
+          document.getElementById('LeftTwoTitle').innerText = 'Anxiety/Depression Distribution';
+
+        // Chart 1: Line char - Mood Fluctuation Trend
+        LeftOne = new Chart(document.getElementById('LeftOne'), {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+              label: 'Emotional Fluctuations',
+              data: q12_emotion,
+              borderColor: '#f97316',
+              backgroundColor: 'rgba(251, 191, 36, 0.2)',
+              fill: true,
+              tension: 0.3
+          }]
+         },
+        options: { responsive: true, scales: { y: { beginAtZero: true } } }
+      });
+
+        // Chart 2: Bar Chart – Social Willingness & Therapy Feedback
+        RightOne = new Chart(document.getElementById('RightOne'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+              {
+                label: 'Social Willingness (q13)',
+                data: q13_social,
+                backgroundColor: '#4f46e5'
+              },
+            {
+                label: 'Therapist Response (q14)',
+                data: q14_response,
+                backgroundColor: '#38bdf8'
+              }
+            ]
+          },
+          options: { responsive: true, scales: { y: { beginAtZero: true } } }
+      });
+
+      // Chart 3: Pie Chart – Depression Symptom Distribution
+          const depressionCounts = { Yes: 0, No: 0 };
+          q15_depression.forEach(val => {
+          if (val === 1) depressionCounts.Yes++;
+              else depressionCounts.No++;
+          });
+
+        LeftTwo = new Chart(document.getElementById('LeftTwo'), {
+          type: 'pie',
+          data: {
+          labels: ['Yes', 'No'],
+          datasets: [{
+              data: [depressionCounts.Yes, depressionCounts.No],
+               backgroundColor: ['#ef4444', '#10b981']
+          }]
+        },
+          options: { responsive: true }
+        });
+    }
+ // ------------------- general ---------------------------------------
+ if (result.specialty === 'general' || ['physio', 'ot', 'psych'].includes(result.specialty)) {
+ fetch(`${chartDataUrl}?patient=${encodeURIComponent(patient)}`)
+    .then(r => r.json())
+    .then(full => {
+      const g = full.general;
+
+      // Delete old char
+      if (generalHealthChart) generalHealthChart.destroy();
+
+      generalHealthChart = new Chart(document.getElementById('generalHealthChart'), {
+        type: 'radar',
+        data: {
+          labels: [
+            'Emotion Stable',
+            'Pain Present',
+            'Energy Level (avg)',
+            'Food: Normal',
+            'Food: Reduced',
+            'Food: Excessive',
+            'Activities Done'
+          ],
+          datasets: [{
+            label: 'General Health Overview',
+            data: [
+              g.emotion_stable.Yes || 0,
+              g.pain_present.Yes || 0,
+              g.energy_avg || 0,
+              g.food_intake.Normal || 0,
+              g.food_intake.Reduced || 0,
+              g.food_intake.Excessive || 0,
+              g.daily_activities.Yes || 0
+            ],
+            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+            borderColor: '#3b82f6',
+            borderWidth: 2,
+            pointBackgroundColor: '#3b82f6'
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            r: {
+              suggestedMin: 0,
+              suggestedMax: 5,
+              angleLines: { display: true },
+              pointLabels: {
+                font: { size: 13 }
+              },
+              ticks: {
+                stepSize: 1,
+                backdropColor: 'transparent'
+              }
+            }
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: ctx => `${ctx.label}: ${ctx.formattedValue}`
+              }
+            }
+          }
+        }
+      });
+    });
+}
+
+
+      });
+    }
+
+      // Initialize chart loading when page loads
+      renderCharts();
+    
+      // Reload chart when switching patients
+      document.getElementById('patientSelect').addEventListener('change', (e) => {
+        renderCharts(e.target.value);
+      });
+    </script>
+
+

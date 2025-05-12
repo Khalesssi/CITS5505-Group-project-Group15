@@ -48,7 +48,7 @@ The platform promotes **inter-role data transparency** and **efficiency** in sup
 
 ---
 
-🚀 How to Run This Project in a Linux terminal
+How to Run This Project in a Linux terminal
 
 1. Create and activate a virtual environment
 

@@ -19,3 +19,9 @@ instance/site.db
 
 # macOS
 .DS_Store
+
+# pycache
+__pycache__/
+*.pyc
+*.pyo
+# site.db

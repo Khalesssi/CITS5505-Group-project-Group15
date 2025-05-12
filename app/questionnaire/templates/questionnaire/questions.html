@@ -1,3 +1,80 @@
+    <!-- Daily report Section -->
+
+  <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+    <h3 class="text-xl font-bold mb-6">Daily Patient Report</h3>
+
+    <!-- 开始整个表单 -->
+    <form id="daily-form" action="{{ url_for('questionnaire.submit_questionnaire') }}" method="POST">
+      
+
+      <!-- Report detail:time and select patient -->
+      <div class="grid grid-cols-2 gap-6 mb-8">
+        <div class="flex items-center">
+          <label for="date" class="text-gray-700 font-medium min-w-32">Report Date:</label>
+          <input type="date" id="date" name="date" required class="w-40 h-10 border rounded-md px-2 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900" />
+        </div>
+
+        <div class="flex items-center">
+          <span class="text-gray-700 font-medium min-w-32">Patient Name:</span>
+          <!--Patient selection-->
+          <select name="patient_id" required class="w-40 h-10 border rounded-md px-2 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="" disabled selected>Select a patient</option>
+            {% for patient in patients %}
+              <option value="{{ patient.id }}">{{ patient.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <!-- 問卷表格 - 保留原样 -->
+      <div class="overflow-hidden rounded-lg border border-gray-200">
+        <div class="max-h-[800px] overflow-y-auto">
+          <table class="w-full border-collapse">
+            <thead class="sticky top-0 bg-white">
+              <tr class="bg-gray-100">
+                <th class="w-24 border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-center">No.</th>
+                <th class="max-w-xl border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-left">Question</th>
+                <th class="w-48 border-b border-gray-200 px-6 py-4 text-sm font-semibold text-gray-800 text-center">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+                <!-- 1. Emotional Stability -->
+                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">1</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
+                    Is the patient's emotion stable today?
+                  </td>
+                  <td class="border-b border-gray-200 px-6 py-4">
+                    <select name="question1" required class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
+                      <option value="" disabled selected>Select</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </td>
+                </tr>
+                <!-- 2. Pain Occurrence -->
+                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">2</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">Did the patient experience any pain today?</td>
+                  <td class="border-b border-gray-200 px-6 py-4">
+                    <select name="question2" required class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center">
+                      <option value="" disabled selected>Select</option>
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </td>
+                </tr>
+                <!-- 3. Physical Energy Level -->
+                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                  <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">3</td>
+                  <td class="border-b border-gray-200 px-6 py-4 text-left font-medium text-gray-800 max-w-xl truncate">
+                    Patient's physical energy level (1-5)
+                  </td>
+                  <td class="border-b border-gray-200 px-6 py-4">
+                    <input type="number" name="question3" min="1" max="5" required 
+                           class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" />
+                  </td>
+                </tr>
                 <!-- 4. Food Intake -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">4</td>
@@ -86,7 +163,6 @@
                     </select>
                   </td>
                 </tr>
-                <!-- 新增的10題 -->
                 <!-- 11. New Skill Learning Performance -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                   <td class="border-b border-gray-200 px-6 py-4 text-center text-gray-600">11</td>
@@ -142,10 +218,25 @@
                     Were any signs of anxiety or depression observed today? 
                   </td>
                   <td class="border-b border-gray-200 px-6 py-4">
-                    <select name="question15" class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" required>
+                    <select name="question15"  class="w-full h-10 border rounded-md px-4 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-center" required>
                       <option value="" disabled selected>Select</option>
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
                     </select>
                   </td>
                 </tr>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+  
+        <!-- Submit Button -->
+        <div class="mt-6 flex justify-end">
+          <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-colors">
+            Submit Report
+          </button>
+        </div>
+  
+      </form> <!-- 结束整个表单 -->
+    </div>

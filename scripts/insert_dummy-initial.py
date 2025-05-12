@@ -6,37 +6,63 @@ from app.extensions import db
 from app.models.user import User
 from app.models.patient import Patient
 from werkzeug.security import generate_password_hash
-from datetime import date, datetime, timezone
+from datetime import date
 
 app = create_app()
 
 with app.app_context():
-    # 插入用户
-    guardian = User(email='guardian@outlook.com', password_hash=generate_password_hash('112233'), role='Guardian')
-    sw = User(email='supportworker@outlook.com', password_hash=generate_password_hash('12345678'), role='Support Worker')
-    physio = User(email='physio@example.com', password_hash=generate_password_hash('11223344'), role='Therapist', specialty='physio')
-    ot = User(email='OT@outlook.com', password_hash=generate_password_hash('123456'), role='Therapist', specialty='ot')
-    psych = User(email='psych@outlook.com', password_hash=generate_password_hash('7654321'), role='Therapist', specialty='psych')
-    admin = User(email='admin@outlook.com', password_hash=generate_password_hash('13579'), role='Admin')
+    # Add users: Only insert user when not exist
+    def safe_add_user(email, password, role, specialty=None):
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            user = User(email=email, password_hash=generate_password_hash(password), role=role, specialty=specialty)
+            db.session.add(user)
+            db.session.commit()
+        return user
 
-    db.session.add_all([guardian, sw, physio, ot, psych, admin])
-    db.session.commit()
+    guardian = safe_add_user('guardian@outlook.com', '112233', 'Guardian')
+    sw = safe_add_user('supportworker@outlook.com', '12345678', 'Support Worker')
+    physio = safe_add_user('physio@example.com', '11223344', 'Therapist', specialty='physio')
+    ot = safe_add_user('OT@outlook.com', '123456', 'Therapist', specialty='ot')
+    psych = safe_add_user('psych@outlook.com', '7654321', 'Therapist', specialty='psych')
+    admin = safe_add_user('admin@outlook.com', '13579', 'Admin')
 
-    # 插入一个病人
-    patient = Patient(
+    # Add patients: Only insert patients when not exist
+    def safe_add_patient(name, dob, gender, notes, medical_info):
+        if not Patient.query.filter_by(name=name).first():
+            patient = Patient(
+                name=name,
+                date_of_birth=dob,
+                gender=gender,
+                guardian_id=guardian.id,
+                sw_id=sw.id,
+                physio_id=physio.id,
+                ot_id=ot.id,
+                psych_id=psych.id,
+                medical_info=medical_info,
+                notes=notes
+            )
+            db.session.add(patient)
+            db.session.commit()
+            print(f" Added patient: {name}")
+        else:
+            print(f" Patient '{name}' already exists, skipping.")
+
+    safe_add_patient(
         name="Test Patient",
-        date_of_birth=date(1990, 1, 1),
+        dob=date(1990, 1, 1),
         gender="Female",
-        guardian_id=guardian.id,
-        sw_id=sw.id,
-        physio_id=physio.id,
-        ot_id=ot.id,
-        psych_id=psych.id,
         medical_info="Testing",
         notes="Dummy notes"
     )
 
-    db.session.add(patient)
-    db.session.commit()
+    safe_add_patient(
+        name="Test2 Patient",
+        dob=date(1985, 5, 5),
+        gender="Male",
+        medical_info="Additional dummy patient",
+        notes="Second dummy"
+    )
 
-    print(" Basic users and one patient inserted.")
+    print("Dummy users and patients inserted without duplication.")
+
