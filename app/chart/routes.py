@@ -68,7 +68,7 @@ def get_chart_data():
             QuestionnaireAnswer.q6_physical_training,
             QuestionnaireAnswer.q7_post_exercise_pain,
             QuestionnaireAnswer.q8_balance_score,
-            QuestionnaireAnswer.submitted_at
+            QuestionnaireAnswer.report_date
         ).all()
         # Result return format：[["q6", "q7", "q8"], ...]
         return jsonify({
@@ -89,7 +89,7 @@ def get_chart_data():
             QuestionnaireAnswer.q9_self_care,
             QuestionnaireAnswer.q10_household_tasks,
             QuestionnaireAnswer.q11_skill_learning,
-            QuestionnaireAnswer.submitted_at
+            QuestionnaireAnswer.report_date
         ).all()
 
         # dictionary for mapping
@@ -104,7 +104,7 @@ def get_chart_data():
                 r[0],         # q9_self_care
                 task_score,   # mapped q10_household_tasks
                 skill_score,  # mapped q11_skill_learning
-                r[3]          # submitted_at
+                r[3]          # report_date
             ])
 
         return jsonify({
@@ -126,7 +126,7 @@ def get_chart_data():
             QuestionnaireAnswer.q13_social_willingness,
             QuestionnaireAnswer.q14_therapist_response,
             QuestionnaireAnswer.q15_anxiety_depression,
-            QuestionnaireAnswer.submitted_at
+            QuestionnaireAnswer.report_date
         ).all()
 
     # mapping q15：Yes -> 1, No -> 0
@@ -140,7 +140,7 @@ def get_chart_data():
                 r[1],  # q13_social_willingness
                 r[2],  # q14_therapist_response
                 mapped_depression,  # q15_anxiety_depression
-                r[4]   # submitted_at
+                r[4]   # report_date
             ])
 
         return jsonify({
@@ -173,15 +173,15 @@ def download_data():
             QuestionnaireAnswer.q6_physical_training,
             QuestionnaireAnswer.q7_post_exercise_pain,
             QuestionnaireAnswer.q8_balance_score,
-            QuestionnaireAnswer.submitted_at
+            QuestionnaireAnswer.report_date
         ).all()
 
         output = io.StringIO()
         writer = csv.writer(output)
         writer.writerow(['Patient', 'Physical Training', 'Post-exercise Pain', 'Balance Score', 'Submitted At'])
         for row in data:
-            name, q6, q7, q8, submitted_at = row
-            writer.writerow([name, q6, q7, q8, submitted_at.strftime('%Y-%m-%d')])
+            name, q6, q7, q8, report_date = row
+            writer.writerow([name, q6, q7, q8, report_date.strftime('%Y-%m-%d')])
 
         output.seek(0)
         return Response(output.getvalue(), mimetype='text/csv',
@@ -194,7 +194,7 @@ def download_data():
             QuestionnaireAnswer.q9_self_care,
             QuestionnaireAnswer.q10_household_tasks,
             QuestionnaireAnswer.q11_skill_learning,
-            QuestionnaireAnswer.submitted_at
+            QuestionnaireAnswer.report_date
         ).all()
 
         # Map string to numeric value
@@ -224,7 +224,7 @@ def download_data():
             QuestionnaireAnswer.q13_social_willingness,
             QuestionnaireAnswer.q14_therapist_response,
             QuestionnaireAnswer.q15_anxiety_depression,
-            QuestionnaireAnswer.submitted_at
+            QuestionnaireAnswer.report_date
         ).all()
 
         output = io.StringIO()
