@@ -9,9 +9,9 @@ app = create_app()
 
 with app.app_context():
   # 清空旧数据（可选）
-  Patient.query.delete()
-  User.query.delete()
-  db.session.commit()
+  # Patient.query.delete()
+  # User.query.delete()
+  # db.session.commit()
 
   # 插入用户（补全所有字段）
   guardian = User(
@@ -111,8 +111,22 @@ with app.app_context():
     medical_info="Diagnosed with ADHD and mild autism spectrum disorder.",
     notes="Requires structured support, responds well to positive reinforcement."
   )
+  patient2 = Patient(
+    name="Test Patient 2",
+    date_of_birth=date(2005, 6, 15),
+    gender="Male",
+    guardian_id=guardian.id,
+    sw_id=sw.id,
+    physio_id=physio.id,
+    ot_id=ot.id,
+    psych_id=psych.id,
+    medical_info="Diagnosed with cerebral palsy and speech delay.",
+    notes="Needs daily physiotherapy and speech reinforcement sessions."
+  )
+
 
   db.session.add(patient)
+  db.session.add(patient2)
   db.session.commit()
 
-  print("✅ Full users and one patient inserted successfully.")
+  print("one sets of users and 2 patients inserted successfully.")

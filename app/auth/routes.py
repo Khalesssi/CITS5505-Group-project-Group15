@@ -8,13 +8,11 @@ from app.models import User
 from app.extensions import db
 
 
-
 @auth_bp.route('/login', methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
-
 
         user = User.query.filter_by(email=email).first()
 
@@ -22,19 +20,13 @@ def login():
             login_user(user)
             flash("Login successful!")
 
-            # ✅ 角色跳转
             role = user.role
-            if role == "Support Worker":
-            # ✅ 角色跳转
-                role = user.role
             if role == "Support Worker":
                 return redirect(url_for("dashboard.sw_dashboard"))
             elif role == "Guardian":
                 return redirect(url_for("dashboard.guardian_dashboard"))
             elif role == "Therapist":
                 return redirect(url_for("dashboard.therapist_dashboard"))
-            elif role == "Admin":
-                return redirect(url_for("dashboard.admin_dashboard"))
             elif role == "Admin":
                 return redirect(url_for("dashboard.admin_dashboard"))
             else:
@@ -44,7 +36,7 @@ def login():
         flash("Invalid credentials.")
         return redirect(url_for("auth.login"))
 
-    return render_template("auth/login.html")  # ⬅ 确保路径是 auth 子目录
+    return render_template("auth/login.html")
 
 
 @auth_bp.route("/logout")
@@ -70,10 +62,8 @@ def register():
         # ✅ 角色选择校验
         if not role:
             flash("Please select a role.")
-        # ✅ 角色选择校验
-        if not role:
-            flash("Please select a role.")
             return redirect(url_for('auth.register'))
+
         # ✅ 重复邮箱检查
         if User.query.filter_by(email=email).first():
             flash("Email already registered.")
@@ -88,4 +78,4 @@ def register():
         flash("Registration successful. Please log in.")
         return redirect(url_for('auth.login'))
 
-    return render_template("auth/register.html")  # ⬅ 同样确保 auth 子模板
+    return render_template("auth/register.html")
