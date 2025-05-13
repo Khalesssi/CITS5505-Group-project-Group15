@@ -112,7 +112,21 @@ with app.app_context():
     notes="Requires structured support, responds well to positive reinforcement."
   )
 
+  patient2 = Patient(
+    name="Test Patient2",
+    date_of_birth=date(2005, 5, 15),
+    gender="Female",
+    guardian_id=guardian.id,
+    sw_id=sw.id,
+    physio_id=physio.id,
+    ot_id=ot.id,
+    psych_id=psych.id,
+    medical_info="jhgjhgjd.",
+    notes="khg."
+  )
+
   db.session.add(patient)
+  db.session.add(patient2)
   db.session.commit()
 
-  print("✅ Full users and one patient inserted successfully.")
+  print("✅ Full users and 2 patients inserted successfully.")
