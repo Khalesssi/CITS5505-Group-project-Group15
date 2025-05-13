@@ -1,37 +1,65 @@
 # CITS5505 Group Project – Group 15
 
-## 📌 1. Project Description
+##  1. Project Description
 
-This project is a **role-based web platform** developed to support data sharing and collaborative care for people with disabilities. The system enables multiple roles in the disability support environment—**guardians, support workers, therapists, supervisors, and administrators**—to access, record, and analyze patient data efficiently.
+This application is developed to address key inefficiencies and limitations in how NDIS providers currently collect and manage client data. Traditionally, patient records and progress reports are exchanged through emails and scattered documents, resulting in delayed communication, data inconsistency, and difficulty in tailoring effective support plans.
 
-### 🔧 Key Features
+Our platform provides a centralized, role-based data management system that enables Support Workers (SWs) to submit structured and therapist-specific reports. Each report is designed to be simple, multi-dimensional, and compliant with standard data formats. The submitted data is automatically routed to the relevant Therapists (e.g., Occupational, Physical, or Psychological), ensuring data privacy and relevance.
 
-#### • Guardian
-- Create and view patient data  
-- Accept support plans  
-- Share data with therapists or supervisors  
-- Assign shifts to support workers  
+###  Key Features
+This platform offers a rich set of features tailored to various user roles in the NDIS ecosystem, including Support Workers, Therapists, Guardians, and Administrators, ensuring seamless collaboration and accurate, role-specific data handling.
 
-#### • Support Worker
-- Accept support plans  
-- View assigned shifts  
-- Fill out daily questionnaires  
-- Upload questionnaire data for specific therapists  
+**Web Features & User Interface**
+-Role-Based Dashboards: Upon login, users are redirected to personalized dashboards based on their roles (Support Worker, Therapist, Guardian, or Admin), each providing targeted tools and data.
 
-#### • Therapist
-- Receive patient data  
-- Analyze data and generate charts  
-- Share insights with other roles  
-- Upload support plans and assign to guardians  
+-Interactive Home Page: A public homepage introduces the platform’s purpose and allows users to browse before login. Navigation options include returning to the dashboard or logging out.
 
-#### • Supervisor
-- View all patient data  
-- Optional data sharing and approval functionalities  
+-Chatbot Guide: An integrated chatbot assistant helps new users understand how to use the platform, guiding them step-by-step through uploading reports, viewing charts, or accessing support plans.
 
-#### • Admin
-- View all user accounts, including email, role, and last login  
+**Authentication & User Flow**
+-Secure Login & Registration: Users register with their email and select a role (validated on the server). Email format and role input are checked on both front and backend.
 
-The platform promotes **inter-role data transparency** and **efficiency** in support and rehabilitation services.
+-Session Control: Logged-in users can securely log out, browse the public site, or return to their private dashboard without re-authentication.
+
+**Support Worker Dashboard**
+-Structured Report Submission: SWs fill out tailored work reports based on the data requirements of different therapists (e.g., physical, psychological, or occupational).
+
+-Multi-Dimensional Inputs: Report forms provide clear guidance on each input dimension (e.g., social engagement, emotional status, rehabilitation progress).
+
+-Dynamic Personal Info: Real-time display of SW's profile information and submission history for transparency and self-tracking.
+
+-Support Plan Access: SWs can view updated support plans from therapists and adjust care strategies accordingly.
+
+**Therapist Dashboards**
+-Data-Specific Input Pipeline: Each therapist receives only the data relevant to their specialty.
+
+-Visual Data Analysis: Radar Chart for general patient health overview. Line/Bar Charts based on specialty metrics (e.g., emotion fluctuation, rehab progress).
+
+-Support Plan Management: Fill out, update, and view support plans.
+
+-Cross-role Sharing: Share relevant parts of a support plan with another therapist to assist in interdisciplinary treatment.
+
+-CSV Download: Export anonymized or full patient data as CSV for documentation or advanced data analysis.
+
+**Guardian Dashboard**
+-View Reports: Guardians can view the history of SW-submitted reports for their care recipient.
+
+-Access Support Plans: View historical or current support plans shared by therapists.
+
+-Date Filter: Quickly access support plans by date to monitor progress over time.
+
+**Admin Dashboard**
+-User Overview: View a table of all registered users, including:
+
+Name
+
+Registered email
+
+Role
+
+Last login time
+
+-System Monitoring: Helps ensure platform transparency and track platform usage statistics.
 
 ---
 
