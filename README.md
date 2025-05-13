@@ -7,104 +7,107 @@ This application is developed to address key inefficiencies and limitations in h
 Our platform provides a centralized, role-based data management system that enables Support Workers (SWs) to submit structured and therapist-specific reports. Each report is designed to be simple, multi-dimensional, and compliant with standard data formats. The submitted data is automatically routed to the relevant Therapists (e.g., Occupational, Physical, or Psychological), ensuring data privacy and relevance.
 
 ###  Key Features
-🌟 Key Features
-This platform offers a rich set of features tailored to various user roles in the NDIS ecosystem, including Support Workers, Therapists, Guardians, and Administrators, ensuring seamless collaboration and accurate, role-specific data handling.
+## Key Features
 
- Web Features & User Interface
-Role-Based Dashboards
-Upon login, users are redirected to personalized dashboards based on their roles (Support Worker, Therapist, Guardian, or Admin), each providing targeted tools and data.
+This platform offers a rich set of features tailored to various user roles in the **NDIS ecosystem**, including **Support Workers**, **Therapists**, **Guardians**, and **Administrators**, ensuring seamless collaboration and accurate, role-specific data handling.
 
-Interactive Home Page
-A public homepage introduces the platform’s purpose and allows users to browse before login. Navigation options include returning to the dashboard or logging out.
+---
 
-Chatbot Guide
-An integrated chatbot assistant helps new users understand how to use the platform, guiding them step-by-step through:
+###  Web Features & User Interface
 
-Uploading reports
+- **Role-Based Dashboards**  
+  Upon login, users are redirected to personalized dashboards based on their roles (Support Worker, Therapist, Guardian, or Admin), each providing targeted tools and data.
 
-Viewing charts
+- **Interactive Home Page**  
+  A public homepage introduces the platform’s purpose and allows users to browse before login. Navigation options include returning to the dashboard or logging out.
 
-Accessing support plans
+- **Chatbot Guide**  
+  An integrated chatbot assistant helps new users understand how to use the platform, guiding them step-by-step through:
+  - Uploading reports  
+  - Viewing charts  
+  - Accessing support plans  
 
- Authentication & User Flow
-Secure Login & Registration
-Users register with their email and select a role (validated on the server). Email format and role input are checked on both the frontend and backend.
+---
 
-Session Control
-Logged-in users can:
+###  Authentication & User Flow
 
-Log out securely
+- **Secure Login & Registration**  
+  Users register with their email and select a role (validated on the server). Email format and role input are checked on both the frontend and backend.
 
-Browse the public site
+- **Session Control**  
+  Logged-in users can:  
+  - Log out securely  
+  - Browse the public site  
+  - Return to their private dashboard without re-authentication  
 
-Return to their private dashboard without re-authentication
+---
 
- Support Worker Dashboard
-Structured Report Submission
-Support Workers fill out tailored work reports based on the data requirements of different therapists (e.g., physical, psychological, or occupational).
+###  Support Worker Dashboard
 
-Multi-Dimensional Inputs
-Report forms include guided input dimensions such as:
+- **Structured Report Submission**  
+  Support Workers fill out tailored work reports based on the data requirements of different therapists (e.g., physical, psychological, or occupational).
 
-Social engagement
+- **Multi-Dimensional Inputs**  
+  Report forms include guided input dimensions such as:  
+  - Social engagement  
+  - Emotional status  
+  - Rehabilitation progress  
 
-Emotional status
+- **Dynamic Personal Info Display**  
+  Real-time display of the SW's:  
+  - Profile information  
+  - Submission history  
 
-Rehabilitation progress
+- **Support Plan Access**  
+  View the latest therapist-updated support plans and adjust care strategies accordingly.
 
-Dynamic Personal Info Display
-Real-time display of the SW's:
+---
 
-Profile information
+###  Therapist Dashboards
 
-Submission history
+- **Data-Specific Input Pipeline**  
+  Each therapist only receives data relevant to their specialty for focused analysis.
 
-Support Plan Access
-View the latest therapist-updated support plans and adjust care strategies accordingly.
+- **Visual Data Analysis**  
+  - **Radar Chart**: Shows the patient’s general health overview.  
+  - **Line & Bar Charts**: Display specialty-specific metrics (e.g., emotion fluctuation, rehab progress).
 
- Therapist Dashboards
-Data-Specific Input Pipeline
-Each therapist only receives data relevant to their specialty for focused analysis.
+- **Support Plan Management**  
+  Therapists can fill out, update, and view support plans.
 
-Visual Data Analysis
+- **Cross-Role Sharing**  
+  Share support plans or specific data segments with other therapists (e.g., a PT sharing rehab data with a psychologist).
 
-Radar Chart: Shows the patient’s general health overview.
+- **CSV Download**  
+  Export patient data for documentation and external analysis.
 
-Line & Bar Charts: Display specialty-specific metrics (e.g., emotion fluctuation, rehab progress).
+---
 
-Support Plan Management
-Therapists can fill out, update, and view support plans.
+###  Guardian Dashboard
 
-Cross-Role Sharing
-Share support plans or specific data segments with other therapists (e.g., a PT sharing rehab data with a psychologist).
+- **View Reports**  
+  Guardians can see the history of work reports submitted by SWs for their care recipient.
 
-CSV Download
-Export patient data for documentation and external analysis.
+- **Access Support Plans**  
+  View current and historical plans shared by therapists.
 
- Guardian Dashboard
-View Reports
-Guardians can see the history of work reports submitted by SWs for their care recipient.
+- **Date Filter**  
+  Easily browse support plans by date to monitor progress over time.
 
-Access Support Plans
-View current and historical plans shared by therapists.
+---
 
-Date Filter
-Easily browse support plans by date to monitor progress over time.
+###  Admin Dashboard
 
-🛠 Admin Dashboard
-User Overview Table
-Admins can view a summary table of all registered users, including:
+- **User Overview Table**  
+  Admins can view a summary table of all registered users, including:  
+  - Name  
+  - Registered email  
+  - Role  
+  - Last login time  
 
-Name
+- **System Monitoring**  
+  Admins can monitor platform usage to ensure transparency and performance.
 
-Registered email
-
-Role
-
-Last login time
-
-System Monitoring
-Admins can monitor platform usage to ensure transparency and performance.
 ---
 
 ## 👥 2. Group Members
