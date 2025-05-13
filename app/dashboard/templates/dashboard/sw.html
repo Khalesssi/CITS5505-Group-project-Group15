@@ -10,7 +10,7 @@
       <li><a href="#patient-info" class="sidebar-link hover:underline">Patient Information</a></li>
       <li><a href="#daily-report" class="sidebar-link hover:underline">Daily Report</a></li>
       <li><a href="#report-record" class="sidebar-link hover:underline">Report Record</a></li>
-      <li><a href="#medical" class="sidebar-link hover:underline">Medical Instructions</a></li>
+      <li><a href="#medical" class="sidebar-link hover:underline">Shared Support Plan</a></li>
     </ul>
   </aside>
 
@@ -45,46 +45,7 @@
 
     <!-- Report Answers Section -->
     <section id="report-record" class="content-section hidden">
-      <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-        <h3 class="text-xl font-bold mb-6">Patient History</h3>
-        <!-- Selection Area -->
-        <div class="grid grid-cols-2 gap-6 mb-8">
-          <div class="bg-gray-50 rounded-lg p-4">
-            <div class="flex justify-between items-center mb-3">
-              <span class="font-medium text-gray-700">Report Date:</span>
-              <input class="border rounded-md px-3 py-1.5 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" id="reportDate" type="date"/>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="font-medium text-gray-700">Support Worker:</span>
-              <span class="text-gray-900 font-medium" id="supportWorkerName">No Data</span>
-            </div>
-          </div>
-          <div class="bg-gray-50 rounded-lg p-4">
-            <div class="flex justify-between items-center">
-              <span class="font-medium text-gray-700">Patient Name:</span>
-              <select class="border rounded-md px-3 py-1.5 bg-white w-48 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" id="patientSelect">
-                <option value="James Wilson">James Wilson</option>
-                <option value="Oliver Thompson">Oliver Thompson</option>
-                <option value="William Parker">William Parker</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <!-- Table Area -->
-        <div class="overflow-hidden rounded-lg border border-gray-200">
-          <table class="w-full border-collapse">
-            <thead>
-              <tr class="bg-gray-100">
-                <th class="text-gray-800 align-middle text-sm w-12 py-3 px-4 text-center font-semibold border-gray-200 border-b whitespace-nowrap">No.</th>
-                <th class="border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-left">Question</th>
-                <th class="w-48 border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-800 text-center">Answer</th>
-              </tr>
-            </thead>
-            <tbody id="reportTableBody">
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {% include "questionnaire/questions_answer_display.html" %}
     </section>
 
     <!-- 醫囑 Section -->

@@ -1,0 +1,130 @@
+  <div class="bg-white rounded-lg shadow p-6 mb-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+
+   <h3 class="text-2xl font-bold mb-6 text-gray-800">🗂️ Patient History</h2>
+
+  <!-- 顶部选择信息 -->
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+    <!-- 病人选择 -->
+    <div class="bg-gray-50 rounded-lg p-5 border border-gray-200 shadow-sm">
+      <label class="block text-base font-medium text-gray-700 mb-2">Patient Name</label>
+      <select id="patientSelect" class="w-full border rounded-md px-4 py-2 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base">
+        <option value="">-- Select Patient --</option>
+      </select>
+    </div>
+
+    <!-- 日期选择 -->
+    <div class="bg-gray-50 rounded-lg p-5 border border-gray-200 shadow-sm">
+      <label class="block text-base font-medium text-gray-700 mb-2">Report Date</label>
+      <select id="reportDate" class="w-full border rounded-md px-4 py-2 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base">
+        <option value="">-- Select Date --</option>
+      </select>
+    </div>
+
+    <!-- 支持者信息 -->
+    <div class="bg-gray-50 rounded-lg p-5 border border-gray-200 shadow-sm">
+      <label class="block text-base font-medium text-gray-700 mb-2">Support Worker</label>
+      <p class="text-gray-900 font-semibold text-base" id="supportWorkerName">No Data</p>
+    </div>
+  </div>
+
+  <!-- 答案展示表格 -->
+  <div id="answerBlock" class="mt-6 hidden">
+    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+      <table class="min-w-full mx-auto divide-y divide-gray-200 text-base">
+        <thead class="bg-gray-100 text-gray-700">
+          <tr>
+            <th class="px-5 py-4 w-12 text-center font-semibold">No.</th>
+            <th class="px-5 py-4 font-semibold text-center">Question</th>
+            <th class="px-5 py-4 w-48 text-center font-semibold">Answer</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 text-gray-800">
+          <tr><td class="px-5 py-4 text-center font-medium">1</td><td class="text-center">Is the patient's emotion stable today?</td><td id="q1" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">2</td><td class="text-center">Did the patient experience any pain today?</td><td id="q2" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">3</td><td class="text-center">Patient's physical energy level (1-5)</td><td id="q3" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">4</td><td class="text-center">Food intake today</td><td id="q4" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">5</td><td class="text-center">Did the patient complete daily activities?</td><td id="q5" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">6</td><td class="text-center">Physical training completion (%)</td><td id="q6" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">7</td><td class="text-center">Post-exercise pain score (1–10)</td><td id="q7" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">8</td><td class="text-center">Balance ability score (1–5)</td><td id="q8" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">9</td><td class="text-center">Self-care participation (1–5)</td><td id="q9" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">10</td><td class="text-center">Household task completion</td><td id="q10" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">11</td><td class="text-center">New skill learning performance</td><td id="q11" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">12</td><td class="text-center">Emotional fluctuations count</td><td id="q12" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">13</td><td class="text-center">Willingness for social interaction (1–5)</td><td id="q13" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">14</td><td class="text-center">Therapist response score (1–5)</td><td id="q14" class="answer text-center font-medium"></td></tr>
+          <tr><td class="px-5 py-4 text-center font-medium">15</td><td class="text-center">Signs of anxiety or depression?</td><td id="q15" class="answer text-center font-medium"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 联动逻辑 -->
+<script>
+$(document).ready(function () {
+  // 👉 获取病人列表
+  $.get('/questionnaire/ajax_get_patients', function (data) {
+    data.forEach(function (p) {
+      $('#patientSelect').append(`<option value="${p.id}">${p.name}</option>`);
+    });
+  });
+
+  // 👉 选择病人后更新日期
+  $('#patientSelect').change(function () {
+    const patientId = $(this).val();
+    $('#reportDate').empty().append('<option value="">-- Select Date --</option>');
+    $('#supportWorkerName').text('No Data');
+    $('#answerBlock').addClass('hidden');
+
+    if (!patientId) return;
+
+    $.get(`/questionnaire/ajax_get_dates_by_patient/${patientId}`, function (data) {
+      data.forEach(function (d) {
+        $('#reportDate').append(`<option value="${d}">${d}</option>`);
+      });
+    });
+  });
+
+  // 👉 选择日期后获取答案
+  $('#reportDate').change(function () {
+    const patientId = $('#patientSelect').val();
+    const reportDate = $(this).val();
+
+    if (!patientId || !reportDate) return;
+
+    $.get(`/questionnaire/ajax_get_report/${patientId}/${reportDate}`, function (res) {
+      if (res.error) {
+        alert(res.error);
+        return;
+      }
+
+      $('#supportWorkerName').text(res.support_worker_name);
+
+      // 答案着色渲染函数
+      const colorAnswer = (value) => {
+        if (value === "Yes") return `<span class="text-green-600 font-semibold">${value}</span>`;
+        if (value === "No") return `<span class="text-red-600 font-semibold">${value}</span>`;
+        if (value === "Good" || value === "Completed") return `<span class="text-green-600 font-semibold">${value}</span>`;
+        if (value === "Average" || value === "Partially Completed") return `<span class="text-yellow-600 font-semibold">${value}</span>`;
+        if (value === "Poor" || value === "Not Completed") return `<span class="text-red-600 font-semibold">${value}</span>`;
+        return `<span>${value}</span>`;
+      };
+
+      // 设置所有答案（q1~q15）
+      for (let i = 1; i <= 15; i++) {
+        const answer = res.answers[`q${i}`];
+        $(`#q${i}`).html(colorAnswer(answer));
+      }
+
+      $('#answerBlock').removeClass('hidden');
+    });
+  });
+});
+</script>
