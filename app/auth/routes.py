@@ -1,4 +1,3 @@
-
 import re
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
@@ -21,7 +20,6 @@ def login():
             login_user(user)
             flash("Login successful!")
 
-            # ✅ 角色跳转
             role = user.role
             if role == "Support Worker":
                 return redirect(url_for("dashboard.sw_dashboard"))
@@ -38,7 +36,7 @@ def login():
         flash("Invalid credentials.")
         return redirect(url_for("auth.login"))
 
-    return render_template("auth/login.html")  # ⬅ 确保路径是 auth 子目录
+    return render_template("auth/login.html")
 
 
 @auth_bp.route("/logout")
@@ -80,4 +78,4 @@ def register():
         flash("Registration successful. Please log in.")
         return redirect(url_for('auth.login'))
 
-    return render_template("auth/register.html")  # ⬅ 同样确保 auth 子模板
+    return render_template("auth/register.html")
