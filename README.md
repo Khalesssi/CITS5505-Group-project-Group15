@@ -11,7 +11,7 @@ Our platform provides a centralized, role-based data management system that enab
 
 This platform offers a rich set of features tailored to various user roles in the **NDIS ecosystem**, including **Support Workers**, **Therapists**, **Guardians**, and **Administrators**, ensuring seamless collaboration and accurate, role-specific data handling.
 
----
+
 
 ###  Web Features & User Interface
 
@@ -27,7 +27,7 @@ This platform offers a rich set of features tailored to various user roles in th
   - Viewing charts  
   - Accessing support plans  
 
----
+
 
 ###  Authentication & User Flow
 
@@ -40,7 +40,7 @@ This platform offers a rich set of features tailored to various user roles in th
   - Browse the public site  
   - Return to their private dashboard without re-authentication  
 
----
+
 
 ###  Support Worker Dashboard
 
@@ -61,7 +61,7 @@ This platform offers a rich set of features tailored to various user roles in th
 - **Support Plan Access**  
   View the latest therapist-updated support plans and adjust care strategies accordingly.
 
----
+
 
 ###  Therapist Dashboards
 
@@ -81,7 +81,6 @@ This platform offers a rich set of features tailored to various user roles in th
 - **CSV Download**  
   Export patient data for documentation and external analysis.
 
----
 
 ###  Guardian Dashboard
 
@@ -94,7 +93,6 @@ This platform offers a rich set of features tailored to various user roles in th
 - **Date Filter**  
   Easily browse support plans by date to monitor progress over time.
 
----
 
 ###  Admin Dashboard
 
