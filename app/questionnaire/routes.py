@@ -7,6 +7,8 @@ from app.models.patient import Patient
 from app.questionnaire import questionnaire_bp
 from flask import render_template
 from datetime import datetime
+from flask import jsonify
+from app.models.user import User
 
 
 
@@ -66,3 +68,57 @@ def submit_questionnaire():
     db.session.commit()
     flash('Report submitted successfully!')
     return redirect(url_for('dashboard.sw_dashboard'))
+
+@questionnaire_bp.route('/ajax_get_patients')
+@login_required
+def ajax_get_patients():
+    patients = Patient.query.all()
+    return jsonify([{'id': p.id, 'name': p.name} for p in patients])
+
+@questionnaire_bp.route('/ajax_get_dates_by_patient/<int:patient_id>')
+@login_required
+def ajax_get_dates_by_patient(patient_id):
+    dates = (
+        db.session.query(QuestionnaireAnswer.report_date)
+        .filter_by(patient_id=patient_id)
+        .distinct()
+        .order_by(QuestionnaireAnswer.report_date.desc())
+        .all()
+    )
+    return jsonify([d.report_date.strftime('%Y-%m-%d') for d in dates])
+
+@questionnaire_bp.route('/ajax_get_report/<int:patient_id>/<string:report_date>')
+@login_required
+def ajax_get_report(patient_id, report_date):
+    from datetime import datetime
+    try:
+        parsed_date = datetime.strptime(report_date, '%Y-%m-%d').date()
+    except ValueError:
+        return jsonify({'error': 'Invalid date format'}), 400
+
+    report = QuestionnaireAnswer.query.filter_by(patient_id=patient_id, report_date=parsed_date).first()
+    if not report:
+        return jsonify({'error': 'No report found'}), 404
+
+    sw = User.query.get(report.support_worker_id)
+
+    return jsonify({
+        'support_worker_name': sw.full_name if sw else 'Unknown',
+        'answers': {
+            'q1': report.q1_emotion_stable,
+            'q2': report.q2_pain_present,
+            'q3': report.q3_energy_level,
+            'q4': report.q4_food_intake,
+            'q5': report.q5_daily_activities,
+            'q6': report.q6_physical_training,
+            'q7': report.q7_post_exercise_pain,
+            'q8': report.q8_balance_score,
+            'q9': report.q9_self_care,
+            'q10': report.q10_household_tasks,
+            'q11': report.q11_skill_learning,
+            'q12': report.q12_emotional_fluctuations,
+            'q13': report.q13_social_willingness,
+            'q14': report.q14_therapist_response,
+            'q15': report.q15_anxiety_depression
+        }
+    })
