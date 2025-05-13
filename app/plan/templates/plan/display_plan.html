@@ -6,12 +6,10 @@
     <!-- 病人选择 -->
     <div>
       <label class="block text-sm font-medium text-gray-700 mb-1">Patient</label>
-      <select id="patient-select" name="patient_id" class="border rounded-md px-3 py-2">
+      <select id="planPatientSelect" class="border rounded-md px-3 py-2">
         <option value="">-- Select Patient --</option>
         {% for patient in patients if patient.id in plan_patient_ids %}
-          <option value="{{ patient.id }}" {% if selected_patient_id == patient.id %}selected{% endif %}>
-            {{ patient.name }}
-          </option>
+          <option value="{{ patient.id }}">{{ patient.name }}</option>
         {% endfor %}
       </select>
     </div>
@@ -19,119 +17,75 @@
     <!-- 日期选择 -->
     <div>
       <label class="block text-sm font-medium text-gray-700 mb-1">Plan Date</label>
-      <select id="date-select" name="plan_date" class="border rounded-md px-3 py-2">
+      <select id="planDateSelect" class="border rounded-md px-3 py-2">
         <option value="">-- Select Date --</option>
-        {% for date in plan_dates %}
-          <option value="{{ date.isoformat() }}" {% if selected_date_str == date.isoformat() %}selected{% endif %}>
-            {{ date.strftime("%Y-%m-%d") }}
-          </option>
-        {% endfor %}
       </select>
     </div>
   </form>
 
-  <!-- ✅ 医嘱展示区域（AJAX 和初始渲染共用） -->
-  <div id="dynamic-plan-container" class="mb-8">
-    {% if selected_patient_id and selected_date_str %}
-
-      {% if grouped_plans.psych %}
-      <div class="mb-6">
-        <h5 class="text-md font-semibold mb-2">Psychotherapist Instructions</h5>
-        <div class="bg-orange-50 p-4 rounded border-l-4 border-orange-400">
-          <ul class="space-y-2">
-            {% for plan in grouped_plans.psych %}
-            <li class="flex items-start">
-              <span class="text-orange-600 mr-2">•</span>
-              <span>{{ plan.content }}</span>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-      {% endif %}
-
-      {% if grouped_plans.physio %}
-      <div class="mb-6">
-        <h5 class="text-md font-semibold mb-2">Physiotherapist Instructions</h5>
-        <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-400">
-          <ul class="space-y-2">
-            {% for plan in grouped_plans.physio %}
-            <li class="flex items-start">
-              <span class="text-yellow-600 mr-2">•</span>
-              <span>{{ plan.content }}</span>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-      {% endif %}
-
-      {% if grouped_plans.ot %}
-      <div class="mb-6">
-        <h5 class="text-md font-semibold mb-2">Occupational Therapist Instructions</h5>
-        <div class="bg-green-50 p-4 rounded border-l-4 border-green-400">
-          <ul class="space-y-2">
-            {% for plan in grouped_plans.ot %}
-            <li class="flex items-start">
-              <span class="text-green-600 mr-2">•</span>
-              <span>{{ plan.content }}</span>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-      {% endif %}
-
-      {% if not grouped_plans %}
-        <p class="text-gray-500 text-sm">No support plans available for this selection.</p>
-      {% endif %}
-
-    {% else %}
-      <p class="text-gray-400 text-sm mt-4">Please select both a patient and a date to view support plans.</p>
-    {% endif %}
-  </div>
+  <!-- ✅ 医嘱展示区域 -->
+  <div id="dynamic-plan-container" class="mb-8 text-sm text-gray-700"></div>
 </div>
 
-<!-- ✅ 动态加载 AJAX 逻辑 -->
+<!-- ✅ 脚本逻辑 -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const patientSelect = document.getElementById("patient-select");
-    const dateSelect = document.getElementById("date-select");
-    const resultContainer = document.getElementById("dynamic-plan-container");
+document.addEventListener('DOMContentLoaded', function () {
+  const patientSelect = document.getElementById("planPatientSelect");
+  const dateSelect = document.getElementById("planDateSelect");
+  const resultContainer = document.getElementById("dynamic-plan-container");
 
-    async function fetchPlans() {
-      const patientId = patientSelect.value;
-      const planDate = dateSelect.value;
+  // 👇 病人选择后更新日期下拉框
+  patientSelect.addEventListener("change", async () => {
+    const patientId = patientSelect.value;
+    dateSelect.innerHTML = '<option value="">-- Select Date --</option>';
+    resultContainer.innerHTML = '';
 
-      if (!patientId || !planDate) return;
+    if (!patientId) return;
 
-      try {
-        const response = await fetch(`/plan/ajax_get_shared_support_plans?patient_id=${patientId}&plan_date=${planDate}`);
-        const data = await response.json();
-
-        const buildSection = (title, color, items) => {
-          if (!items || items.length === 0) return '';
-          const lis = items.map(item => `<li class="flex items-start"><span class="mr-2 text-${color}-600">•</span><span>${item}</span></li>`).join('');
-          return `
-            <div class="mb-6">
-              <h5 class="text-md font-semibold mb-2">${title}</h5>
-              <div class="bg-${color}-50 p-4 rounded border-l-4 border-${color}-400">
-                <ul class="space-y-2">${lis}</ul>
-              </div>
-            </div>`;
-        };
-
-        resultContainer.innerHTML =
-          buildSection("Psychotherapist Instructions", "orange", data.psych) +
-          buildSection("Physiotherapist Instructions", "yellow", data.physio) +
-          buildSection("Occupational Therapist Instructions", "green", data.ot) ||
-          `<p class="text-gray-500">No support plans found for this patient and date.</p>`;
-      } catch (err) {
-        resultContainer.innerHTML = `<p class="text-red-600">Error loading support plans.</p>`;
-      }
-    }
-
-    patientSelect.addEventListener("change", fetchPlans);
-    dateSelect.addEventListener("change", fetchPlans);
+    const res = await fetch(`/plan/ajax_get_plan_dates_by_patient/${patientId}`);
+    const dates = await res.json();
+    dates.forEach(date => {
+      const opt = document.createElement('option');
+      opt.value = date;
+      opt.textContent = date;
+      dateSelect.appendChild(opt);
+    });
   });
+
+  // 👇 选择病人+日期后加载医嘱
+  dateSelect.addEventListener("change", fetchPlans);
+  patientSelect.addEventListener("change", fetchPlans); // 支持自动加载
+
+  async function fetchPlans() {
+    const patientId = patientSelect.value;
+    const planDate = dateSelect.value;
+    if (!patientId || !planDate) return;
+
+    try {
+      const response = await fetch(`/plan/ajax_get_shared_support_plans?patient_id=${patientId}&plan_date=${planDate}`);
+      const data = await response.json();
+
+      const buildSection = (title, color, items) => {
+        if (!items || items.length === 0) return '';
+        const lis = items.map(item => `<li class="flex items-start"><span class="mr-2 text-${color}-600">•</span><span>${item}</span></li>`).join('');
+        return `
+          <div class="mb-6">
+            <h5 class="text-md font-semibold mb-2">${title}</h5>
+            <div class="bg-${color}-50 p-4 rounded border-l-4 border-${color}-400">
+              <ul class="space-y-2">${lis}</ul>
+            </div>
+          </div>`;
+      };
+
+      resultContainer.innerHTML =
+        buildSection("Psychotherapist Instructions", "orange", data.psych) +
+        buildSection("Physiotherapist Instructions", "yellow", data.physio) +
+        buildSection("Occupational Therapist Instructions", "green", data.ot) ||
+        `<p class="text-gray-500">No support plans found for this patient and date.</p>`;
+
+    } catch (err) {
+      resultContainer.innerHTML = `<p class="text-red-600">Error loading support plans.</p>`;
+    }
+  }
+});
 </script>

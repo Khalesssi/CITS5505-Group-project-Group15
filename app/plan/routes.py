@@ -1,17 +1,13 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
 from app.models.patient import Patient
 from app.models.support_plan import SupportPlan
 from app.extensions import db
 from app.plan import plan_bp
-from app.utils.role_mapping import specialty_to_field
-from app.utils.role_mapping import role_to_patient_field
+from app.utils.role_mapping import specialty_to_field, role_to_patient_field
 from datetime import datetime
 from collections import defaultdict
 from app.models.user import User
-from flask import jsonify
-from app.utils.role_mapping import role_to_patient_field
-from app.utils.role_mapping import specialty_to_field
 
 @plan_bp.route('/submit', methods=['GET', 'POST'])
 @login_required
@@ -93,3 +89,32 @@ def ajax_get_shared_support_plans():
             grouped[therapist.specialty].append(plan.content)
 
     return jsonify(grouped)
+
+# ✅ 新增：获取某病人所有共享支持计划的可用日期
+@plan_bp.route('/ajax_get_plan_dates_by_patient/<int:patient_id>')
+@login_required
+def ajax_get_plan_dates_by_patient(patient_id):
+    role = current_user.role
+    if role == "Guardian":
+        share_field = SupportPlan.share_with_guardian
+        patient_field = Patient.guardian_id
+    elif role == "Support Worker":
+        share_field = SupportPlan.share_with_sw
+        patient_field = Patient.sw_id
+    else:
+        return jsonify({"error": "Unauthorized"}), 403
+
+    patient = Patient.query.get(patient_id)
+    if not patient or getattr(patient, patient_field.name) != current_user.id:
+        return jsonify({'error': 'Unauthorized access to patient data'}), 403
+
+    plans = (
+        SupportPlan.query
+        .filter(SupportPlan.patient_id == patient_id, share_field == True)
+        .with_entities(SupportPlan.date)
+        .order_by(SupportPlan.date.desc())
+        .all()
+    )
+
+    unique_dates = sorted(list({p.date.date().isoformat() for p in plans}))
+    return jsonify(unique_dates)
