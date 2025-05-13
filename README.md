@@ -7,49 +7,93 @@ This application is developed to address key inefficiencies and limitations in h
 Our platform provides a centralized, role-based data management system that enables Support Workers (SWs) to submit structured and therapist-specific reports. Each report is designed to be simple, multi-dimensional, and compliant with standard data formats. The submitted data is automatically routed to the relevant Therapists (e.g., Occupational, Physical, or Psychological), ensuring data privacy and relevance.
 
 ###  Key Features
+🌟 Key Features
 This platform offers a rich set of features tailored to various user roles in the NDIS ecosystem, including Support Workers, Therapists, Guardians, and Administrators, ensuring seamless collaboration and accurate, role-specific data handling.
 
-**Web Features & User Interface**
--Role-Based Dashboards: Upon login, users are redirected to personalized dashboards based on their roles (Support Worker, Therapist, Guardian, or Admin), each providing targeted tools and data.
+ Web Features & User Interface
+Role-Based Dashboards
+Upon login, users are redirected to personalized dashboards based on their roles (Support Worker, Therapist, Guardian, or Admin), each providing targeted tools and data.
 
--Interactive Home Page: A public homepage introduces the platform’s purpose and allows users to browse before login. Navigation options include returning to the dashboard or logging out.
+Interactive Home Page
+A public homepage introduces the platform’s purpose and allows users to browse before login. Navigation options include returning to the dashboard or logging out.
 
--Chatbot Guide: An integrated chatbot assistant helps new users understand how to use the platform, guiding them step-by-step through uploading reports, viewing charts, or accessing support plans.
+Chatbot Guide
+An integrated chatbot assistant helps new users understand how to use the platform, guiding them step-by-step through:
 
-**Authentication & User Flow**
--Secure Login & Registration: Users register with their email and select a role (validated on the server). Email format and role input are checked on both front and backend.
+Uploading reports
 
--Session Control: Logged-in users can securely log out, browse the public site, or return to their private dashboard without re-authentication.
+Viewing charts
 
-**Support Worker Dashboard**
--Structured Report Submission: SWs fill out tailored work reports based on the data requirements of different therapists (e.g., physical, psychological, or occupational).
+Accessing support plans
 
--Multi-Dimensional Inputs: Report forms provide clear guidance on each input dimension (e.g., social engagement, emotional status, rehabilitation progress).
+ Authentication & User Flow
+Secure Login & Registration
+Users register with their email and select a role (validated on the server). Email format and role input are checked on both the frontend and backend.
 
--Dynamic Personal Info: Real-time display of SW's profile information and submission history for transparency and self-tracking.
+Session Control
+Logged-in users can:
 
--Support Plan Access: SWs can view updated support plans from therapists and adjust care strategies accordingly.
+Log out securely
 
-**Therapist Dashboards**
--Data-Specific Input Pipeline: Each therapist receives only the data relevant to their specialty.
+Browse the public site
 
--Visual Data Analysis: Radar Chart for general patient health overview. Line/Bar Charts based on specialty metrics (e.g., emotion fluctuation, rehab progress).
+Return to their private dashboard without re-authentication
 
--Support Plan Management: Fill out, update, and view support plans.
+ Support Worker Dashboard
+Structured Report Submission
+Support Workers fill out tailored work reports based on the data requirements of different therapists (e.g., physical, psychological, or occupational).
 
--Cross-role Sharing: Share relevant parts of a support plan with another therapist to assist in interdisciplinary treatment.
+Multi-Dimensional Inputs
+Report forms include guided input dimensions such as:
 
--CSV Download: Export anonymized or full patient data as CSV for documentation or advanced data analysis.
+Social engagement
 
-**Guardian Dashboard**
--View Reports: Guardians can view the history of SW-submitted reports for their care recipient.
+Emotional status
 
--Access Support Plans: View historical or current support plans shared by therapists.
+Rehabilitation progress
 
--Date Filter: Quickly access support plans by date to monitor progress over time.
+Dynamic Personal Info Display
+Real-time display of the SW's:
 
-**Admin Dashboard**
--User Overview: View a table of all registered users, including:
+Profile information
+
+Submission history
+
+Support Plan Access
+View the latest therapist-updated support plans and adjust care strategies accordingly.
+
+ Therapist Dashboards
+Data-Specific Input Pipeline
+Each therapist only receives data relevant to their specialty for focused analysis.
+
+Visual Data Analysis
+
+Radar Chart: Shows the patient’s general health overview.
+
+Line & Bar Charts: Display specialty-specific metrics (e.g., emotion fluctuation, rehab progress).
+
+Support Plan Management
+Therapists can fill out, update, and view support plans.
+
+Cross-Role Sharing
+Share support plans or specific data segments with other therapists (e.g., a PT sharing rehab data with a psychologist).
+
+CSV Download
+Export patient data for documentation and external analysis.
+
+ Guardian Dashboard
+View Reports
+Guardians can see the history of work reports submitted by SWs for their care recipient.
+
+Access Support Plans
+View current and historical plans shared by therapists.
+
+Date Filter
+Easily browse support plans by date to monitor progress over time.
+
+🛠 Admin Dashboard
+User Overview Table
+Admins can view a summary table of all registered users, including:
 
 Name
 
@@ -59,8 +103,8 @@ Role
 
 Last login time
 
--System Monitoring: Helps ensure platform transparency and track platform usage statistics.
-
+System Monitoring
+Admins can monitor platform usage to ensure transparency and performance.
 ---
 
 ## 👥 2. Group Members
