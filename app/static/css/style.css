@@ -1,6 +1,7 @@
-/* font :- space grotesk and open sans*/
+/* Font Import (Google Fonts) */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans&family=Space+Grotesk:wght@400;500;700&display=swap');
 
+/* Root Variables (Theme Colors, Layout) */
 :root {
   --primary-color: #8828ff;
   --heading-color: #20184E;
@@ -9,6 +10,7 @@
   --max-width: 1100px;
 }
 
+/* Global Reset & Base Styles */
 *{
   margin: 0;
   padding: 0;
@@ -22,7 +24,7 @@ html{
   scroll-behavior: smooth;
 }
 
-/* resuable styles */
+/* Reusable Text Styles */
 .section-heading{
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
@@ -33,13 +35,13 @@ html{
   color: var(--secondary-color);
   font-weight: 400;
 }
-/* resuable styles */
+/* Header Section */
 
 header{
   max-width: var(--max-width);
 }
 
-/* nav style */
+/* Navigation Bar Styles */
 nav {
   width: 100%;
   font-family: 'Space Grotesk', sans-serif;
@@ -84,7 +86,7 @@ nav {
   background-color: var(--primary-color);
 }
 
-/* hero style */
+/* Hero Section */
 .hero-bg{
   min-height: 100vh;
   width: 100%;
@@ -130,7 +132,7 @@ nav {
   right: 0;
 }
 
-/* task section */
+/* Task and Chat Sections */
 .task-section, .chat-section{
   width: 100%;
   position: relative;
@@ -165,7 +167,7 @@ nav {
   color: var(--primary-color);
 }
 
-/* pricing style */
+/* Pricing Section */
 #Pricing{
   width: 100%;
   background-color: #F9F9FB;
@@ -285,7 +287,7 @@ nav {
   border-radius: 0 0 20px 20px;
 }
 
-/* customer style*/
+/* Customer Section */
 #customer{
   margin: 100px 0px;
   padding: 0 15px;
@@ -299,7 +301,7 @@ nav {
   max-width: 900px;
 }
 
-/* article style */
+/* Article Section & Carousel */
 #article{
   margin: 100px 0px 150px 0px;
   padding: 0 15px;
@@ -375,9 +377,8 @@ nav {
   background: var(--primary-color);
 }
 
-/*article carousel style */
+/* Responsive carousel - 2 cards view */
 
-/* for two elements */
 @media (max-width: 1000px) {
   #article .carousel-inner .carousel-item > div:last-child {
     display: none;
@@ -397,7 +398,7 @@ nav {
     transform: translateX(-50%);
   }
 }
-/* for one elements */
+/* Responsive carousel - 1 card view */
 @media (max-width: 767px) {
   #article .carousel-inner .carousel-item > div {
       display: none;
@@ -424,7 +425,6 @@ nav {
 }
 
 
-/* medium and up screens */
 @media (min-width: 1000px) {
   
   #article .carousel-inner .carousel-item-end.active,
@@ -442,9 +442,8 @@ nav {
 .carousel-inner .carousel-item-start { 
 transform: translateX(0);
 }
-/* article carousel style */
 
-/* footer style */
+/* Footer Section */
 .footer{
   background-color: #260055;
   color: white;
@@ -482,7 +481,7 @@ transform: translateX(0);
   color: var(--primary-color);
 }
 
-/* testimonial styles */
+/* Testimonials Section */
 #testimonial{
   padding: 250px 0px 200px 0px;
   margin-top: 100px;
