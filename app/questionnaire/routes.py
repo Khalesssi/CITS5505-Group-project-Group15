@@ -9,65 +9,45 @@ from flask import render_template
 from datetime import datetime
 from flask import jsonify
 from app.models.user import User
+from app.forms.questionnaire_forms import DailyReportForm
 
-
-
-@questionnaire_bp.route('/questionnaire', methods=['POST'])
+@questionnaire_bp.route('/questionnaire', methods=['GET', 'POST'])
 @login_required
 def submit_questionnaire():
-    # print(request.form)
+    form = DailyReportForm()
 
-    patient_id = request.form.get('patient_id')
-    if not patient_id:
-        flash('Patient selection is required.')
+    # 绑定病人 choices
+    patients = Patient.query.filter_by(sw_id=current_user.id).all()
+    form.patient_id.choices = [(p.id, p.name) for p in patients]
+
+    if form.validate_on_submit():
+        new_entry = QuestionnaireAnswer(
+            support_worker_id=current_user.id,
+            patient_id=form.patient_id.data,
+            report_date=form.date.data,
+            q1_emotion_stable=form.question1.data,
+            q2_pain_present=form.question2.data,
+            q3_energy_level=form.question3.data,
+            q4_food_intake=form.question4.data,
+            q5_daily_activities=form.question5.data,
+            q6_physical_training=form.question6.data,
+            q7_post_exercise_pain=form.question7.data,
+            q8_balance_score=form.question8.data,
+            q9_self_care=form.question9.data,
+            q10_household_tasks=form.question10.data,
+            q11_skill_learning=form.question11.data,
+            q12_emotional_fluctuations=form.question12.data,
+            q13_social_willingness=form.question13.data,
+            q14_therapist_response=form.question14.data,
+            q15_anxiety_depression=form.question15.data
+        )
+        db.session.add(new_entry)
+        db.session.commit()
+        flash("Report submitted successfully!")
         return redirect(url_for('dashboard.sw_dashboard'))
-    
-    date_str = request.form.get('date')
-    if not date_str:
-        flash('Please select a date.')
-        return redirect(url_for('dashboard.sw_dashboard'))
 
-    try:
-        selected_date = datetime.strptime(date_str, '%Y-%m-%d').date()
-    except ValueError:
-        flash('Invalid date format.')
-        return redirect(url_for('dashboard.sw_dashboard'))
+    return render_template('dashboard/sw.html', form=form, patients=patients)
 
-    answers = {}
-    for i in range(1, 16):
-        q = f'question{i}'
-        answers[q] = request.form.get(q)
-
-    missing = [k for k, v in answers.items() if v is None]
-    if missing:
-        flash('Please answer all questions before submitting.')
-        return redirect(url_for('dashboard.sw_dashboard'))
-
-    new_entry = QuestionnaireAnswer(
-        support_worker_id=current_user.id,
-        patient_id=patient_id,
-        report_date=selected_date,
-        q1_emotion_stable=answers['question1'],
-        q2_pain_present=answers['question2'],
-        q3_energy_level=answers['question3'],
-        q4_food_intake=answers['question4'],
-        q5_daily_activities=answers['question5'],
-        q6_physical_training=answers['question6'],
-        q7_post_exercise_pain=answers['question7'],
-        q8_balance_score=answers['question8'],
-        q9_self_care=answers['question9'],
-        q10_household_tasks=answers['question10'],
-        q11_skill_learning=answers['question11'],
-        q12_emotional_fluctuations=answers['question12'],
-        q13_social_willingness=answers['question13'],
-        q14_therapist_response=answers['question14'],
-        q15_anxiety_depression=answers['question15']
-    )
-
-    db.session.add(new_entry)
-    db.session.commit()
-    flash('Report submitted successfully!')
-    return redirect(url_for('dashboard.sw_dashboard'))
 
 @questionnaire_bp.route('/ajax_get_patients')
 @login_required
