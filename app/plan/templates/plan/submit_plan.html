@@ -1,45 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Submit Plan{% endblock %}
+
+{% block content %}
 <form method="POST" action="{{ url_for('plan.submit_plan') }}">
   <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01] max-w-3xl mx-auto">
     <h2 class="text-2xl font-bold mb-6 text-center">Submit Support Plan</h2>
 
+    {{ form.hidden_tag() }}
+
     <!-- Patient Select -->
     <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1">Select Patient</label>
-      <select name="patient_id" class="w-full border rounded-md px-3 py-2" required>
-        <option value="">-- Select Patient --</option>
-        {% for p in patients %}
-        <option value="{{ p.id }}">{{ p.name }}</option>
-        {% endfor %}
-      </select>
-      <label for="plan_date" class="block text-sm font-medium text-gray-700 mb-1">Plan Date</label>
-      <input type="datetime-local" id="plan_date" name="plan_date"
-       class="w-full border border-gray-300 rounded-md px-3 py-2 mb-4" required>
+      <label for="patient-id-select" class="block text-sm font-medium text-gray-700 mb-1">Select Patient</label>
+      {{ form.patient_id(class="w-full border rounded-md px-3 py-2") }}
+
+      <label for="plan-date" class="block text-sm font-medium text-gray-700 mt-4 mb-1">Plan Date</label>
+      {{ form.plan_date(class="w-full border border-gray-300 rounded-md px-3 py-2 mb-4") }}
     </div>
 
     <!-- Plan Content -->
     <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1">Support Plan Content</label>
-      <textarea name="content" rows="8" class="w-full border rounded-md px-3 py-2" placeholder="Write your plan here..." required></textarea>
+      <label for="plan-content" class="block text-sm font-medium text-gray-700 mb-1">Support Plan Content</label>
+      {{ form.content(class="w-full border rounded-md px-3 py-2", placeholder="Write your plan here...") }}
     </div>
 
     <!-- Share Options -->
     <div class="mb-6">
       <span class="block text-sm font-medium text-gray-700 mb-2">Share With:</span>
       <label class="inline-flex items-center mr-4">
-        <input type="checkbox" name="share_guardian" class="mr-2">
+        {{ form.share_guardian(class="mr-2") }}
         <span>Guardian</span>
       </label>
       <label class="inline-flex items-center">
-        <input type="checkbox" name="share_sw" class="mr-2">
+        {{ form.share_sw(class="mr-2") }}
         <span>Support Worker</span>
       </label>
     </div>
 
     <!-- Submit Button -->
     <div class="text-center">
-      <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700">
-        Submit Plan
-      </button>
+      {{ form.submit(class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700") }}
     </div>
   </div>
 </form>
+{% endblock %}
