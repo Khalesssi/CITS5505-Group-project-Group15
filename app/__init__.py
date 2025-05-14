@@ -2,7 +2,7 @@
 
 from flask import Flask,render_template
 from config import Config
-from app.extensions import db, login_manager, migrate
+from app.extensions import db, login_manager, migrate, csrf 
 
 
 def create_app():
@@ -14,6 +14,7 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
     migrate.init_app(app, db)
+    csrf.init_app(app)
 
     # 注册蓝图
 
