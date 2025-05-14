@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="min-h-screen flex flex-col">
-  <div class="flex flex-1">
+<div class="flex flex-col md:flex-row min-h-screen">
+
   <!-- Sidebar -->
-  <aside class="w-64 bg-gray-100 p-6 border-r">
-    <h2 class="text-xl font-bold mb-6">{{ current_user.role  }} - {{ current_user.specialty  }}</h2>
+  <aside class="w-full md:w-1/4 bg-gray-100 p-6 border-r">
+    <h2 class="text-xl font-bold mb-6">{{ current_user.role }} - {{ current_user.specialty }}</h2>
     <ul id="sidebarLinks" class="space-y-4 text-gray-700">
       <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Profile</a></li>
       <li><a href="#patient-info" class="sidebar-link hover:underline">Patient Info</a></li>

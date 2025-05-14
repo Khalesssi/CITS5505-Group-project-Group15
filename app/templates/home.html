@@ -2,34 +2,38 @@
 
 {% block title %}Home - Best Care{% endblock %}
 
+{% block sidebar %}
+<!-- No sidebar on homepage -->
+{% endblock %}
+
 {% block content %}
 <!--Page 1 Section-->
 <section id="home" class="h-screen">
-    <div class="w-full h-full bg-cover bg-center flex items-center justify-start"
-         style="background-image: url('/static/images/Backgroud.jpg');">
+  <div class="w-full h-full bg-cover bg-center flex items-center justify-start"
+       style="background-image: url('/static/images/Backgroud.jpg');">
 
-<!-- Content Part -->
-<div id="hero-box" class="hero-box bg-gray-900 bg-opacity-50 text-white p-10 md:p-14 rounded-lg max-w-2xl w-full mx-6 md:mx-20">
-  
-  <div class="text-yellow-300 text-sm font-semibold tracking-wider uppercase mb-4">
-    BEST CARE
+    <!-- Content Part -->
+    <div id="hero-box" class="hero-box bg-gray-900 bg-opacity-50 text-white p-10 md:p-14 rounded-lg max-w-2xl w-full mx-6 md:mx-20">
+      <div class="text-yellow-300 text-sm font-semibold tracking-wider uppercase mb-4">
+        BEST CARE
+      </div>
+
+      <h1 class="text-yellow-100 text-5xl md:text-6xl font-serif font-bold leading-tight mb-6">
+        Disability Care<br />Platform
+      </h1>
+
+      <p class="text-white text-lg leading-relaxed mb-8">
+        We are committed to delivering the highest standard of disability care
+        services throughout Western Australia.
+      </p>
+
+      <a href="/login">
+        <button class="bg-yellow-400 text-black font-bold px-6 py-3 rounded-md hover:bg-yellow-500 transition">
+          LEARN MORE
+        </button>
+      </a>
+    </div>
   </div>
-
-  <h1 class="text-yellow-100 text-5xl md:text-6xl font-serif font-bold leading-tight mb-6">
-    Disability Care<br />Platform
-  </h1>
-
-  <p class="text-white text-lg leading-relaxed mb-8">
-    We are committed to delivering the highest standard of disability care
-    services throughout Western Australia.
-  </p>
-
-  <a href="/login">
-    <button class="bg-yellow-400 text-black font-bold px-6 py-3 rounded-md hover:bg-yellow-500 transition">
-      LEARN MORE
-    </button>
-  </a>
-
 </section>
 
 <!-- Chatbot Toggle Button -->

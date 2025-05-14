@@ -1,12 +1,12 @@
-{% extends "base.html" %}  {# Inherit base template #}
+{% extends "base.html" %}
 
 {% block content %}
 <!-- Chart.js Library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div class="flex min-h-screen">
+<div class="flex flex-col md:flex-row min-h-screen">
   <!-- Sidebar -->
-  <aside class="w-64 bg-gray-100 p-6 border-r">
+  <aside class="w-full md:w-1/4 bg-gray-100 p-6 border-r">
     <h2 class="text-xl font-bold mb-6">Guardian</h2>
     <ul class="space-y-4 text-gray-700" id="sidebarLinks">
       <li><a class="sidebar-link text-indigo-700 font-semibold" href="#profile">Personal Info</a></li>
