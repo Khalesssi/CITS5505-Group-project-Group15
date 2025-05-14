@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-100 p-6 border-r">
+    <h2 class="text-xl font-bold mb-6">Support Worker</h2>
+    <ul id="sidebarLinks" class="space-y-4 text-gray-700">
+      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Personal Info</a></li>
+      <li><a href="#patient-info" class="sidebar-link hover:underline">Patient Information</a></li>
+      <li><a href="#daily-report" class="sidebar-link hover:underline">Daily Report</a></li>
+      <li><a href="#report-record" class="sidebar-link hover:underline">Report Record</a></li>
+      <li><a href="#medical" class="sidebar-link hover:underline">Shared Support Plan</a></li>
+    </ul>
+  </aside>
+
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+
+     <!-- Flash message display section -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="p-4 mb-4 text-sm text-green-800 bg-green-100 rounded-lg border border-green-300">
+      {{ messages[0] }}
+      </div>
+    {% endif %}
+    {% endwith %}
+    
+    <!-- Personal profile Section -->
+    <section id="profile" class="content-section space-y-6">
+      {% include "dashboard/profile.html" %}
+    </section>
+
+     <!-- Patient Info Section -->
+      <section id="patient-info" class="content-section hidden mb-8">
+        {% include "dashboard/patient_info.html" %}
+      </section>
+
+
+    <!-- Daily report Section -->
+     <section id="daily-report" class="content-section hidden">
+      {% include "questionnaire/questions.html" %}
+    </section>
+
+    <!-- Report Answers Section -->
+    <section id="report-record" class="content-section hidden">
+      {% include "questionnaire/questions_answer_display.html" %}
+    </section>
+
+    <!-- Shared Support Plan Section -->
+    <section id="medical" class="content-section hidden">
+      {% include "plan/display_plan.html" %}
+    </section>
+  </main>
+</div>
+
+<!-- Navigation and Data Handling Script -->
+<script>
+  // Navigation functionality
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('main section');
+
+    links.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+
+        sections.forEach(section => {
+          section.classList.add('hidden');
+          if (section.id === targetId) {
+            section.classList.remove('hidden');
+          }
+        });
+
+        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
+        this.classList.add('text-indigo-700', 'font-semibold');
+      });
+    });
+  });
+
+  // Set default date to today
+  document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.querySelectorAll('input[type="date"]').forEach(input => {
+      input.value = today;
+    });
+  });
+
+  // Define question list
+  const questions = [
+      "How is the patient's mental status today?",
+      "Did the patient take their medication on time?",
+      "Food intake score",
+      "Did the patient complete today's rehabilitation activity?",
+      "Sleep quality score",
+      "Any abnormal symptoms?",
+      "Emotional stability score",
+      "Did the patient follow the doctor's instructions?",
+      "Activity participation score",
+      "Any social interaction?"
+  ];
+
+  // Define available Support Worker list
+  const supportWorkers = ["Michael Smith", "George Davies", "Emma Taylor"];
+
+  // Use date and patient name as key to ensure the same patient gets the same Support Worker on a given day
+  function getConsistentSupportWorker(date, patient) {
+      const seed = date + patient;
+      let hash = 0;
+      for (let i = 0; i < seed.length; i++) {
+          hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+          hash = hash & hash;
+      }
+      return supportWorkers[Math.abs(hash) % supportWorkers.length];
+  }
+
+  // Generate answers for daily reports
+  function generateDailyAnswers(date, patient) {
+      // Rating score mapping
+      const ratings = {
+          1: { text: "Poor", class: "text-red-500" },
+          3: { text: "Average", class: "text-yellow-600" },
+          5: { text: "Good", class: "text-green-600" }
+      };
+
+      // Generate score answers
+      function getRandomScore() {
+          const scores = [1, 3, 5];
+          const score = scores[Math.floor(Math.random() * 3)];
+          return { 
+              score: score.toString(),
+              text: ratings[score].text,
+              class: ratings[score].class
+          };
+      }
+
+      return [
+          getRandomScore(),
+          formatYesNoAnswer(Math.random() < 0.7),
+          getRandomScore(),
+          formatYesNoAnswer(Math.random() < 0.6),
+          getRandomScore(),
+          formatYesNoAnswer(Math.random() > 0.8),
+          getRandomScore(),
+          formatYesNoAnswer(Math.random() < 0.75),
+          getRandomScore(),
+          formatYesNoAnswer(Math.random() < 0.65)
+      ];
+  }
+
+  // Format Yes/No answers
+  function formatYesNoAnswer(isYes) {
+      return { 
+          score: isYes ? "Yes" : "No",
+          text: isYes ? "Yes" : "No",
+          class: isYes ? "text-green-600" : "text-red-500"
+      };
+  }
+
+  // Generate data for all dates in April 2025
+  const mockData = {
+      "James Wilson": {},
+      "Oliver Thompson": {},
+      "William Parker": {}
+  };
+
+  // Generate data for all dates
+  for (let day = 1; day <= 30; day++) {
+      const date = `2025-04-${day.toString().padStart(2, '0')}`;
+      
+      ["James Wilson", "Oliver Thompson", "William Parker"].forEach(patient => {
+          mockData[patient][date] = {
+              supportWorker: getConsistentSupportWorker(date, patient),
+              answers: generateDailyAnswers(date, patient)
+          };
+      });
+  }
+
+  // Update table display function
+  function updateReport() {
+      const date = document.getElementById('reportDate').value;
+      const patient = document.getElementById('patientSelect').value;
+      const data = mockData[patient]?.[date];
+      
+      if (data) {
+          document.getElementById('supportWorkerName').textContent = data.supportWorker;
+          
+          const tbody = document.getElementById('reportTableBody');
+          tbody.innerHTML = questions.map((question, index) => {
+              const answer = data.answers[index];
+              return `
+                  <tr class="hover:bg-gray-50">
+                      <td class="border-b border-gray-300 px-6 py-4 text-base text-center text-gray-600 whitespace-nowrap">${index + 1}</td>
+                      <td class="border-b border-gray-300 px-6 py-4 text-base text-left text-gray-800">${question}</td>
+                      <td class="border-b border-gray-300 px-6 py-4">
+                          <div class="flex justify-center">
+                              <span class="${answer.class} text-base font-semibold">${answer.text}</span>
+                          </div>
+                      </td>
+                  </tr>
+              `;
+          }).join('');
+      } else {
+          document.getElementById('supportWorkerName').textContent = 'No Data';
+          document.getElementById('reportTableBody').innerHTML = `
+              <tr>
+                  <td colspan="3" class="text-center py-6 text-gray-500 bg-gray-50">
+                      No report history for this date
+                  </td>
+              </tr>
+          `;
+      }
+  }
+
+  // Initialize page
+  document.addEventListener('DOMContentLoaded', function() {
+      // Set default date to April 1, 2025
+      document.getElementById('reportDate').value = '2025-04-01';
+      
+      // Initialize table
+      updateReport();
+      
+      // Add event listeners
+      document.getElementById('reportDate').addEventListener('change', updateReport);
+      document.getElementById('patientSelect').addEventListener('change', updateReport);
+  });
+</script>
+
+<!-- Form Validation Script -->
+<script>
+  function validateForm() {
+  const form = document.getElementById('daily-form');
+  const inputs = form.querySelectorAll('select, input[type="number"]');
+  for (let input of inputs) {
+    if (!input.value) {
+      alert("Please complete all questions before submitting.");
+      input.focus();
+      return false;
+    }
+  }
+  return true;
+}
+</script>
+{% endblock %}

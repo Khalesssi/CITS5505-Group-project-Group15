@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Main Container with Sidebar Layout -->
+<div class="min-h-screen flex flex-col">
+  <div class="flex flex-1">
+  <!-- Left Sidebar Navigation -->
+  <aside class="w-64 bg-gray-100 p-6 border-r">
+    <h2 class="text-xl font-bold mb-6">{{ current_user.role  }} - {{ current_user.specialty  }}</h2>
+    <ul id="sidebarLinks" class="space-y-4 text-gray-700">
+      <li><a href="#profile" class="sidebar-link text-indigo-700 font-semibold">Profile</a></li>
+      <li><a href="#patient-info" class="sidebar-link hover:underline">Patient Info</a></li>
+      <li><a href="#schedule" class="sidebar-link hover:underline">Care Schedule</a></li>
+      <li><a href="#support-plan" class="sidebar-link hover:underline">Support Plan</a></li>
+      <li><a href="#report-record" class="sidebar-link hover:underline">Report Record</a></li>
+      <li><a href="#analysis" class="sidebar-link hover:underline">Data Analysis</a></li>
+    </ul>
+  </aside>
+
+<!-- Right Content Wrapper -->
+<div class="flex-1 flex flex-col">
+  <main class="p-8 flex-1">
+   <!-- Profile Section - Personal Information -->
+<section id="profile" class="content-section">
+  {% include "dashboard/profile.html" %}
+</section>
+
+ <!-- Patient Information Section -->
+<section id="patient-info" class="content-section hidden mb-8">
+   
+   {% include "dashboard/patient_info.html" %}
+
+</section>
+
+    <!-- Care Schedule Section - Daily Activities -->
+<section id="schedule" class="content-section hidden">
+  <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+    <h3 class="text-xl font-bold mb-4">Care Schedule</h3>
+    <table class="w-full border-collapse border border-gray-300">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="border border-gray-300 px-4 py-2 font-bold">Time</th>
+          <th class="border border-gray-300 px-4 py-2 font-bold">Activity</th>
+          <th class="border border-gray-300 px-4 py-2 font-bold">Assigned Staff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2">09:00</td>
+          <td class="border border-gray-300 px-4 py-2">Morning Care</td>
+          <td class="border border-gray-300 px-4 py-2">Nurse Ms. Chen</td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2">14:00</td>
+          <td class="border border-gray-300 px-4 py-2">Rehabilitation Exercise</td>
+          <td class="border border-gray-300 px-4 py-2">Physiotherapist Mr. Lin</td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2">19:00</td>
+          <td class="border border-gray-300 px-4 py-2">Evening Care</td>
+          <td class="border border-gray-300 px-4 py-2">Nurse Ms. Wang</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+    <!-- Support Plan Section - Create and Submit Plans -->
+<section id="support-plan" class="content-section hidden">
+     {% include "plan/submit_plan.html" %}
+  </section>
+  
+
+    <!-- Report Record Section - View Patient Reports -->
+<section id="report-record" class="content-section hidden">
+{% include "questionnaire/questions_answer_display.html" %}
+</section>
+
+   <!-- Data Analysis Section - Charts and Statistics -->
+<section id="analysis" class="content-section hidden">
+ {% include "chart/data_ananlysis.html" %}
+
+</section>
+
+
+
+<!-- JavaScript for Sidebar Navigation and Section Toggling -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('main section');
+
+    links.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+
+        // Hide all sections and show only the target section
+        sections.forEach(section => {
+          section.classList.add('hidden');
+          if (section.id === targetId) {
+            section.classList.remove('hidden');
+          }
+        });
+
+        // Update active link styling
+        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
+        this.classList.add('text-indigo-700', 'font-semibold');
+      });
+    });
+  });
+</script>
+
+{% block scripts %}
+
+<!-- Patient Data Loading Script for Chart Section -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const selector = document.getElementById('chartPatientSelect');
+    if (!selector) {
+      console.error(" chartPatientSelect not exsit!");
+      return;
+    }
+  
+    console.log("start fetch request");
+    fetch('{{ url_for("chart.get_patient_names") }}')
+      .then(res => res.json())
+      .then(data => {
+        console.log("Get patient data:", data);
+        selector.innerHTML = '<option value="All">All</option>';
+  
+        // Populate dropdown with patient names
+        for (const name of data) {
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = name;
+          selector.appendChild(opt);
+        }
+  
+        console.log("Insertion complete. Current dropdown list HTML:", selector.innerHTML);
+      })
+      .catch(err => {
+        console.error("Loading error", err);
+      });
+  });
+  </script>
+  
+{% endblock %}
+
+{% endblock %}

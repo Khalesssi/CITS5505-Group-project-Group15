@@ -1,0 +1,32 @@
+<!-- Patient Information Card with Hover Effects -->
+<div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+  <h3 class="text-xl font-bold mb-6">Patient Information</h3>
+
+  {% if patients %}
+    <!-- Patient List Container -->
+    <div class="space-y-8">
+      {% for patient in patients %}
+        <!-- Individual Patient Card -->
+        <div class="flex gap-8 bg-gray-50 p-4 rounded shadow">
+          <!-- Patient Avatar -->
+          <div class="w-48 h-48">
+            <img alt="Patient Photo" class="w-full h-full object-cover rounded-lg border-4 border-indigo-500" 
+                 src="{{ url_for('static', filename='images/patient_photo.jpg') }}"/>
+          </div>
+
+          <!-- Patient Details Section -->
+          <div class="flex-1 space-y-2">
+            <p><strong>Name:</strong> {{ patient.name }}</p>
+            <p><strong>Gender:</strong> {{ patient.gender }}</p>
+            <p><strong>Date of Birth:</strong> {{ patient.date_of_birth }}</p>
+            <p><strong>Medical Info:</strong> {{ patient.medical_info }}</p>
+            <p><strong>Notes:</strong> {{ patient.notes }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <!-- Empty State Message -->
+    <p class="text-gray-500">No patients assigned.</p>
+  {% endif %}
+</div>

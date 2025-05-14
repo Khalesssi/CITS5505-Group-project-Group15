@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+# *.db
+instance/
+
+# Virtual Environments
+venv/
+.venv/
+venv-*/
+.venv-*/
+venv-feature-refactor/
+
+# VSCode
+.vscode/
+__pycache__/
+instance/site.db
+
+# macOS
+.DS_Store
+
+# pycache
+__pycache__/
+*.pyc
+*.pyo
+# site.db

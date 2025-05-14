@@ -1,0 +1,112 @@
+<!-- Support Plan Display Component - Shows shared support plans for patients -->
+<div class="medical-container">
+  <h3 class="text-xl font-bold mb-4">Medical Instructions (Support Plan)</h3>
+  <!-- Informational message section explaining how to use the support plan viewer -->
+  <div class="mb-6 space-y-2 text-sm text-gray-600 leading-relaxed">
+  <p>
+    📌 <strong>Please select a patient and date</strong> to view the medical instructions. You can filter the content using both fields.
+  </p>
+  <p>
+    📂 The instructions are <strong>grouped by therapist type</strong> to help you distinguish their focus areas.
+  </p>
+  <p class="italic text-gray-500">
+    💬 These support plans were <strong>shared by different therapists</strong> for the selected patient.
+  </p>
+</div>
+
+  
+
+  <!-- Filter Form - Contains patient and date selection dropdowns -->
+  <form id="plan-filter-form" method="get" class="mb-6 flex flex-wrap gap-4 items-end">
+    <!-- Patient Selection Dropdown -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Patient</label>
+      <select id="planPatientSelect" class="border rounded-md px-3 py-2">
+        <option value="">-- Select Patient --</option>
+        {% for patient in patients if patient.id in plan_patient_ids %}
+          <option value="{{ patient.id }}">{{ patient.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Date Selection Dropdown - Populated dynamically based on patient selection -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Plan Date</label>
+      <select id="planDateSelect" class="border rounded-md px-3 py-2">
+        <option value="">-- Select Date --</option>
+      </select>
+    </div>
+  </form>
+
+  <!-- Support Plan Display Area - Populated with AJAX results -->
+  <div id="dynamic-plan-container" class="mb-8 text-sm text-gray-700"></div>
+</div>
+
+<!-- JavaScript for Support Plan Display Functionality -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Initialize DOM elements
+  const patientSelect = document.getElementById("planPatientSelect");
+  const dateSelect = document.getElementById("planDateSelect");
+  const resultContainer = document.getElementById("dynamic-plan-container");
+
+  // Event handler for patient selection - Fetches available dates for the selected patient
+  patientSelect.addEventListener("change", async () => {
+    const patientId = patientSelect.value;
+    dateSelect.innerHTML = '<option value="">-- Select Date --</option>';
+    resultContainer.innerHTML = '';
+
+    if (!patientId) return;
+
+    // Fetch available dates for selected patient
+    const res = await fetch(`/plan/ajax_get_plan_dates_by_patient/${patientId}`);
+    const dates = await res.json();
+    dates.forEach(date => {
+      const opt = document.createElement('option');
+      opt.value = date;
+      opt.textContent = date;
+      dateSelect.appendChild(opt);
+    });
+  });
+
+  // Event handlers for fetching plans when selections change
+  dateSelect.addEventListener("change", fetchPlans);
+  patientSelect.addEventListener("change", fetchPlans); // Support auto-loading when both selections are made
+
+  // Function to fetch and display support plans based on selected patient and date
+  async function fetchPlans() {
+    const patientId = patientSelect.value;
+    const planDate = dateSelect.value;
+    if (!patientId || !planDate) return;
+
+    try {
+      // Fetch support plans using AJAX
+      const response = await fetch(`/plan/ajax_get_shared_support_plans?patient_id=${patientId}&plan_date=${planDate}`);
+      const data = await response.json();
+
+      // Helper function to build HTML for each therapist type section
+      const buildSection = (title, color, items) => {
+        if (!items || items.length === 0) return '';
+        const lis = items.map(item => `<li class="flex items-start"><span class="mr-2 text-${color}-600">•</span><span>${item}</span></li>`).join('');
+        return `
+          <div class="mb-6">
+            <h5 class="text-md font-semibold mb-2">${title}</h5>
+            <div class="bg-${color}-50 p-4 rounded border-l-4 border-${color}-400">
+              <ul class="space-y-2">${lis}</ul>
+            </div>
+          </div>`;
+      };
+
+      // Build and display support plan sections by therapist type
+      resultContainer.innerHTML =
+        buildSection("Psychotherapist Instructions", "orange", data.psych) +
+        buildSection("Physiotherapist Instructions", "yellow", data.physio) +
+        buildSection("Occupational Therapist Instructions", "green", data.ot) ||
+        `<p class="text-gray-500">No support plans found for this patient and date.</p>`;
+
+    } catch (err) {
+      resultContainer.innerHTML = `<p class="text-red-600">Error loading support plans.</p>`;
+    }
+  }
+});
+</script>
