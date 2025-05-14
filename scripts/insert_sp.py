@@ -9,8 +9,14 @@ app = create_app()
 
 with app.app_context():
     patients = Patient.query.all()
-    plan_date = datetime(2025, 5, 13, 10, 0)
 
+    # 计划日期：两个不同日期
+    plan_dates = [
+        datetime(2025, 5, 13, 10, 0),
+        datetime(2025, 5, 14, 10, 0)
+    ]
+
+    # 映射治疗师类型 -> 显示标签
     role_map = {
         "psych": "Psychotherapist",
         "physio": "Physiotherapist",
@@ -18,21 +24,22 @@ with app.app_context():
     }
 
     for patient in patients:
-        for specialty, label in role_map.items():
-            therapist_id = getattr(patient, f"{specialty}_id")
-            therapist = User.query.get(therapist_id)
-            if therapist:
-                content = f"Support plan from {label} for patient {patient.name}"
-                plan = SupportPlan(
-                    patient_id=patient.id,
-                    therapist_id=therapist_id,
-                    content=content,
-                    date=plan_date,
-                    share_with_guardian=True,
-                    share_with_sw=True
-                )
-                db.session.add(plan)
-                print(f"✅ Created plan: {content}")
+        for date in plan_dates:
+            for specialty, label in role_map.items():
+                therapist_id = getattr(patient, f"{specialty}_id")
+                therapist = User.query.get(therapist_id)
+                if therapist:
+                    content = f"Support plan from {label} for patient {patient.name} on {date.strftime('%Y-%m-%d')}"
+                    plan = SupportPlan(
+                        patient_id=patient.id,
+                        therapist_id=therapist_id,
+                        content=content,
+                        date=date,
+                        share_with_guardian=True,
+                        share_with_sw=True
+                    )
+                    db.session.add(plan)
+                    print(f"Created plan: {content}")
 
     db.session.commit()
-    print("🎉 All support plans added successfully.")
+    print("All support plans added successfully for all patients and therapists.")

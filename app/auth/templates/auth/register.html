@@ -3,59 +3,59 @@
 
 {% block content %}
 <div class="min-h-screen flex items-center justify-center px-6 py-20">
-
   <div class="bg-white rounded-xl shadow-lg max-w-4xl w-full grid md:grid-cols-2 overflow-hidden">
 
-    <!-- Left side: Email & Password -->
+    <!-- Left side: FlaskForm -->
     <div class="p-8">
       <h2 class="text-3xl font-bold text-center mb-6 text-indigo-700">Sign Up</h2>
 
-      <!-- Rgister message place-->
       {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="mb-4 p-3 
-          {% if 'successfully' in messages[0] %}
-            bg-green-100 border border-green-400 text-green-700
-          {% else %}
-            bg-red-100 border border-red-400 text-red-700
-          {% endif %}
-          rounded">
-          {{ messages[0] }}
-        </div>
-      {% endif %}
+        {% if messages %}
+          <div class="mb-4 p-3 
+            {% if 'successfully' in messages[0] %}
+              bg-green-100 border border-green-400 text-green-700
+            {% else %}
+              bg-red-100 border border-red-400 text-red-700
+            {% endif %}
+            rounded">
+            {{ messages[0] }}
+          </div>
+        {% endif %}
       {% endwith %}
 
-      <form method="POST" action="/register" id="register-form" novalidate>
+      <form method="POST" action="{{ url_for('auth.register') }}" id="register-form" novalidate>
+        {{ form.hidden_tag() }}
+
+        <!-- Email -->
         <div class="mb-4">
           <label for="email" class="block text-sm font-medium mb-1">Email address</label>
-          <input type="email" id="email" name="email" placeholder="Enter email" required
-            class="w-full border rounded px-3 py-2" />
+          {{ form.email(class="w-full border rounded px-3 py-2", id="email", placeholder="Enter email") }}
         </div>
 
+        <!-- Password -->
         <div class="mb-4">
           <label for="password" class="block text-sm font-medium mb-1">Password</label>
-          <input type="password" id="password" name="password" placeholder="Password" required
-            class="w-full border rounded px-3 py-2" />
+          {{ form.password(class="w-full border rounded px-3 py-2", id="password", placeholder="Password") }}
         </div>
 
-        
-        <input type="hidden" id="hidden-role" name="role" />
+        <!-- Hidden role field -->
+        {{ form.role }}  {# 已设置 render_kw={"id": "hidden-role"} #}
 
-        <button type="submit"
-          class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Register</button>
+        <!-- Submit -->
+        {{ form.submit(class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition") }}
 
         <div class="text-center text-sm mt-3">
-          <a href="/login" class="text-indigo-600 hover:underline">Already have an account? Login</a>
+          <a href="{{ url_for('auth.login') }}" class="text-indigo-600 hover:underline">Already have an account? Login</a>
         </div>
       </form>
     </div>
 
-    <!-- Right side: Role selection -->
+    <!-- Right side: Select role -->
     <div class="p-8 bg-gradient-to-br from-purple-200 to-indigo-300 flex items-center justify-center">
       <div class="w-full">
         <h2 class="text-xl font-semibold text-white text-center mb-4">Select Your Role</h2>
         <form id="role-form" onsubmit="return false;">
-          <select id="role" required class="w-full px-3 py-2 rounded border">
+          <select id="role" required class="w-full px-3 py-2 rounded border bg-white">
             <option value="">Choose...</option>
             <option>Guardian</option>
             <option>Supervisor</option>
@@ -72,15 +72,14 @@
   </div>
 </div>
 
-<!-- JS -->
+<!-- JS: copy selected role to FlaskForm hidden field -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const roleSelect = document.getElementById('role');
   const hiddenRoleInput = document.getElementById('hidden-role');
   const registerForm = document.getElementById('register-form');
 
-
-  registerForm.addEventListener('submit', function(e) {
+  registerForm.addEventListener('submit', function() {
     hiddenRoleInput.value = roleSelect.value;
   });
 });

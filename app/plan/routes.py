@@ -9,6 +9,8 @@ from datetime import datetime
 from collections import defaultdict
 from app.models.user import User
 
+from app.forms.plan_forms import SupportPlanForm
+
 @plan_bp.route('/submit', methods=['GET', 'POST'])
 @login_required
 def submit_plan():
@@ -18,34 +20,27 @@ def submit_plan():
         return redirect(url_for("dashboard.dashboard_redirect"))
 
     patients = Patient.query.filter(getattr(Patient, field_name) == current_user.id).all()
+    form = SupportPlanForm()
 
-    if request.method == 'POST':
-        patient_id = request.form.get("patient_id")
-        content = request.form.get("content")
-        plan_date_str = request.form.get("plan_date")
-        share_guardian = request.form.get("share_guardian") == "on"
-        share_sw = request.form.get("share_sw") == "on"
+    # 动态填充 select
+    form.patient_id.choices = [(p.id, p.name) for p in patients]
 
-        try:
-            plan_date = datetime.strptime(plan_date_str, "%Y-%m-%dT%H:%M")
-        except ValueError:
-            flash("Invalid date format.")
-            return redirect(url_for('dashboard.therapist_dashboard'))
-
+    if form.validate_on_submit():
         plan = SupportPlan(
-            patient_id=patient_id,
+            patient_id=form.patient_id.data,
             therapist_id=current_user.id,
-            content=content,
-            date=plan_date,
-            share_with_guardian=share_guardian,
-            share_with_sw=share_sw
+            content=form.content.data,
+            date=form.plan_date.data,
+            share_with_guardian=form.share_guardian.data,
+            share_with_sw=form.share_sw.data
         )
         db.session.add(plan)
         db.session.commit()
         flash("Support plan submitted and shared.")
         return redirect(url_for('dashboard.therapist_dashboard'))
 
-    return render_template('plan/submit_plan.html', patients=patients)
+    return render_template('plan/submit_plan.html', form=form)
+
 
 @plan_bp.route('/ajax_get_shared_support_plans')
 @login_required
