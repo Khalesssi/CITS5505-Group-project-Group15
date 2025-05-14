@@ -142,7 +142,7 @@ Helps build a clearer understanding of the patient’s overall condition through
 | Wanqi Zhang    | 24080897  | [@Khalesssi](https://github.com/Khalesssi) |
 | Weiyu Xu       | 24233679  | [@Hannah-X0206](https://github.com/Hannah-X0206) |
 | Ke-Chung Chen  | 24620249  | [@Elmer1993 / Elmer Chen](https://github.com/Elmer1993) |
-| Ruilei Wang    | 24328412  | [@idawang142](https://github.com/idawang142) |
+| Ruilei Wang    | 24328412  | [@idawang142/Ida Wang](https://github.com/idawang142) |
 
 🔒 **GitHub Repository:** [https://github.com/Khalesssi/CITS5505-Group-project-Group15](https://github.com/Khalesssi/CITS5505-Group-project-Group15)
 

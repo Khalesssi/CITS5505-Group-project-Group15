@@ -15,6 +15,9 @@ from datetime import datetime
 from flask import request
 from app.extensions import db
 from flask import render_template
+from app.forms.plan_forms import SupportPlanForm
+from app.forms.questionnaire_forms import DailyReportForm
+
 
 
 @dashboard_bp.route('/guardian')
@@ -72,6 +75,9 @@ def sw_dashboard():
     patients = Patient.query.filter_by(sw_id=current_user.id).all()
     patient_ids = [p.id for p in patients]
 
+    form = DailyReportForm()
+    form.patient_id.choices = [(p.id, p.name) for p in patients]
+
     # 获取已分享的支持计划
     all_plans = SupportPlan.query.filter(
         SupportPlan.patient_id.in_(patient_ids),
@@ -105,6 +111,7 @@ def sw_dashboard():
 
     return render_template(
         'dashboard/sw.html',  # ✅ 与 guardian 共用模板
+        form=form,
         patients=patients,
         grouped_plans=grouped_plans,
         plan_patient_ids=plan_patient_ids,
@@ -117,9 +124,11 @@ def sw_dashboard():
 @dashboard_bp.route('/therapist')
 @login_required
 def therapist_dashboard():
-    field = specialty_to_field.get(current_user.specialty)  # psych_id / physio_id / ot_id
+    field = specialty_to_field.get(current_user.specialty)
     patients = Patient.query.filter(getattr(Patient, field) == current_user.id).all() if field else []
-    return render_template('dashboard/therapist.html', patients=patients)
+    form = SupportPlanForm()
+    form.patient_id.choices = [(p.id, p.name) for p in patients]
+    return render_template('dashboard/therapist.html', patients=patients, form=form)
 
 
 @dashboard_bp.route('/admin')
@@ -151,23 +160,5 @@ def dashboard_redirect():
 
 
 
-# @dashboard_bp.route('/guardian')
-# @login_required
-# def guardian_dashboard():
-#     return render_template('dashboard/guardian.html')
 
-# @dashboard_bp.route('/sw')
-# @login_required
-# def sw_dashboard():
-#     return render_template('dashboard/sw.html')
-
-# @dashboard_bp.route('/therapist')
-# @login_required
-# def therapist_dashboard():
-#     return render_template('dashboard/therapist.html')
-
-# @dashboard_bp.route('/admin')
-# @login_required
-# def admin_dashboard():
-#     return render_template('dashboard/admin.html')
 

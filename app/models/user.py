@@ -14,5 +14,4 @@ class User(UserMixin, db.Model):
     experience = db.Column(db.String(300))
     bio = db.Column(db.Text)
     phone = db.Column(db.String(20))
-    avatar_url = db.Column(db.String(200))
-    last_login = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    register_time = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
