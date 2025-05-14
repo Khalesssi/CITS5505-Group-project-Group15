@@ -1,3 +1,4 @@
+# This script populates the database with initial user and patient records for testing or demo purposes.
 from app import create_app
 from app.extensions import db
 from app.models.user import User
@@ -5,15 +6,17 @@ from app.models.patient import Patient
 from werkzeug.security import generate_password_hash
 from datetime import date, datetime, timezone
 
+# Create the Flask app instance
 app = create_app()
 
+# Run all operations within the application context
 with app.app_context():
-  # 清空旧数据（可选）
+  # Optional: Uncomment these lines to clear existing data before inserting new ones
   # Patient.query.delete()
   # User.query.delete()
   # db.session.commit()
 
-  # 插入用户（补全所有字段）
+  # Create sample users for each system role (Guardian, Support Worker, Therapists, Admin)
   guardian = User(
     email='guardian@outlook.com',
     password_hash=generate_password_hash('112233'),
@@ -94,11 +97,11 @@ with app.app_context():
     avatar_url='/static/img/patient_photo.jpg',
     last_login=datetime.now(timezone.utc)
   )
-
+  # Add all users to the session
   db.session.add_all([guardian, sw, physio, ot, psych, admin])
   db.session.commit()
 
-  # 插入病人（完整信息）
+  # Create two patient records linked to the users above
   patient = Patient(
     name="Test Patient",
     date_of_birth=date(2010, 5, 15),
@@ -125,8 +128,10 @@ with app.app_context():
   )
 
 
+  # Add patients to the session and commit
   db.session.add(patient)
   db.session.add(patient2)
   db.session.commit()
 
+  # Confirmation message
   print("one sets of users and 2 patients inserted successfully.")
