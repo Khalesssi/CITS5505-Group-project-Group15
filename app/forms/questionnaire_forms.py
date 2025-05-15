@@ -21,7 +21,7 @@ class DailyReportForm(FlaskForm):
     question9 = IntegerField("Self-care Willingness (1-5)", validators=[DataRequired(), NumberRange(min=1, max=5)], render_kw={"id": "question9"})
     question10 = SelectField("Household Tasks", choices=[("Completed", "Completed"), ("Partially Completed", "Partially Completed"), ("Not Completed", "Not Completed")], validators=[DataRequired()], render_kw={"id": "question10"})
     question11 = SelectField("Skill Learning", choices=[("Good", "Good"), ("Average", "Average"), ("Poor", "Poor")], validators=[DataRequired()], render_kw={"id": "question11"})
-    question12 = IntegerField("Emotional Fluctuations", validators=[DataRequired()], render_kw={"id": "question12"})
+    question12 = IntegerField("Emotional Fluctuations(1-10)", validators=[DataRequired(),NumberRange(min=1, max=10)], render_kw={"id": "question12"})
     question13 = IntegerField("Social Willingness (1-5)", validators=[DataRequired(), NumberRange(min=1, max=5)], render_kw={"id": "question13"})
     question14 = IntegerField("Therapist Response (1-5)", validators=[DataRequired(), NumberRange(min=1, max=5)], render_kw={"id": "question14"})
     question15 = SelectField("Signs of Anxiety/Depression", choices=[('Yes', 'Yes'), ('No', 'No')], validators=[DataRequired()], render_kw={"id": "question15"})
