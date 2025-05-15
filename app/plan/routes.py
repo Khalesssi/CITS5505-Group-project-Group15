@@ -70,7 +70,7 @@ def ajax_get_shared_support_plans():
     except ValueError:
         return jsonify({'error': 'Invalid date format'}), 400
 
-    # 安全校验：只能访问自己绑定的病人
+    # Security check: only allow access to patients bound to the current user
     patient = Patient.query.get(patient_id)
     if not patient or getattr(patient, patient_field.name) != current_user.id:
         return jsonify({'error': 'Unauthorized access to patient data'}), 403
@@ -90,7 +90,7 @@ def ajax_get_shared_support_plans():
 
     return jsonify(grouped)
 
-# ✅ 新增：获取某病人所有共享支持计划的可用日期
+# ✅ New: Retrieve all available dates of shared support plans for a given patient
 @plan_bp.route('/ajax_get_plan_dates_by_patient/<int:patient_id>')
 @login_required
 def ajax_get_plan_dates_by_patient(patient_id):

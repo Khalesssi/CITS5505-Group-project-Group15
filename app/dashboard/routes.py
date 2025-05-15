@@ -20,26 +20,26 @@ from flask import render_template
 @dashboard_bp.route('/guardian')
 @login_required
 def guardian_dashboard():
-    # 获取绑定病人
+    # Get the patients bound to the user
     patients = Patient.query.filter_by(guardian_id=current_user.id).all()
     patient_ids = [p.id for p in patients]
 
-    # 获取已分享的支持计划
+    # Retrieve shared support plans
     all_plans = SupportPlan.query.filter(
         SupportPlan.patient_id.in_(patient_ids),
         SupportPlan.share_with_guardian == True
     ).all()
 
-    # 提取有效病人和日期
+    # Extract valid patients and dates
     plan_patient_ids = list({plan.patient_id for plan in all_plans})
     plan_dates = sorted(list({plan.date.date() for plan in all_plans}))
 
-    # 获取筛选参数
+    # Get filter parameters
     selected_patient_id = request.args.get('patient_id', type=int)
     selected_date_str = request.args.get('plan_date')
     selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date() if selected_date_str else None
 
-    # 仅当同时选中了病人和日期才显示计划
+    # Only display plans when both patient and date are selected
     if selected_patient_id and selected_date:
         filtered_plans = [
             plan for plan in all_plans
@@ -48,7 +48,7 @@ def guardian_dashboard():
     else:
         filtered_plans = []
 
-    # 分组
+    # Grouping
     grouped_plans = defaultdict(list)
     for plan in filtered_plans:
         therapist = User.query.get(plan.therapist_id)
@@ -68,26 +68,26 @@ def guardian_dashboard():
 @dashboard_bp.route('/sw')
 @login_required
 def sw_dashboard():
-    # 获取绑定病人
+    # Retrieve bound patients
     patients = Patient.query.filter_by(sw_id=current_user.id).all()
     patient_ids = [p.id for p in patients]
 
-    # 获取已分享的支持计划
+    # Retrieve shared support plans
     all_plans = SupportPlan.query.filter(
         SupportPlan.patient_id.in_(patient_ids),
         SupportPlan.share_with_sw == True
     ).all()
 
-    # 提取有效病人和日期
+    # Extract valid patients and dates
     plan_patient_ids = list({plan.patient_id for plan in all_plans})
     plan_dates = sorted(list({plan.date.date() for plan in all_plans}))
 
-    # 获取筛选参数
+    # Retrieve filter parameters
     selected_patient_id = request.args.get('patient_id', type=int)
     selected_date_str = request.args.get('plan_date')
     selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date() if selected_date_str else None
 
-    # 如果都选中才显示
+    # Only display if both are selected
     if selected_patient_id and selected_date:
         filtered_plans = [
             plan for plan in all_plans
@@ -96,7 +96,7 @@ def sw_dashboard():
     else:
         filtered_plans = []
 
-    # 分组
+    # Grouping
     grouped_plans = defaultdict(list)
     for plan in filtered_plans:
         therapist = User.query.get(plan.therapist_id)
@@ -104,7 +104,7 @@ def sw_dashboard():
             grouped_plans[therapist.specialty].append(plan)
 
     return render_template(
-        'dashboard/sw.html',  # ✅ 与 guardian 共用模板
+        'dashboard/sw.html',  # ✅ Share template with guardian
         patients=patients,
         grouped_plans=grouped_plans,
         plan_patient_ids=plan_patient_ids,
@@ -132,7 +132,7 @@ def admin_dashboard():
     users = User.query.all()
     return render_template('dashboard/admin.html', users=users)
 
-# 这个部分应该是为了处理导航栏dashboard 的跳转
+# This section is likely responsible for handling navigation bar dashboard redirections
 @dashboard_bp.route('/redirect')
 @login_required
 def dashboard_redirect():

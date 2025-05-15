@@ -7,6 +7,7 @@ from app.auth import auth_bp
 from app.models import User
 from app.extensions import db
 
+# Authentication Routes: Login, Logout, Register
 
 @auth_bp.route('/login', methods=["GET", "POST"])
 def login():
@@ -14,12 +15,15 @@ def login():
         email = request.form.get("email")
         password = request.form.get("password")
 
+        # Query user by email
         user = User.query.filter_by(email=email).first()
 
+        # Check password validity
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
             flash("Login successful!")
 
+            # Redirect to appropriate dashboard based on user role
             role = user.role
             if role == "Support Worker":
                 return redirect(url_for("dashboard.sw_dashboard"))
@@ -36,6 +40,7 @@ def login():
         flash("Invalid credentials.")
         return redirect(url_for("auth.login"))
 
+    # Render login page
     return render_template("auth/login.html")
 
 
@@ -54,22 +59,22 @@ def register():
         password = request.form.get("password")
         role = request.form.get("role")
 
-        # ✅ 邮箱格式校验
+        # ✅ Validate email format
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             flash("Invalid email format.")
             return redirect(url_for('auth.register'))
 
-        # ✅ 角色选择校验
+        # ✅ Ensure role is selected
         if not role:
             flash("Please select a role.")
             return redirect(url_for('auth.register'))
 
-        # ✅ 重复邮箱检查
+        # ✅ Check if email is already registered
         if User.query.filter_by(email=email).first():
             flash("Email already registered.")
             return redirect(url_for('auth.register'))
 
-        # ✅ 注册用户
+        # ✅ Create and add new user
         hashed_password = generate_password_hash(password)
         new_user = User(email=email, password_hash=hashed_password, role=role)
         db.session.add(new_user)
@@ -78,4 +83,5 @@ def register():
         flash("Registration successful. Please log in.")
         return redirect(url_for('auth.login'))
 
+    # Render registration page
     return render_template("auth/register.html")

@@ -29,7 +29,7 @@
       {% include "dashboard/patient_info.html" %}
     </section>
 
-    <!-- 照護時程表 Section -->
+    <!-- Care Schedule Section -->
     <section class="hidden" id="schedule">
       <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
         <h3 class="text-xl font-bold mb-4">Care Schedule</h3>
@@ -61,12 +61,12 @@
         </table>
       </div>
     </section>
-    <!-- 醫囑指示 Section -->
+    <!-- Medical Instructions Section -->
     <section class="content-section hidden" id="medical">
       {% include "plan/display_plan.html" %}
     </section>
 
-    <!-- 回報紀錄 Section -->
+    <!-- Report Record Section -->
     <section class="content-section hidden" id="report-record">
       {% include "questionnaire/questions_answer_display.html" %}
     </section>
@@ -555,7 +555,7 @@
   });
 </script>
 <script>
-// 定義問題列表
+// Define the list of questionnaire questions
 const questions = [
     "How is the patient's mental status today?",
     "Did the patient take their medication on time?",
@@ -569,10 +569,10 @@ const questions = [
     "Any social interaction?"
 ];
 
-// 定義可用的 Support Worker 列表
+// Define the list of available Support Workers
 const supportWorkers = ["Michael Smith", "George Davies", "Emma Taylor"];
 
-// 使用日期和病患名作為 key 來確保同一天同一個病患對應到同一個 Support Worker
+// Use date and patient name as a key to ensure the same Support Worker is assigned to the same patient on the same day
 function getConsistentSupportWorker(date, patient) {
     const seed = date + patient;
     let hash = 0;
@@ -583,16 +583,16 @@ function getConsistentSupportWorker(date, patient) {
     return supportWorkers[Math.abs(hash) % supportWorkers.length];
 }
 
-// 修改生成答案的部分
+// Modify the answer generation logic
 function generateDailyAnswers(date, patient) {
-    // 評分對應設定
+    // Define the rating-to-text and styling mapping
     const ratings = {
         1: { text: "Poor", class: "text-red-500" },
         3: { text: "Average", class: "text-yellow-600" },
         5: { text: "Good", class: "text-green-600" }
     };
 
-    // 生成評分答案
+    // Generate a random rating answer
     function getRandomScore() {
         const scores = [1, 3, 5];
         const score = scores[Math.floor(Math.random() * 3)];
@@ -617,7 +617,7 @@ function generateDailyAnswers(date, patient) {
     ];
 }
 
-// 格式化是否答案
+// Format a Yes/No answer with corresponding text and CSS class
 function formatYesNoAnswer(isYes) {
     return { 
         score: isYes ? "Yes" : "No",
@@ -626,14 +626,14 @@ function formatYesNoAnswer(isYes) {
     };
 }
 
-// 生成 2025 年 4 月的所有日期資料
+// Generate mock report data for all dates in April 2025
 const mockData = {
     "James Wilson": {},
     "Oliver Thompson": {},
     "William Parker": {}
 };
 
-// 生成所有日期的資料
+// Generate report data for each date and patient
 for (let day = 1; day <= 30; day++) {
     const date = `2025-04-${day.toString().padStart(2, '0')}`;
     
@@ -645,7 +645,7 @@ for (let day = 1; day <= 30; day++) {
     });
 }
 
-// 更新表格顯示函數
+// Function to update the report table display based on selected date and patient
 function updateReport() {
     const date = document.getElementById('reportDate').value;
     const patient = document.getElementById('patientSelect').value;
@@ -681,20 +681,20 @@ function updateReport() {
     }
 }
 
-// 初始化頁面
+// Initialize the page by setting default values and loading the initial report data
 document.addEventListener('DOMContentLoaded', function() {
-    // 設置預設日期為 2025 年 4 月 1 日
+    // Set the default report date to April 1, 2025
     document.getElementById('reportDate').value = '2025-04-01';
     
-    // 初始化表格
+    // Initialize the report table with default values
     updateReport();
     
-    // 添加事件監聽器
+    // Add event listeners to update the table when the user changes the date or patient
     document.getElementById('reportDate').addEventListener('change', updateReport);
     document.getElementById('patientSelect').addEventListener('change', updateReport);
 });
 
-// 初始化雷達圖
+// Initialize radar chart
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('radarChart').getContext('2d');
     const radarChart = new Chart(ctx, {
@@ -796,25 +796,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 監聽選擇器變化
+    // Listen for selector changes
     document.getElementById('analysisPatientSelect').addEventListener('change', function() {
-        // 更新圖表數據
+        // Update chart data
         updateChartData();
     });
 
     document.getElementById('analysisTimeSelect').addEventListener('change', function() {
-        // 更新圖表數據
+        // Update chart data
         updateChartData();
     });
 
     document.getElementById('analysisTypeSelect').addEventListener('change', function() {
-        // 更新圖表數據
+        // Update chart data
         updateChartData();
     });
 
     function updateChartData() {
-        // 這裡可以根據選擇的值更新圖表數據
-        // 目前使用模擬數據
+        // Update chart data based on selected values
+        // Currently using mock data
         const newData = {
             current: [
                 Math.floor(Math.random() * 30) + 70,
@@ -842,17 +842,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-/* 性能優化：使用 CSS containment */
+/* Performance Optimization: Use CSS containment */
 .metric-card {
     contain: content;
 }
 
-/* 性能優化：使用 will-change 提示瀏覽器 */
+/* Performance Optimization: Use will-change to hint the browser for optimization */
 .chart-container {
     will-change: transform;
 }
 
-/* 性能優化：使用 transform 代替位置動畫 */
+/* Performance Optimization: Use transform instead of position-based animations */
 .animate-scale {
     transform: scale(1);
     transition: transform 0.3s ease;
@@ -862,20 +862,20 @@ document.addEventListener('DOMContentLoaded', function() {
     transform: scale(1.05);
 }
 
-/* 性能優化：使用 GPU 加速 */
+/* Performance Optimization: Use GPU acceleration */
 .hardware-accelerated {
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
 }
 
-/* 添加鍵盤導航樣式 */
+/* Accessibility Enhancement: Add keyboard navigation focus styles */
 .keyboard-navigation *:focus {
     outline: 2px solid #6366f1;
     outline-offset: 2px;
 }
 
-/* 提高顏色對比度 */
+/* Enhance color contrast for better readability */
 .text-gray-600 {
     color: #4B5563;
 }
@@ -884,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function() {
     color: #6B7280;
 }
 
-/* 添加跳過導航鏈接 */
+/* Add skip navigation link for accessibility */
 .skip-link {
     position: absolute;
     top: -40px;
@@ -899,7 +899,7 @@ document.addEventListener('DOMContentLoaded', function() {
     top: 0;
 }
 
-/* 百分比小箭頭顏色 */
+/* Color styling for percentage change arrows */
 .arrow-up {
   color: #81C784 !important;
 }

@@ -2,9 +2,9 @@
 
    <h3 class="text-2xl font-bold mb-6 text-gray-800">🗂️ Patient History</h2>
 
-  <!-- 顶部选择信息 -->
+  <!-- Top selection controls -->
   <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-    <!-- 病人选择 -->
+    <!-- Patient selection -->
     <div class="bg-gray-50 rounded-lg p-5 border border-gray-200 shadow-sm">
       <label class="block text-base font-medium text-gray-700 mb-2">Patient Name</label>
       <select id="patientSelect" class="w-full border rounded-md px-4 py-2 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base">
@@ -12,7 +12,7 @@
       </select>
     </div>
 
-    <!-- 日期选择 -->
+    <!-- Date selection -->
     <div class="bg-gray-50 rounded-lg p-5 border border-gray-200 shadow-sm">
       <label class="block text-base font-medium text-gray-700 mb-2">Report Date</label>
       <select id="reportDate" class="w-full border rounded-md px-4 py-2 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base">
@@ -20,14 +20,14 @@
       </select>
     </div>
 
-    <!-- 支持者信息 -->
+    <!-- Support worker information -->
     <div class="bg-gray-50 rounded-lg p-5 border border-gray-200 shadow-sm">
       <label class="block text-base font-medium text-gray-700 mb-2">Support Worker</label>
       <p class="text-gray-900 font-semibold text-base" id="supportWorkerName">No Data</p>
     </div>
   </div>
 
-  <!-- 答案展示表格 -->
+  <!-- Answer display table -->
   <div id="answerBlock" class="mt-6 hidden">
     <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
       <table class="min-w-full mx-auto divide-y divide-gray-200 text-base">
@@ -66,17 +66,17 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- 联动逻辑 -->
+<!-- Interaction logic -->
 <script>
 $(document).ready(function () {
-  // 👉 获取病人列表
+  // 👉 Fetch patient list
   $.get('/questionnaire/ajax_get_patients', function (data) {
     data.forEach(function (p) {
       $('#patientSelect').append(`<option value="${p.id}">${p.name}</option>`);
     });
   });
 
-  // 👉 选择病人后更新日期
+  // 👉 Update date options after selecting a patient
   $('#patientSelect').change(function () {
     const patientId = $(this).val();
     $('#reportDate').empty().append('<option value="">-- Select Date --</option>');
@@ -92,7 +92,7 @@ $(document).ready(function () {
     });
   });
 
-  // 👉 选择日期后获取答案
+  // 👉 Fetch answers after selecting a date
   $('#reportDate').change(function () {
     const patientId = $('#patientSelect').val();
     const reportDate = $(this).val();
@@ -107,7 +107,7 @@ $(document).ready(function () {
 
       $('#supportWorkerName').text(res.support_worker_name);
 
-      // 答案着色渲染函数
+      // 👉 Answer rendering function with color coding
       const colorAnswer = (value) => {
         if (value === "Yes") return `<span class="text-green-600 font-semibold">${value}</span>`;
         if (value === "No") return `<span class="text-red-600 font-semibold">${value}</span>`;
@@ -117,7 +117,7 @@ $(document).ready(function () {
         return `<span>${value}</span>`;
       };
 
-      // 设置所有答案（q1~q15）
+      // 👉 Set all answers (q1 to q15)
       for (let i = 1; i <= 15; i++) {
         const answer = res.answers[`q${i}`];
         $(`#q${i}`).html(colorAnswer(answer));

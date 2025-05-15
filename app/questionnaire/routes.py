@@ -12,16 +12,18 @@ from app.models.user import User
 
 
 
+# Route to submit questionnaire answers
 @questionnaire_bp.route('/questionnaire', methods=['POST'])
 @login_required
 def submit_questionnaire():
-    # print(request.form)
 
+    # Get the selected patient ID from the form
     patient_id = request.form.get('patient_id')
     if not patient_id:
         flash('Patient selection is required.')
         return redirect(url_for('dashboard.sw_dashboard'))
     
+    # Get and validate the selected report date
     date_str = request.form.get('date')
     if not date_str:
         flash('Please select a date.')
@@ -33,16 +35,19 @@ def submit_questionnaire():
         flash('Invalid date format.')
         return redirect(url_for('dashboard.sw_dashboard'))
 
+    # Collect answers for all 15 questions
     answers = {}
     for i in range(1, 16):
         q = f'question{i}'
         answers[q] = request.form.get(q)
 
+    # Check if any question was left unanswered
     missing = [k for k, v in answers.items() if v is None]
     if missing:
         flash('Please answer all questions before submitting.')
         return redirect(url_for('dashboard.sw_dashboard'))
 
+    # Create a new questionnaire entry
     new_entry = QuestionnaireAnswer(
         support_worker_id=current_user.id,
         patient_id=patient_id,
@@ -64,17 +69,20 @@ def submit_questionnaire():
         q15_anxiety_depression=answers['question15']
     )
 
+    # Save the entry to the database
     db.session.add(new_entry)
     db.session.commit()
     flash('Report submitted successfully!')
     return redirect(url_for('dashboard.sw_dashboard'))
 
+# AJAX endpoint: get all patients
 @questionnaire_bp.route('/ajax_get_patients')
 @login_required
 def ajax_get_patients():
     patients = Patient.query.all()
     return jsonify([{'id': p.id, 'name': p.name} for p in patients])
 
+# AJAX endpoint: get all report dates for a specific patient
 @questionnaire_bp.route('/ajax_get_dates_by_patient/<int:patient_id>')
 @login_required
 def ajax_get_dates_by_patient(patient_id):
@@ -87,6 +95,7 @@ def ajax_get_dates_by_patient(patient_id):
     )
     return jsonify([d.report_date.strftime('%Y-%m-%d') for d in dates])
 
+# AJAX endpoint: get a specific report for a patient by date
 @questionnaire_bp.route('/ajax_get_report/<int:patient_id>/<string:report_date>')
 @login_required
 def ajax_get_report(patient_id, report_date):
@@ -96,12 +105,15 @@ def ajax_get_report(patient_id, report_date):
     except ValueError:
         return jsonify({'error': 'Invalid date format'}), 400
 
+    # Query the report
     report = QuestionnaireAnswer.query.filter_by(patient_id=patient_id, report_date=parsed_date).first()
     if not report:
         return jsonify({'error': 'No report found'}), 404
 
+    # Get support worker information
     sw = User.query.get(report.support_worker_id)
 
+    # Return report content in JSON format
     return jsonify({
         'support_worker_name': sw.full_name if sw else 'Unknown',
         'answers': {
