@@ -42,21 +42,21 @@ class RegisterFlowTestCase(unittest.TestCase):
     def test_register_new_user(self):
         print("\n[Test 5] Registering a new user")
 
-        # 打开注册页面
+        # Open registration page
         self.driver.get(f"{self.base_url}/register")
 
-        # 填写表单字段
+        # Fill in form fields
         self.driver.find_element(By.ID, "email").send_keys("newuser@example.com")
         self.driver.find_element(By.ID, "password").send_keys("testpass123")
         self.driver.find_element(By.ID, "role").send_keys("Support Worker")
 
-        # 提交表单
+        # Submit the form
         self.driver.find_element(By.NAME, "submit").click()
 
-        # 检查是否跳转到 login 页面
+        # Check if redirected to the login page
         self.assertIn("/login", self.driver.current_url)
 
-        # 检查 flash message 是否包含成功提示
+        # Check if the flash message contains a success notification
         body_text = self.driver.find_element(By.TAG_NAME, "body").text
         self.assertIn("Registration successful", body_text)
 

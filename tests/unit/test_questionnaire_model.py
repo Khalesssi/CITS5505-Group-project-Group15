@@ -23,7 +23,7 @@ class QuestionnaireModelTestCase(unittest.TestCase):
     def test_questionnaire_valid_submission(self):
         print("=== Test 5: Valid questionnaire submission started ===")
 
-        # 创建 Support Worker 和 Patient
+        # Create Support Worker and Patient
         sw = User(email="sw@example.com", password_hash=generate_password_hash("123456"), role="Support Worker")
         guardian = User(email="g@example.com", password_hash=generate_password_hash("123456"), role="Guardian")
 
@@ -39,7 +39,7 @@ class QuestionnaireModelTestCase(unittest.TestCase):
         db.session.add(patient)
         db.session.commit()
 
-        # 创建合法问卷数据
+        # Create valid questionnaire data
         answer = QuestionnaireAnswer(
             support_worker_id=sw.id,
             patient_id=patient.id,
@@ -66,7 +66,7 @@ class QuestionnaireModelTestCase(unittest.TestCase):
         db.session.add(answer)
         db.session.commit()
 
-        # 验证插入
+        # Validate insertion
         queried = QuestionnaireAnswer.query.filter_by(patient_id=patient.id).first()
         self.assertIsNotNone(queried, "Questionnaire answer should exist")
         self.assertEqual(queried.q3_energy_level, 4)

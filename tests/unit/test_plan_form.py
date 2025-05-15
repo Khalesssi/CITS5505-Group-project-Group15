@@ -25,7 +25,7 @@ class SupportPlanFormTestCase(unittest.TestCase):
                 "share_sw": False
             })
 
-            # ✅ 关键修复点：指定合法 choices
+            # Key fix: Specify valid choices
             form.patient_id.choices = [(1, "Test Patient")]
 
             self.assertTrue(form.validate(), "Form should be valid with correct input and choices")

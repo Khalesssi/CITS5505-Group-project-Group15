@@ -9,7 +9,7 @@ class DailyReportForm(FlaskForm):
     patient_id = SelectField("Patient", coerce=int, validators=[DataRequired()], render_kw={"id": "patient-select"})
     date = DateField("Report Date", validators=[DataRequired()], render_kw={"id": "report-date"})
 
-    # 问题1 - 15（确保 ID 唯一）
+    # Question 1 - 15 (ensure unique IDs)
     question1 = SelectField("Emotion Stable", choices=[('Yes', 'Yes'), ('No', 'No')], validators=[DataRequired()], render_kw={"id": "question1"})
     question2 = SelectField("Pain Present", choices=[('Yes', 'Yes'), ('No', 'No')], validators=[DataRequired()], render_kw={"id": "question2"})
     question3 = IntegerField("Energy Level (1-5)", validators=[DataRequired(), NumberRange(min=1, max=5)], render_kw={"id": "question3"})

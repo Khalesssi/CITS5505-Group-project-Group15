@@ -14,14 +14,14 @@ def create_app(config_class=DeploymentConfig):
     # app.config.from_object(Config)
     app.config.from_object(config_class)
 
-    # 初始化扩展
+    # Initialize extensions
     db.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
     migrate.init_app(app, db)
     csrf.init_app(app)
 
-    # 注册蓝图
+    # Register blueprint
 
     from app.auth import auth_bp
     from app.dashboard import dashboard_bp

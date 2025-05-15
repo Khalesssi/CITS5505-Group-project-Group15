@@ -12,7 +12,7 @@ from app.forms.auth_forms import RegisterForm
 
 
 
-
+# Authentication Routes: Login, Logout, Register
 @auth_bp.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
@@ -40,7 +40,7 @@ def login():
 
         flash("Invalid credentials.")
         return redirect(url_for("auth.login"))
-
+    # Render login page
     return render_template("auth/login.html", form=form)
 
 @auth_bp.route("/logout")
@@ -59,18 +59,22 @@ def register():
         password = form.password.data
         role = form.role.data
 
+        # Validate email format
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             flash("Invalid email format.")
             return redirect(url_for('auth.register'))
-
+        
+        # Ensure role is selected
         if not role:
             flash("Please select a role.")
             return redirect(url_for('auth.register'))
-
+        
+        # Check if email is already registered
         if User.query.filter_by(email=email).first():
             flash("Email already registered.")
             return redirect(url_for('auth.register'))
 
+        # Create and add new user
         hashed_password = generate_password_hash(password)
         new_user = User(email=email, password_hash=hashed_password, role=role)
         db.session.add(new_user)
@@ -79,4 +83,5 @@ def register():
         flash("Registration successful. Please log in.")
         return redirect(url_for('auth.login'))
 
+    # Render registration page
     return render_template("auth/register.html", form=form)

@@ -14,9 +14,9 @@
 
   
 
-  <!-- ✅ 筛选表单 -->
+  <!-- Filter form -->
   <form id="plan-filter-form" method="get" class="mb-6 flex flex-wrap gap-4 items-end">
-    <!-- 病人选择 -->
+    <!-- Patient selection -->
     <div>
       <label class="block text-sm font-medium text-gray-700 mb-1">Patient</label>
       <select id="planPatientSelect" class="border rounded-md px-3 py-2">
@@ -27,7 +27,7 @@
       </select>
     </div>
 
-    <!-- 日期选择 -->
+    <!-- Date selection -->
     <div>
       <label class="block text-sm font-medium text-gray-700 mb-1">Plan Date</label>
       <select id="planDateSelect" class="border rounded-md px-3 py-2">
@@ -36,18 +36,18 @@
     </div>
   </form>
 
-  <!-- ✅ 医嘱展示区域 -->
+  <!-- Medical instructions display area -->
   <div id="dynamic-plan-container" class="mb-8 text-sm text-gray-700"></div>
 </div>
 
-<!-- ✅ 脚本逻辑 -->
+<!-- Script logic -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const patientSelect = document.getElementById("planPatientSelect");
   const dateSelect = document.getElementById("planDateSelect");
   const resultContainer = document.getElementById("dynamic-plan-container");
 
-  // 👇 病人选择后更新日期下拉框
+  // Update date dropdown after patient selection
   patientSelect.addEventListener("change", async () => {
     const patientId = patientSelect.value;
     dateSelect.innerHTML = '<option value="">-- Select Date --</option>';
@@ -65,9 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // 👇 选择病人+日期后加载医嘱
+  // Load medical instructions after selecting patient and date
   dateSelect.addEventListener("change", fetchPlans);
-  patientSelect.addEventListener("change", fetchPlans); // 支持自动加载
+  patientSelect.addEventListener("change", fetchPlans); // Auto-loading enabled
 
   async function fetchPlans() {
     const patientId = patientSelect.value;

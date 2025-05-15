@@ -21,7 +21,7 @@ class SupportPlanTestCase(unittest.TestCase):
         db.drop_all()
         self.app_context.pop()
 
-    #  Test 4: 正常支持计划插入
+    #  Test 4: Normal support plan insertion
     def test_support_plan_creation(self):
         print("=== Test 4: Support plan creation started ===")
 
@@ -69,7 +69,7 @@ class SupportPlanTestCase(unittest.TestCase):
 
         print("=== Test 4 passed: Support plan created and fields verified ===\n")
 
-    # Test 6: 缺失内容字段的计划应触发错误
+    # Test 6: Support plan with missing content field should trigger an error
     def test_support_plan_missing_content(self):
         print("=== Test 6: Support plan missing content started ===")
 
@@ -99,7 +99,7 @@ class SupportPlanTestCase(unittest.TestCase):
         plan = SupportPlan(
             patient_id=patient.id,
             therapist_id=therapist.id,
-            content=None,  #  故意省略必填字段
+            content=None,  #  Intentionally omit required fields
             date=datetime(2025, 5, 15, 10, 0),
             share_with_guardian=True,
             share_with_sw=True

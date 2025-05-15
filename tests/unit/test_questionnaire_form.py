@@ -21,10 +21,10 @@ class QuestionnaireFormTestCase(unittest.TestCase):
                 "patient_id": 1,
                 "date": date.today(),
 
-                # ✅ 合法字段
+                # Valid fields
                 "question1": "Yes",
                 "question2": "No",
-                "question3": 7,  # ❌ 不合法，范围 1–5
+                "question3": 7,  # Invalid, range 1–5
                 "question4": "Normal",
                 "question5": "Yes",
                 "question6": 50,
@@ -39,7 +39,7 @@ class QuestionnaireFormTestCase(unittest.TestCase):
                 "question15": "No"
             })
 
-            # ❗️设置 SelectField choices（否则报错）
+            # Set SelectField choices (otherwise it will raise an error)
             form.patient_id.choices = [(1, "Test Patient")]
             form.question1.choices = [("Yes", "Yes"), ("No", "No")]
             form.question2.choices = [("Yes", "Yes"), ("No", "No")]
