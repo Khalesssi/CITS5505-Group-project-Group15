@@ -2,12 +2,17 @@
 
 from flask import Flask,render_template
 from config import Config
+from config import DeploymentConfig
 from app.extensions import db, login_manager, migrate, csrf 
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-def create_app():
+def create_app(config_class=DeploymentConfig):
     app = Flask(__name__)
-    app.config.from_object(Config)
+    # app.config.from_object(Config)
+    app.config.from_object(config_class)
 
     # 初始化扩展
     db.init_app(app)
