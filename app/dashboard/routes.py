@@ -113,7 +113,6 @@ def sw_dashboard():
         'dashboard/sw.html',  # Share template with guardian
         patients=patients,
         form=form,
-        patients=patients,
         grouped_plans=grouped_plans,
         plan_patient_ids=plan_patient_ids,
         plan_dates=plan_dates,
