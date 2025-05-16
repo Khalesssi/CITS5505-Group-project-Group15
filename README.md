@@ -1,16 +1,14 @@
 # CITS5505 Group Project – Group 15
 
-## Project Description
+## 1.Project Description and Key Features
 
 This application is developed to address key inefficiencies and limitations in how NDIS providers currently collect and manage client data. Traditionally, patient records and progress reports are exchanged through emails and scattered documents, resulting in delayed communication, data inconsistency, and difficulty in tailoring effective support plans.
 
 Our platform provides a centralized, role-based data management system that enables Support Workers (SWs) to submit structured and therapist-specific reports. Each report is designed to be simple, multi-dimensional, and compliant with standard data formats. The submitted data is automatically routed to the relevant Therapists (e.g., Occupational, Physical, or Psychological), ensuring data privacy and relevance.
 
-## Key Features
+---
 
 This platform offers a rich set of features tailored to various user roles in the **NDIS ecosystem**, including **Support Workers**, **Therapists**, **Guardians**, and **Administrators**, ensuring seamless collaboration and accurate, role-specific data handling.
-
----
 
 ### Web Features & User Interface
 
@@ -21,10 +19,7 @@ This platform offers a rich set of features tailored to various user roles in th
   A public homepage introduces the platform’s purpose and allows users to browse before login. Navigation options include returning to the dashboard or logging out.
 
 - **Chatbot Guide**  
-  An integrated chatbot assistant helps new users understand how to use the platform, guiding them step-by-step through:
-  - Uploading reports
-  - Viewing charts
-  - Accessing support plans
+  An integrated chatbot assistant helps new users understand how to use the platform, guiding them step-by-step.
 
 ---
 
@@ -73,19 +68,14 @@ Used as a landing section for identity confirmation and personal record tracking
 Each therapist only receives data relevant to their specialty for focused analysis.  
 Patient records include medical background and therapeutic relevance.
 
-**3. Care Schedule**  
-Shows therapy schedules, treatment milestones, and upcoming session reminders.  
-Helps therapists plan and track ongoing care timelines efficiently.
-
-**4. Support Plan**  
+**3. Support Plan**  
 Therapists can create, edit, and review support plans tailored to patient needs.  
 Plans are version-controlled and can be shared with Guardians or Support Workers.
 
-**5. Report Record**  
-Displays daily reports submitted by Support Workers assigned to each patient.  
-Provides a timeline view of past entries to support therapy evaluation.
+**4. Report Record**  
+Displays daily reports submitted by Support Workers assigned to each patient.
 
-**6. Data Analysis**  
+**5. Data Analysis**  
 Visual charts assist in analyzing patient trends and therapy effectiveness.  
 Includes:
 
@@ -103,21 +93,13 @@ Used to verify identity and personalize access to patient data.
 Shows the assigned care recipient’s basic information and health background.  
 Provides context for guardians to better understand therapy needs and progress.
 
-**3. Care Schedule**  
-Displays a table of scheduled care activities for the assigned patient.  
-Includes time, task name, and responsible staff member.
-
-**4. Report Record**  
+**3. Report Record**  
 Guardians can see the history of work reports submitted by Support Workers for their care recipient.  
 Each entry includes submission date, summary, and report type.
 
-**5. Shared Support Plan**  
+**4. Shared Support Plan**  
 View current and historical plans shared by therapists.  
 These plans outline therapy goals, care instructions, and notes on patient needs.
-
-**6. Data Analysis(Future work)**  
-Presents multiple visualized views that allow guardians to observe key health indicators of the patient.  
-Helps build a clearer understanding of the patient’s overall condition through intuitive data presentation.
 
 ### Admin Dashboard
 
@@ -131,7 +113,7 @@ Helps build a clearer understanding of the patient’s overall condition through
 
 ---
 
-## 👥 Group Members
+## 2.👥 Group Members
 
 | Name          | UWA ID   | GitHub Username                                         |
 | ------------- | -------- | ------------------------------------------------------- |
@@ -144,18 +126,192 @@ Helps build a clearer understanding of the patient’s overall condition through
 
 ---
 
-How to Run This Project in a Linux terminal
+## 3. How to Run
 
-1. Create and activate a virtual environment
+### 📦 1. Set Up the Environment
 
-`python -m venv venv-test`
+Create and activate a Python virtual environment:
 
-`source venv/bin/activate`
+```bash
+python3 -m venv venv
+source venv/bin/activate        # macOS/Linux
+venv\Scripts\activate           # Windows
+```
 
-2. Install dependencies
+Install dependencies:
 
-`pip install -r requirements.txt`
+```bash
+pip install -r requirements.txt
+```
 
-3. Run the application
+---
 
-`python run.py`
+### ⚙️ 2. Configure Environment Variables
+
+Create a `.env` file in the root directory with the following content:
+
+```ini
+SECRET_KEY= yourSecretKey
+DATABASE_URL=sqlite:///instance/app.db
+FLASK_ENV=development
+```
+
+> 🧾 If you downloaded the **project zip file**, this `.env` file is already included and configured. You may skip this step.
+
+---
+
+### 🗃️ 3. Set Up the Database
+
+Apply database migrations:
+
+```bash
+flask db upgrade
+```
+
+---
+
+### 🧪 4. Insert Dummy Data (Prototype Login Setup)
+
+This system is a **prototype**, so user accounts and data must be pre-inserted into the database for testing. Patients and relationships are not created dynamically in this version.
+
+Run the following data insertion scripts **in order**:
+
+```bash
+python3 -m scripts.insert_UserPatient
+python3 -m scripts.insert_sp
+python3 -m scripts.insert_questionnaire_answers
+```
+
+> These scripts will insert demo users, support plans, and questionnaire data for testing role-based functionality.
+
+---
+
+### 👤 5. Test Login Accounts
+
+You can use the following accounts to log in and explore the application:
+
+| Role              | Email                                                         | Password |
+| ----------------- | ------------------------------------------------------------- | -------- |
+| Guardian          | [guardian@outlook.com](mailto:guardian@outlook.com)           | 112233   |
+| Support Worker    | [supportworker@outlook.com](mailto:supportworker@outlook.com) | 12345678 |
+| Physiotherapist   | [physio@example.com](mailto:physio@example.com)               | 11223344 |
+| Occupational Ther | [OT@outlook.com](mailto:OT@outlook.com)                       | 123456   |
+| Psychotherapist   | [psych@outlook.com](mailto:psych@outlook.com)                 | 7654321  |
+| Admin             | [admin@outlook.com](mailto:admin@outlook.com)                 | 13579    |
+
+---
+
+### ▶️ 6. Run the Application
+
+```bash
+python run.py
+```
+
+Visit: [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+---
+
+## Unit Tests
+
+This project uses Python’s built-in `unittest` framework. These tests validate critical backend functionality such as model creation, form validation, and access control.
+
+### 🔧 Run All Tests
+
+To run all unit tests at once:
+
+```bash
+python3 -m unittest discover -s tests/unit
+
+```
+
+---
+
+### 📋 Test Case Overview (Total: 10)
+
+| No. | Description                                                            | File                                     | Run Command                                                  |
+| --- | ---------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------ |
+| 1   | ✅ Create a valid Admin user and verify fields                         | `tests/unit/test_user_model.py`          | `python3 -m unittest tests/unit/test_user_model.py`          |
+| 2   | ❌ Insert duplicate email, expect `IntegrityError`                     | `tests/unit/test_user_model.py`          | `python3 -m unittest tests/unit/test_user_model.py`          |
+| 3   | ✅ Create a Patient with full role bindings (Guardian, SW, Therapists) | `tests/unit/test_patient_model.py`       | `python3 -m unittest tests/unit/test_patient_model.py`       |
+| 4   | ✅ Insert valid Support Plan, verify therapist + sharing flags         | `tests/unit/test_support_plan_model.py`  | `python3 -m unittest tests/unit/test_support_plan_model.py`  |
+| 5   | ✅ Submit valid QuestionnaireAnswer and verify insertion               | `tests/unit/test_questionnaire_model.py` | `python3 -m unittest tests/unit/test_questionnaire_model.py` |
+| 6   | ❌ Insert Support Plan with missing content → trigger `IntegrityError` | `tests/unit/test_support_plan_model.py`  | `python3 -m unittest tests/unit/test_support_plan_model.py`  |
+| 7   | ❌ Submit RegisterForm with invalid email (should fail validation)     | `tests/unit/test_auth_form.py`           | `python3 -m unittest tests/unit/test_auth_form.py`           |
+| 8   | ✅ Validate SupportPlanForm with correct input and choices             | `tests/unit/test_plan_form.py`           | `python3 -m unittest tests/unit/test_plan_form.py`           |
+| 9   | ❌ DailyReportForm fails on invalid score input (out of allowed range) | `tests/unit/test_questionnaire_form.py`  | `python3 -m unittest tests/unit/test_questionnaire_form.py`  |
+| 10  | ✅/❌ Guardian access: pass if bound to patient, fail if not bound     | `tests/unit/test_route_authorization.py` | `python3 -m unittest tests/unit/test_route_authorization.py` |
+
+---
+
+### 🛠️ Notes
+
+- All tests use `TestingConfig` with an in-memory SQLite database.
+- You can run each test file individually to isolate failures.
+- Ensure your virtual environment is activated and dependencies installed before running tests.
+
+---
+
+## 🧪 System Tests
+
+These system tests simulate real user interactions using Selenium WebDriver, and automatically launch a live version of the Flask server (as required by the rubric). Each test runs independently and verifies critical user flows.
+
+⚠️ Due to browser and port constraints, these system tests must be run individually using the provided commands above. Running them all at once with discover is not supported.
+
+### 📂 Test List (Total: 5)
+
+| No.   | File Name                    | Run Command                                                | Description                                                                    |
+| ----- | ---------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **1** | `test_login_flow.py`         | `python3 -m unittest tests.system.test_login_flow`         | ✅ Verifies that the login page loads correctly and form fields are present.   |
+| **2** | `test_guardian_dashboard.py` | `python3 -m unittest tests.system.test_guardian_dashboard` | ✅ Tests successful login by a Guardian and dashboard content rendering.       |
+| **3** | `test_access_control.py`     | `python3 -m unittest tests.system.test_access_control`     | ✅ Ensures unauthenticated users are redirected from protected pages to login. |
+| **4** | `test_logout.py`             | `python3 -m unittest tests.system.test_logout`             | ✅ Verifies logout flow for a Support Worker, and redirection to login page.   |
+| **5** | `test_register_flow.py`      | `python3 -m unittest tests.system.test_register_flow`      | ✅ Tests user registration form submission and post-registration redirection.  |
+
+> 🔁 All tests automatically start the server and use headless Chrome mode.
+
+---
+
+### ✅ Run Example
+
+```bash
+python3 -m unittest tests.system.test_login_flow
+```
+
+---
+
+## Reference and Attributions
+
+### AI Assistance Disclosure
+
+This project were developed with the assistance of AI tools, including OpenAI’s ChatGPT. Prompts were written by team members to generate specific sections of Python, JavaScript, HTML, and markdown documentation. All AI-generated outputs were reviewed, modified, and integrated manually to meet the requirements of CITS5505 and the needs of the application.
+
+Example prompt:
+"Help me write a Selenium test that checks whether an unauthenticated user is redirected to login."
+
+📖 APA-Style Reference (ChatGPT)
+OpenAI. (2024, May 16). ChatGPT [Large language model]. https://chat.openai.com/chat
+
+---
+
+### 📚 Attributions for External Libraries
+
+This project uses the following open-source libraries in accordance with the CITS5505 project requirements:
+
+### 🧩 Core Technologies (permitted by rubric)
+
+| Library                         | Purpose                                                                 |
+| ------------------------------- | ----------------------------------------------------------------------- |
+| **Flask**                       | Python web framework                                                    |
+| **Flask-Login**                 | User session and authentication management                              |
+| **Flask-WTF** + **WTForms**     | Form generation and CSRF protection                                     |
+| **Flask-SQLAlchemy**            | ORM interface with SQLite                                               |
+| **Flask-Migrate** + **Alembic** | Database migrations                                                     |
+| **SQLAlchemy**                  | ORM and database abstraction layer                                      |
+| **Jinja2**                      | HTML templating engine used with Flask                                  |
+| **python-dotenv**               | Loading environment variables from `.env`                               |
+| **selenium**                    | Used for system testing via browser automation                          |
+| **email_validator**             | Ensures validity of email field input                                   |
+| **Chart.js** (CDN)              | For interactive data visualization charts                               |
+| **Tailwind CSS** (CDN)          | Responsive front-end UI styling (used as the one allowed CSS framework) |
+| **JavaScript + AJAX**           | Used for dynamic data loading and DOM interaction                       |
+| **jQuery** (CDN)                | DOM manipulation and AJAX simplification                                |

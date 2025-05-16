@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *.sqlite3
 *.db
+site.db
 instance/
 
 # Environments
@@ -27,4 +28,4 @@ instance/site.db
 __pycache__/
 *.pyc
 *.pyo
-# site.db
+
