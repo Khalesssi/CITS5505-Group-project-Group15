@@ -8,12 +8,12 @@ from datetime import date, datetime, timezone
 app = create_app()
 
 with app.app_context():
-    # 清空旧数据（可选）
+    # Clear old data (optional)
     # Patient.query.delete()
     # User.query.delete()
     # db.session.commit()
 
-    # 插入用户（补全所有字段，已移除 avatar_url 和 last_login，添加 register_time）
+    # Insert user (complete all fields; avatar_url and last_login removed, register_time added)
     guardian = User(
         email='guardian@outlook.com',
         password_hash=generate_password_hash('112233'),
@@ -92,7 +92,7 @@ with app.app_context():
     db.session.add_all([guardian, sw, physio, ot, psych, admin])
     db.session.commit()
 
-    # 插入病人（完整信息）
+    # Insert patient (complete information)
     patient1 = Patient(
         name="Test Patient",
         date_of_birth=date(2010, 5, 15),

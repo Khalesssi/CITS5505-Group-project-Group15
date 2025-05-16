@@ -16,7 +16,7 @@ from app.forms.questionnaire_forms import DailyReportForm
 def submit_questionnaire():
     form = DailyReportForm()
 
-    # 绑定病人 choices
+    # Bind patient choices
     patients = Patient.query.filter_by(sw_id=current_user.id).all()
     form.patient_id.choices = [(p.id, p.name) for p in patients]
 

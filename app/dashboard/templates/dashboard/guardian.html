@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <!-- Chart.js Library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -9,12 +7,31 @@
   <aside class="w-full md:w-1/4 bg-gray-100 p-6 border-r">
     <h2 class="text-xl font-bold mb-6">Guardian</h2>
     <ul class="space-y-4 text-gray-700" id="sidebarLinks">
-      <li><a class="sidebar-link text-indigo-700 font-semibold" href="#profile">Personal Info</a></li>
-      <li><a class="sidebar-link hover:underline" href="#patient-info">Patient Info</a></li>
-      <li><a class="sidebar-link hover:underline" href="#schedule">Care Schedule</a></li>
-      <li><a class="sidebar-link hover:underline" href="#report-record">Report Record</a></li>
-      <li><a class="sidebar-link hover:underline" href="#medical">Shared Support Plan</a></li>
-      <li><a class="sidebar-link hover:underline" href="#analysis">Data Analysis</a></li>
+      <li>
+        <a class="sidebar-link text-indigo-700 font-semibold" href="#profile"
+          >Personal Info</a
+        >
+      </li>
+      <li>
+        <a class="sidebar-link hover:underline" href="#patient-info"
+          >Patient Info</a
+        >
+      </li>
+      <li>
+        <a class="sidebar-link hover:underline" href="#schedule"
+          >Care Schedule</a
+        >
+      </li>
+      <li>
+        <a class="sidebar-link hover:underline" href="#report-record"
+          >Report Record</a
+        >
+      </li>
+      <li>
+        <a class="sidebar-link hover:underline" href="#medical"
+          >Shared Support Plan</a
+        >
+      </li>
     </ul>
   </aside>
   <!-- Main Content -->
@@ -23,15 +40,17 @@
     <section class="content-section" id="profile">
       {% include "dashboard/profile.html" %}
     </section>
-    
+
     <!-- patient info Section -->
     <section class="hidden mb-8" id="patient-info">
       {% include "dashboard/patient_info.html" %}
     </section>
 
-    <!-- 照護時程表 Section -->
+    <!-- Care Schedule Section -->
     <section class="hidden" id="schedule">
-      <div class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+      <div
+        class="bg-white rounded-lg shadow p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-[1.01]"
+      >
         <h3 class="text-xl font-bold mb-4">Care Schedule</h3>
         <table class="w-full border-collapse border border-gray-300">
           <thead>
@@ -49,8 +68,12 @@
             </tr>
             <tr>
               <td class="border border-gray-300 px-4 py-2">14:00</td>
-              <td class="border border-gray-300 px-4 py-2">Rehabilitation Exercise</td>
-              <td class="border border-gray-300 px-4 py-2">Physical Therapist Lin</td>
+              <td class="border border-gray-300 px-4 py-2">
+                Rehabilitation Exercise
+              </td>
+              <td class="border border-gray-300 px-4 py-2">
+                Physical Therapist Lin
+              </td>
             </tr>
             <tr>
               <td class="border border-gray-300 px-4 py-2">19:00</td>
@@ -61,850 +84,41 @@
         </table>
       </div>
     </section>
-    <!-- 醫囑指示 Section -->
+
+    <!-- Medical Instructions Section -->
     <section class="content-section hidden" id="medical">
       {% include "plan/display_plan.html" %}
     </section>
 
-    <!-- 回報紀錄 Section -->
+    <!-- Report Record Section -->
     <section class="content-section hidden" id="report-record">
       {% include "questionnaire/questions_answer_display.html" %}
     </section>
-
-    <!-- Data Analysis Section -->
-    <section id="analysis" class="hidden" aria-labelledby="analysis-title">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header Section with Enhanced Gradient -->
-        <div class="bg-white rounded-xl shadow-lg p-8 mb-8 transform transition-all duration-300 hover:shadow-xl">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-            <div>
-              <h3 id="analysis-title" class="text-3xl font-bold text-gray-800 mb-2">Data Analysis Dashboard</h3>
-              <p class="text-gray-600">Comprehensive overview of patient progress and metrics</p>
-            </div>
-            <div class="flex items-center space-x-4 mt-4 md:mt-0">
-              <span class="text-sm text-gray-500 flex items-center" aria-live="polite">
-                <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Last updated: <span class="font-medium ml-1">2024-03-20</span>
-              </span>
-              <button class="px-4 py-2 bg-[#7B61FF] hover:bg-[#6A50D8] text-white rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#7B61FF] focus:ring-offset-2 transform hover:scale-105" aria-label="Refresh data">
-                <span class="flex items-center">
-                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                  Refresh Data
-                </span>
-              </button>
-            </div>
-          </div>
-          
-          <!-- Enhanced Filter Controls -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-              <label for="analysisPatientSelect" class="block text-sm font-medium text-gray-700 mb-2">Patient Name</label>
-              <select id="analysisPatientSelect" class="w-full border rounded-md px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300" aria-label="Select patient">
-                <option>Li Dahua</option>
-                <option>Zhang Xiaoming</option>
-              </select>
-            </div>
-            <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-              <label for="analysisTimeSelect" class="block text-sm font-medium text-gray-700 mb-2">Time Period</label>
-              <select id="analysisTimeSelect" class="w-full border rounded-md px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300" aria-label="Select time period">
-                <option>Last Week</option>
-                <option>Last Month</option>
-                <option>Last 3 Months</option>
-              </select>
-            </div>
-            <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-              <label for="analysisTypeSelect" class="block text-sm font-medium text-gray-700 mb-2">Analysis Type</label>
-              <select id="analysisTypeSelect" class="w-full border rounded-md px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300" aria-label="Select analysis type">
-                <option>Overall Progress</option>
-                <option>Physical Activity</option>
-                <option>Mental Health</option>
-                <option>Social Interaction</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- Main Content Grid with Enhanced Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <!-- Radar Chart Card with Enhanced Design -->
-          <div class="lg:col-span-2 rounded-xl p-6 transform transition-all duration-300 hover:shadow-xl border border-blue-100" style="background-color: #FFFFFF; box-shadow: 0px 2px 8px rgba(0,0,0,0.05);">
-            <div class="flex items-center justify-between mb-6">
-              <h4 class="text-xl font-semibold text-blue-900">Progress Overview</h4>
-              <div class="flex items-center space-x-4">
-                <button class="p-2 text-blue-600 hover:text-blue-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg hover:bg-blue-100" aria-label="Download chart">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                </button>
-                <button class="p-2 text-blue-600 hover:text-blue-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg hover:bg-blue-100" aria-label="View chart details">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="relative h-[400px]" role="img" aria-label="Progress radar chart">
-              <canvas id="radarChart"></canvas>
-            </div>
-          </div>
-
-          <!-- Progress Summary Card with Enhanced Design -->
-          <div class="bg-white rounded-xl shadow-lg p-6 transform transition-all duration-300 hover:shadow-xl border border-blue-100">
-            <div class="flex items-center justify-between mb-6">
-              <h4 class="text-xl font-semibold text-blue-900">Progress Summary</h4>
-              <button class="p-2 text-[#7B61FF] hover:text-blue-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg hover:bg-blue-100" aria-label="Add new progress">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-              </button>
-            </div>
-            <div class="space-y-6" role="list" aria-label="Progress metrics">
-              <!-- Overall Progress -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex justify-between items-center mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#7B61FF] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                    <span class="text-sm font-medium text-blue-900">Overall Progress</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span class="text-lg font-bold text-blue-600" aria-label="85 percent">85%</span>
-                    <span class="text-xs flex items-center" style="color:#81C784;">
-                      <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                      </svg>
-                      +5%
-                    </span>
-                  </div>
-                </div>
-                <div class="w-full bg-blue-100 rounded-full h-2 overflow-hidden" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                  <div class="bg-gradient-to-r from-blue-400 to-indigo-500 h-2 rounded-full transition-all duration-500 relative" style="width: 85%">
-                    <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
-                  </div>
-                </div>
-                <div class="mt-2 flex justify-between text-xs text-slate-500">
-                  <span>Last week: 80%</span>
-                  <span>Target: 90%</span>
-                </div>
-              </div>
-
-              <!-- Treatment Adherence -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex justify-between items-center mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#4DB6AC] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span class="text-sm font-medium text-blue-900">Treatment Adherence</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span class="text-lg font-bold text-blue-600 mr-2">92%</span>
-                    <span class="text-xs flex items-center" style="color:#81C784;">
-                      <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                      </svg>
-                      +3%
-                    </span>
-                  </div>
-                </div>
-                <div class="w-full bg-blue-100 rounded-full h-2 overflow-hidden">
-                  <div class="bg-gradient-to-r from-blue-400 to-indigo-500 h-2 rounded-full transition-all duration-500 relative" style="width: 92%">
-                    <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
-                  </div>
-                </div>
-                <div class="mt-2 flex justify-between text-xs text-slate-500">
-                  <span>Last week: 89%</span>
-                  <span>Target: 95%</span>
-                </div>
-              </div>
-
-              <!-- Activity Participation -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex justify-between items-center mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#A48BF7] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    <span class="text-sm font-medium text-blue-900">Activity Participation</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span class="text-lg font-bold text-blue-600 mr-2">78%</span>
-                    <span class="text-xs flex items-center" style="color:#81C784;">
-                      <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                      </svg>
-                      +2%
-                    </span>
-                  </div>
-                </div>
-                <div class="w-full bg-blue-100 rounded-full h-2 overflow-hidden">
-                  <div class="bg-gradient-to-r from-blue-400 to-indigo-500 h-2 rounded-full transition-all duration-500 relative" style="width: 78%">
-                    <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
-                  </div>
-                </div>
-                <div class="mt-2 flex justify-between text-xs text-slate-500">
-                  <span>Last week: 76%</span>
-                  <span>Target: 85%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Detailed Metrics Card with Enhanced Design -->
-          <div class="lg:col-span-3 rounded-xl p-6 transform transition-all duration-300 hover:shadow-xl border border-blue-200 mt-8" style="background-color: #FFFFFF; box-shadow: 0px 2px 8px rgba(0,0,0,0.05);">
-            <div class="flex items-center justify-between mb-6">
-              <h4 class="text-xl font-semibold text-blue-900">Detailed Metrics</h4>
-              <div class="flex items-center space-x-4">
-                <button class="px-4 py-2 text-sm text-blue-600 hover:text-blue-800 transition-colors duration-200 hover:bg-blue-100 rounded-lg">
-                  View All
-                </button>
-                <button class="p-2 text-blue-600 hover:text-blue-800 transition-colors duration-200 hover:bg-blue-100 rounded-lg">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <!-- Physical Activity Metric -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#4FC3F7] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                    <h5 class="text-sm font-medium text-blue-900">Physical Activity</h5>
-                  </div>
-                </div>
-                <div class="flex items-end justify-between">
-                  <div>
-                    <span class="text-2xl font-bold text-blue-600">85%</span>
-                    <div class="flex items-center mt-1">
-                      <span class="text-xs text-green-500 bg-green-50 px-2 py-1 rounded-full flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                        </svg>
-                        5%
-                      </span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-xs text-slate-500">Daily Goal</div>
-                    <div class="text-sm font-medium text-slate-500">30 min</div>
-                  </div>
-                </div>
-                <div class="mt-4 w-full bg-blue-100 rounded-full h-1.5">
-                  <div class="h-1.5 rounded-full" style="width: 85%; background: linear-gradient(to right, #4FC3F7, #4FC3F7);"></div>
-                </div>
-              </div>
-
-              <!-- Mental Engagement Metric -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#9575CD] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                    <h5 class="text-sm font-medium text-blue-900">Mental Engagement</h5>
-                  </div>
-                </div>
-                <div class="flex items-end justify-between">
-                  <div>
-                    <span class="text-2xl font-bold text-blue-600">78%</span>
-                    <div class="flex items-center mt-1">
-                      <span class="text-xs text-green-500 bg-green-50 px-2 py-1 rounded-full flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                        </svg>
-                        3%
-                      </span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-xs text-slate-500">Daily Goal</div>
-                    <div class="text-sm font-medium text-slate-500">4 tasks</div>
-                  </div>
-                </div>
-                <div class="mt-4 w-full bg-blue-100 rounded-full h-1.5">
-                  <div class="h-1.5 rounded-full" style="width: 78%; background: linear-gradient(to right, #9575CD, #9575CD);"></div>
-                </div>
-              </div>
-
-              <!-- Social Interaction Metric -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#81D4FA] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    <h5 class="text-sm font-medium text-blue-900">Social Interaction</h5>
-                  </div>
-                </div>
-                <div class="flex items-end justify-between">
-                  <div>
-                    <span class="text-2xl font-bold text-blue-600">92%</span>
-                    <div class="flex items-center mt-1">
-                      <span class="text-xs text-green-500 bg-green-50 px-2 py-1 rounded-full flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                        </svg>
-                        7%
-                      </span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-xs text-slate-500">Daily Goal</div>
-                    <div class="text-sm font-medium text-slate-500">2 sessions</div>
-                  </div>
-                </div>
-                <div class="mt-4 w-full bg-blue-100 rounded-full h-1.5">
-                  <div class="h-1.5 rounded-full" style="width: 92%; background: linear-gradient(to right, #81D4FA, #81D4FA);"></div>
-                </div>
-              </div>
-
-              <!-- Treatment Compliance Metric -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#80CBC4] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <h5 class="text-sm font-medium text-blue-900">Treatment Compliance</h5>
-                  </div>
-                </div>
-                <div class="flex items-end justify-between">
-                  <div>
-                    <span class="text-2xl font-bold text-blue-600">88%</span>
-                    <div class="flex items-center mt-1">
-                      <span class="text-xs text-green-500 bg-green-50 px-2 py-1 rounded-full flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                        </svg>
-                        4%
-                      </span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-xs text-slate-500">Daily Goal</div>
-                    <div class="text-sm font-medium text-slate-500">100%</div>
-                  </div>
-                </div>
-                <div class="mt-4 w-full bg-blue-100 rounded-full h-1.5">
-                  <div class="h-1.5 rounded-full" style="width: 88%; background: linear-gradient(to right, #80CBC4, #80CBC4);"></div>
-                </div>
-              </div>
-
-              <!-- Sleep Quality Metric -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#90CAF9] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                    <h5 class="text-sm font-medium text-blue-900">Sleep Quality</h5>
-                  </div>
-                </div>
-                <div class="flex items-end justify-between">
-                  <div>
-                    <span class="text-2xl font-bold text-blue-600">82%</span>
-                    <div class="flex items-center mt-1">
-                      <span class="text-xs text-green-500 bg-green-50 px-2 py-1 rounded-full flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                        </svg>
-                        6%
-                      </span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-xs text-slate-500">Daily Goal</div>
-                    <div class="text-sm font-medium text-slate-500">8 hours</div>
-                  </div>
-                </div>
-                <div class="mt-4 w-full bg-blue-100 rounded-full h-1.5">
-                  <div class="h-1.5 rounded-full" style="width: 82%; background: linear-gradient(to right, #90CAF9, #90CAF9);"></div>
-                </div>
-              </div>
-
-              <!-- Emotional State Metric -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#FFAB91] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <h5 class="text-sm font-medium text-blue-900">Emotional State</h5>
-                  </div>
-                </div>
-                <div class="flex items-end justify-between">
-                  <div>
-                    <span class="text-2xl font-bold text-blue-600">75%</span>
-                    <div class="flex items-center mt-1">
-                      <span class="text-xs text-green-500 bg-green-50 px-2 py-1 rounded-full flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                        </svg>
-                        3%
-                      </span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-xs text-slate-500">Daily Goal</div>
-                    <div class="text-sm font-medium text-slate-500">Stable</div>
-                  </div>
-                </div>
-                <div class="mt-4 w-full bg-blue-100 rounded-full h-1.5">
-                  <div class="h-1.5 rounded-full" style="width: 75%; background: linear-gradient(to right, #FFAB91, #FFAB91);"></div>
-                </div>
-              </div>
-
-              <!-- Nutrition Intake Metric -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#FFD54F] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    <h5 class="text-sm font-medium text-blue-900">Nutrition Intake</h5>
-                  </div>
-                </div>
-                <div class="flex items-end justify-between">
-                  <div>
-                    <span class="text-2xl font-bold text-blue-600">90%</span>
-                    <div class="flex items-center mt-1">
-                      <span class="text-xs text-green-500 bg-green-50 px-2 py-1 rounded-full flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                        </svg>
-                        5%
-                      </span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-xs text-slate-500">Daily Goal</div>
-                    <div class="text-sm font-medium text-slate-500">2000 kcal</div>
-                  </div>
-                </div>
-                <div class="mt-4 w-full bg-blue-100 rounded-full h-1.5">
-                  <div class="h-1.5 rounded-full" style="width: 90%; background: linear-gradient(to right, #FFD54F, #FFD54F);"></div>
-                </div>
-              </div>
-
-              <!-- Medication Adherence Metric -->
-              <div class="bg-white rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border border-blue-100">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center">
-                    <svg class="w-5 h-5 text-[#5C6BC0] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                    </svg>
-                    <h5 class="text-sm font-medium text-blue-900">Medication Adherence</h5>
-                  </div>
-                </div>
-                <div class="flex items-end justify-between">
-                  <div>
-                    <span class="text-2xl font-bold text-blue-600">95%</span>
-                    <div class="flex items-center mt-1">
-                      <span class="text-xs text-green-500 bg-green-50 px-2 py-1 rounded-full flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                        </svg>
-                        2%
-                      </span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-xs text-slate-500">Daily Goal</div>
-                    <div class="text-sm font-medium text-slate-500">100%</div>
-                  </div>
-                </div>
-                <div class="mt-4 w-full bg-blue-100 rounded-full h-1.5">
-                  <div class="h-1.5 rounded-full" style="width: 95%; background: linear-gradient(to right, #5C6BC0, #5C6BC0);"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 </div>
+
 <!-- Navigation Script -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const links = document.querySelectorAll('.sidebar-link');
-    const sections = document.querySelectorAll('main section');
-    links.forEach(link => {
-      link.addEventListener('click', function (e) {
+  document.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll(".sidebar-link");
+    const sections = document.querySelectorAll("main section");
+    links.forEach((link) => {
+      link.addEventListener("click", function (e) {
         e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-        sections.forEach(section => {
-          section.classList.add('hidden');
+        const targetId = this.getAttribute("href").substring(1);
+        sections.forEach((section) => {
+          section.classList.add("hidden");
           if (section.id === targetId) {
-            section.classList.remove('hidden');
+            section.classList.remove("hidden");
           }
         });
-        links.forEach(l => l.classList.remove('text-indigo-700', 'font-semibold'));
-        this.classList.add('text-indigo-700', 'font-semibold');
+        links.forEach((l) =>
+          l.classList.remove("text-indigo-700", "font-semibold")
+        );
+        this.classList.add("text-indigo-700", "font-semibold");
       });
     });
   });
 </script>
-<script>
-// 定義問題列表
-const questions = [
-    "How is the patient's mental status today?",
-    "Did the patient take their medication on time?",
-    "Food intake score",
-    "Did the patient complete today's rehabilitation activity?",
-    "Sleep quality score",
-    "Any abnormal symptoms?",
-    "Emotional stability score",
-    "Did the patient follow the doctor's instructions?",
-    "Activity participation score",
-    "Any social interaction?"
-];
 
-// 定義可用的 Support Worker 列表
-const supportWorkers = ["Michael Smith", "George Davies", "Emma Taylor"];
-
-// 使用日期和病患名作為 key 來確保同一天同一個病患對應到同一個 Support Worker
-function getConsistentSupportWorker(date, patient) {
-    const seed = date + patient;
-    let hash = 0;
-    for (let i = 0; i < seed.length; i++) {
-        hash = ((hash << 5) - hash) + seed.charCodeAt(i);
-        hash = hash & hash;
-    }
-    return supportWorkers[Math.abs(hash) % supportWorkers.length];
-}
-
-// 修改生成答案的部分
-function generateDailyAnswers(date, patient) {
-    // 評分對應設定
-    const ratings = {
-        1: { text: "Poor", class: "text-red-500" },
-        3: { text: "Average", class: "text-yellow-600" },
-        5: { text: "Good", class: "text-green-600" }
-    };
-
-    // 生成評分答案
-    function getRandomScore() {
-        const scores = [1, 3, 5];
-        const score = scores[Math.floor(Math.random() * 3)];
-        return { 
-            score: score.toString(),
-            text: ratings[score].text,
-            class: ratings[score].class
-        };
-    }
-
-    return [
-        getRandomScore(),
-        formatYesNoAnswer(Math.random() < 0.7),
-        getRandomScore(),
-        formatYesNoAnswer(Math.random() < 0.6),
-        getRandomScore(),
-        formatYesNoAnswer(Math.random() > 0.8),
-        getRandomScore(),
-        formatYesNoAnswer(Math.random() < 0.75),
-        getRandomScore(),
-        formatYesNoAnswer(Math.random() < 0.65)
-    ];
-}
-
-// 格式化是否答案
-function formatYesNoAnswer(isYes) {
-    return { 
-        score: isYes ? "Yes" : "No",
-        text: isYes ? "Yes" : "No",
-        class: isYes ? "text-green-600" : "text-red-500"
-    };
-}
-
-// 生成 2025 年 4 月的所有日期資料
-const mockData = {
-    "James Wilson": {},
-    "Oliver Thompson": {},
-    "William Parker": {}
-};
-
-// 生成所有日期的資料
-for (let day = 1; day <= 30; day++) {
-    const date = `2025-04-${day.toString().padStart(2, '0')}`;
-    
-    ["James Wilson", "Oliver Thompson", "William Parker"].forEach(patient => {
-        mockData[patient][date] = {
-            supportWorker: getConsistentSupportWorker(date, patient),
-            answers: generateDailyAnswers(date, patient)
-        };
-    });
-}
-
-// 更新表格顯示函數
-function updateReport() {
-    const date = document.getElementById('reportDate').value;
-    const patient = document.getElementById('patientSelect').value;
-    const data = mockData[patient]?.[date];
-    
-    if (data) {
-        document.getElementById('supportWorkerName').textContent = data.supportWorker;
-        
-        const tbody = document.getElementById('reportTableBody');
-        tbody.innerHTML = questions.map((question, index) => {
-            const answer = data.answers[index];
-            return `
-                <tr class="hover:bg-gray-50">
-                    <td class="border-b border-gray-300 px-6 py-4 text-base text-center text-gray-600 whitespace-nowrap">${index + 1}</td>
-                    <td class="border-b border-gray-300 px-6 py-4 text-base text-left text-gray-800">${question}</td>
-                    <td class="border-b border-gray-300 px-6 py-4">
-                        <div class="flex justify-center">
-                            <span class="${answer.class} text-base font-semibold">${answer.text}</span>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-    } else {
-        document.getElementById('supportWorkerName').textContent = 'No Data';
-        document.getElementById('reportTableBody').innerHTML = `
-            <tr>
-                <td colspan="3" class="text-center py-6 text-gray-500 bg-gray-50">
-                    No report history for this date
-                </td>
-            </tr>
-        `;
-    }
-}
-
-// 初始化頁面
-document.addEventListener('DOMContentLoaded', function() {
-    // 設置預設日期為 2025 年 4 月 1 日
-    document.getElementById('reportDate').value = '2025-04-01';
-    
-    // 初始化表格
-    updateReport();
-    
-    // 添加事件監聽器
-    document.getElementById('reportDate').addEventListener('change', updateReport);
-    document.getElementById('patientSelect').addEventListener('change', updateReport);
-});
-
-// 初始化雷達圖
-document.addEventListener('DOMContentLoaded', function() {
-    const ctx = document.getElementById('radarChart').getContext('2d');
-    const radarChart = new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: ['Physical Activity', 'Mental Health', 'Social Interaction', 'Treatment Adherence', 'Sleep Quality', 'Emotional State'],
-            datasets: [{
-                label: 'Current Week',
-                data: [85, 75, 90, 88, 82, 78],
-                backgroundColor: 'rgba(99, 102, 241, 0.2)',
-                borderColor: '#5C6BC0',
-                borderWidth: 2,
-                pointBackgroundColor: '#5C6BC0',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: '#5C6BC0'
-            }, {
-                label: 'Last Week',
-                data: [80, 70, 85, 82, 78, 75],
-                backgroundColor: 'rgba(176, 190, 197, 0.2)',
-                borderColor: '#B0BEC5',
-                borderWidth: 2,
-                pointBackgroundColor: '#B0BEC5',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: '#B0BEC5'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                r: {
-                    angleLines: {
-                        display: true,
-                        color: '#CFD8DC'
-                    },
-                    suggestedMin: 0,
-                    suggestedMax: 100,
-                    ticks: {
-                        stepSize: 20,
-                        color: '#607D8B',
-                        font: {
-                            size: 12
-                        },
-                        backdropColor: 'transparent',
-                        backdropPadding: 0
-                    },
-                    pointLabels: {
-                        color: '#607D8B',
-                        font: {
-                            size: 14,
-                            weight: '500'
-                        },
-                        backdropColor: 'transparent',
-                        backdropPadding: 0
-                    },
-                    grid: {
-                        color: '#CFD8DC'
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        padding: 20,
-                        usePointStyle: true,
-                        pointStyle: 'circle',
-                        font: {
-                            size: 14
-                        }
-                    }
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    titleColor: 'rgba(17, 24, 39, 1)',
-                    bodyColor: 'rgba(107, 114, 128, 1)',
-                    borderColor: 'rgba(229, 231, 235, 1)',
-                    borderWidth: 1,
-                    padding: 12,
-                    displayColors: true,
-                    callbacks: {
-                        label: function(context) {
-                            const label = context.dataset.label || '';
-                            const value = context.raw;
-                            const lastValue = context.dataset.data[context.dataIndex];
-                            const change = value - lastValue;
-                            const changeText = change > 0 ? `↑ ${change}%` : change < 0 ? `↓ ${Math.abs(change)}%` : '';
-                            return `${label}: ${value}% ${changeText}`;
-                        }
-                    }
-                }
-            },
-            animation: {
-                duration: 2000,
-                easing: 'easeInOutQuart'
-            }
-        }
-    });
-
-    // 監聽選擇器變化
-    document.getElementById('analysisPatientSelect').addEventListener('change', function() {
-        // 更新圖表數據
-        updateChartData();
-    });
-
-    document.getElementById('analysisTimeSelect').addEventListener('change', function() {
-        // 更新圖表數據
-        updateChartData();
-    });
-
-    document.getElementById('analysisTypeSelect').addEventListener('change', function() {
-        // 更新圖表數據
-        updateChartData();
-    });
-
-    function updateChartData() {
-        // 這裡可以根據選擇的值更新圖表數據
-        // 目前使用模擬數據
-        const newData = {
-            current: [
-                Math.floor(Math.random() * 30) + 70,
-                Math.floor(Math.random() * 30) + 60,
-                Math.floor(Math.random() * 30) + 70,
-                Math.floor(Math.random() * 30) + 70,
-                Math.floor(Math.random() * 30) + 60,
-                Math.floor(Math.random() * 30) + 60
-            ],
-            previous: [
-                Math.floor(Math.random() * 30) + 60,
-                Math.floor(Math.random() * 30) + 50,
-                Math.floor(Math.random() * 30) + 60,
-                Math.floor(Math.random() * 30) + 60,
-                Math.floor(Math.random() * 30) + 50,
-                Math.floor(Math.random() * 30) + 50
-            ]
-        };
-
-        radarChart.data.datasets[0].data = newData.current;
-        radarChart.data.datasets[1].data = newData.previous;
-        radarChart.update();
-    }
-});
-</script>
-
-<style>
-/* 性能優化：使用 CSS containment */
-.metric-card {
-    contain: content;
-}
-
-/* 性能優化：使用 will-change 提示瀏覽器 */
-.chart-container {
-    will-change: transform;
-}
-
-/* 性能優化：使用 transform 代替位置動畫 */
-.animate-scale {
-    transform: scale(1);
-    transition: transform 0.3s ease;
-}
-
-.animate-scale:hover {
-    transform: scale(1.05);
-}
-
-/* 性能優化：使用 GPU 加速 */
-.hardware-accelerated {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-}
-
-/* 添加鍵盤導航樣式 */
-.keyboard-navigation *:focus {
-    outline: 2px solid #6366f1;
-    outline-offset: 2px;
-}
-
-/* 提高顏色對比度 */
-.text-gray-600 {
-    color: #4B5563;
-}
-
-.text-gray-500 {
-    color: #6B7280;
-}
-
-/* 添加跳過導航鏈接 */
-.skip-link {
-    position: absolute;
-    top: -40px;
-    left: 0;
-    background: #6366f1;
-    color: white;
-    padding: 8px;
-    z-index: 100;
-}
-
-.skip-link:focus {
-    top: 0;
-}
-
-/* 百分比小箭頭顏色 */
-.arrow-up {
-  color: #81C784 !important;
-}
-.arrow-down {
-  color: #E57373 !important;
-}
-</style>
 {% endblock %}

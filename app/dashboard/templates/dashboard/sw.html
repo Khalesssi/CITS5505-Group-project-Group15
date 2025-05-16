@@ -48,16 +48,16 @@
       {% include "questionnaire/questions_answer_display.html" %}
     </section>
 
-    <!-- 醫囑 Section -->
+    <!-- Medical Instruction Section -->
     <section id="medical" class="content-section hidden">
       {% include "plan/display_plan.html" %}
     </section>
   </main>
 </div>
 
-<!-- 这个干嘛的 -->
+
 <script>
-  // 導航功能
+  // Navigation Functionality: Switches content sections based on sidebar link clicks
   document.addEventListener('DOMContentLoaded', function () {
     const links = document.querySelectorAll('.sidebar-link');
     const sections = document.querySelectorAll('main section');
@@ -80,7 +80,7 @@
     });
   });
 
-  // 設置預設日期為今天
+  // Set default date to today
   document.addEventListener('DOMContentLoaded', function() {
     const today = new Date().toISOString().split('T')[0];
     document.querySelectorAll('input[type="date"]').forEach(input => {
@@ -88,7 +88,7 @@
     });
   });
 
-  // 定義問題列表
+  // Define the list of questionnaire questions
   const questions = [
       "How is the patient's mental status today?",
       "Did the patient take their medication on time?",
@@ -102,10 +102,10 @@
       "Any social interaction?"
   ];
 
-  // 定義可用的 Support Worker 列表
+  // Define the list of available Support Workers
   const supportWorkers = ["Michael Smith", "George Davies", "Emma Taylor"];
 
-  // 使用日期和病患名作為 key 來確保同一天同一個病患對應到同一個 Support Worker
+  // Use date and patient name as the key to ensure the same Support Worker is assigned to the same patient on the same day
   function getConsistentSupportWorker(date, patient) {
       const seed = date + patient;
       let hash = 0;
@@ -116,16 +116,16 @@
       return supportWorkers[Math.abs(hash) % supportWorkers.length];
   }
 
-  // 修改生成答案的部分
+  // Modify the logic for generating answers
   function generateDailyAnswers(date, patient) {
-      // 評分對應設定
+      // Define the rating-to-text and style mapping
       const ratings = {
           1: { text: "Poor", class: "text-red-500" },
           3: { text: "Average", class: "text-yellow-600" },
           5: { text: "Good", class: "text-green-600" }
       };
 
-      // 生成評分答案
+      // Generate a random rating answer
       function getRandomScore() {
           const scores = [1, 3, 5];
           const score = scores[Math.floor(Math.random() * 3)];
@@ -150,7 +150,7 @@
       ];
   }
 
-  // 格式化是否答案
+  // Format Yes/No answers into a consistent object structure
   function formatYesNoAnswer(isYes) {
       return { 
           score: isYes ? "Yes" : "No",
@@ -159,14 +159,14 @@
       };
   }
 
-  // 生成 2025 年 4 月的所有日期資料
+  // Generate all date entries for April 2025
   const mockData = {
       "James Wilson": {},
       "Oliver Thompson": {},
       "William Parker": {}
   };
 
-  // 生成所有日期的資料
+  // Generate data for each date
   for (let day = 1; day <= 30; day++) {
       const date = `2025-04-${day.toString().padStart(2, '0')}`;
       
@@ -178,7 +178,7 @@
       });
   }
 
-  // 更新表格顯示函數
+  // Function to update the report table display
   function updateReport() {
       const date = document.getElementById('reportDate').value;
       const patient = document.getElementById('patientSelect').value;
@@ -214,21 +214,21 @@
       }
   }
 
-  // 初始化頁面
+  // Initialize the page
   document.addEventListener('DOMContentLoaded', function() {
-      // 設置預設日期為 2025 年 4 月 1 日
+      
       document.getElementById('reportDate').value = '2025-04-01';
       
-      // 初始化表格
+      
       updateReport();
       
-      // 添加事件監聽器
+      
       document.getElementById('reportDate').addEventListener('change', updateReport);
       document.getElementById('patientSelect').addEventListener('change', updateReport);
   });
 </script>
 
-<!-- 这个干嘛的 -->
+
 <script>
   function validateForm() {
   const form = document.getElementById('daily-form');
