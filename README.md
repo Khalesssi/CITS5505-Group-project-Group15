@@ -211,7 +211,8 @@ Visit: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ---
 
-## Unit Tests
+## 4.Tests
+### A. Unit Tests
 
 This project uses Python’s built-in `unittest` framework. These tests validate critical backend functionality such as model creation, form validation, and access control.
 
@@ -251,7 +252,7 @@ python3 -m unittest discover -s tests/unit
 
 ---
 
-## 🧪 System Tests
+### B.System Tests
 
 These system tests simulate real user interactions using Selenium WebDriver, and automatically launch a live version of the Flask server (as required by the rubric). Each test runs independently and verifies critical user flows.
 
@@ -279,7 +280,7 @@ python3 -m unittest tests.system.test_login_flow
 
 ---
 
-## Reference and Attributions
+## 5.Reference and Attributions
 
 ### AI Assistance Disclosure
 
