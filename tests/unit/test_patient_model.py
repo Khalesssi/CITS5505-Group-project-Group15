@@ -22,7 +22,7 @@ class PatientModelTestCase(unittest.TestCase):
     def test_patient_creation_with_roles(self):
         print("=== Test 3: Patient creation with full role bindings started ===")
 
-        # 创建6个相关用户
+        # Create 6 related users
         guardian = User(email="g@example.com", password_hash=generate_password_hash("123"), role="Guardian")
         sw = User(email="sw@example.com", password_hash=generate_password_hash("123"), role="Support Worker")
         physio = User(email="p1@example.com", password_hash=generate_password_hash("123"), role="Therapist", specialty="physio")

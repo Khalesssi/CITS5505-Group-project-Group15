@@ -10,13 +10,13 @@ app = create_app()
 with app.app_context():
     patients = Patient.query.all()
 
-    # 计划日期：两个不同日期
+    # Planned dates: Two different dates
     plan_dates = [
         datetime(2025, 5, 13, 10, 0),
         datetime(2025, 5, 14, 10, 0)
     ]
 
-    # 映射治疗师类型 -> 显示标签
+    # Map therapist type to display label
     role_map = {
         "psych": "Psychotherapist",
         "physio": "Physiotherapist",

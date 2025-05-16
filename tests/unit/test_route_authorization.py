@@ -16,7 +16,7 @@ class RouteAuthorizationTestCase(unittest.TestCase):
         db.create_all()
         self.client = self.app.test_client()
 
-        # ✅ 插入 dummy therapist（id=1）避免外键冲突
+        # Insert dummy therapist (id=1) to avoid foreign key conflict
         therapist = User(
             id=1,
             email="therapist@example.com",
@@ -26,7 +26,7 @@ class RouteAuthorizationTestCase(unittest.TestCase):
         )
         db.session.add(therapist)
 
-        # ✅ 创建两个 Guardian 用户
+        # Create two Guardian users
         self.guardian = User(
             email="g1@example.com",
             password_hash=generate_password_hash("123456"),
@@ -40,7 +40,7 @@ class RouteAuthorizationTestCase(unittest.TestCase):
         db.session.add_all([self.guardian, self.other_guardian])
         db.session.commit()
 
-        # ✅ 创建两个病人
+        # Create two patients
         self.bound_patient = Patient(
             name="Bound Patient",
             date_of_birth=date(2010, 5, 15),
@@ -56,7 +56,7 @@ class RouteAuthorizationTestCase(unittest.TestCase):
         db.session.add_all([self.bound_patient, self.other_patient])
         db.session.commit()
 
-        # ✅ 为 bound_patient 添加一份共享的支持计划
+        # Add a shared support plan for bound_patient
         sp = SupportPlan(
             patient_id=self.bound_patient.id,
             therapist_id=therapist.id,
@@ -81,7 +81,7 @@ class RouteAuthorizationTestCase(unittest.TestCase):
         print("=== Test 10-A: Guardian access to their own patient ===")
 
         self.login_as_guardian()
-        url = f"/plan/ajax_get_plan_dates_by_patient/{self.bound_patient.id}"  # ✅ 路径修正
+        url = f"/plan/ajax_get_plan_dates_by_patient/{self.bound_patient.id}"  # Path correction
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
@@ -93,7 +93,7 @@ class RouteAuthorizationTestCase(unittest.TestCase):
         print("=== Test 10-B: Guardian access to unbound patient (should fail) ===")
 
         self.login_as_guardian()
-        url = f"/plan/ajax_get_plan_dates_by_patient/{self.other_patient.id}"  # ✅ 路径修正
+        url = f"/plan/ajax_get_plan_dates_by_patient/{self.other_patient.id}"  # Path correction
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 403)

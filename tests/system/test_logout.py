@@ -20,7 +20,7 @@ class LogoutFlowTestCase(unittest.TestCase):
         cls.app_context.push()
         db.create_all()
 
-        # 插入一个 Support Worker 用户
+        # Insert a Support Worker user
         cls.sw_password = "12345678"
         sw = User(
             email='swlogout@example.com',
@@ -56,15 +56,15 @@ class LogoutFlowTestCase(unittest.TestCase):
     def test_logout_flow(self):
         print("\n[Test 4] Login and Logout Support Worker")
 
-        # 登录
+        # Login
         self.driver.get(f"{self.base_url}/login")
         self.driver.find_element(By.ID, "email").send_keys(self.sw_email)
         self.driver.find_element(By.ID, "password").send_keys(self.sw_password)
         self.driver.find_element(By.ID, "password").send_keys(Keys.RETURN)
 
-        # 跳转到了 dashboard 后，访问 /logout 路由
+        # After redirecting to the dashboard, access the /logout route
         self.driver.get(f"{self.base_url}/logout")
 
-        # 检查是否回到 login 页面
+        # Check if redirected back to the login page
         self.assertIn("/login", self.driver.current_url)
         print("[✓] Test 4 passed: Logout successful, redirected to login page.")

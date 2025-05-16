@@ -8,7 +8,7 @@ class Patient(db.Model):
     gender = db.Column(db.String(10), nullable=False)
 
     guardian_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    sw_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Support Worker 绑定
+    sw_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Bind Support Worker 
     psych_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     physio_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     ot_id = db.Column(db.Integer, db.ForeignKey('user.id'))
