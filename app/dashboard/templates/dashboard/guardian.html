@@ -35,7 +35,7 @@
     </ul>
   </aside>
   <!-- Main Content -->
-  <main class="flex-1 p-8">
+  <div class="flex-1 p-8" id="dashboardContent">
     <!-- Profile Section -->
     <section class="content-section" id="profile">
       {% include "dashboard/profile.html" %}
@@ -94,31 +94,9 @@
     <section class="content-section hidden" id="report-record">
       {% include "questionnaire/questions_answer_display.html" %}
     </section>
-  </main>
+  </div>
 </div>
 
-<!-- Navigation Script -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const links = document.querySelectorAll(".sidebar-link");
-    const sections = document.querySelectorAll("main section");
-    links.forEach((link) => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("href").substring(1);
-        sections.forEach((section) => {
-          section.classList.add("hidden");
-          if (section.id === targetId) {
-            section.classList.remove("hidden");
-          }
-        });
-        links.forEach((l) =>
-          l.classList.remove("text-indigo-700", "font-semibold")
-        );
-        this.classList.add("text-indigo-700", "font-semibold");
-      });
-    });
-  });
-</script>
-
-{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/sidebar_nav.js') }}"></script>
+{% endblock %} {% endblock %}
